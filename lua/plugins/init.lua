@@ -123,7 +123,7 @@ require("lazy").setup({
   'fannheyward/telescope-coc.nvim',
   'axieax/urlview.nvim',
   'mfussenegger/nvim-lint',
-  'rcarriga/nvim-dap-ui',
+  { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
   'rcarriga/nvim-notify',
   'rcarriga/cmp-dap',
   'theHamsta/nvim-dap-virtual-text',
