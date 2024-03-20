@@ -211,13 +211,21 @@ _ = vim.cmd [[
   augroup END
 ]]
 
-_ = vim.cmd [[
-  augroup CmpZsh
-    au!
-    autocmd Filetype zsh lua require'cmp'.setup.buffer { sources = { { name = "zsh" }, } }
-  augroup END
-]]
 
+
+local cmp_zsh = vim.api.nvim_create_augroup("CmpZsh", {})
+vim.api.nvim_create_autocmd(
+    "FileType",
+    {
+        pattern = 'zsh lua',
+        group = cmp_zsh,
+        callback = function()
+          if vim.fn.executable('/bin/zsh') then
+            require'cmp'.setup.buffer { sources = { { name = "zsh" }}}
+          end
+        end,
+    })
+  
 --[[
 " Disable cmp for a buffer
 autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
