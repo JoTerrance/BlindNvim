@@ -136,7 +136,7 @@ require("lazy").setup({
   'kristijanhusak/vim-dadbod-ui',
   'kristijanhusak/vim-dadbod-completion',
   'chipsenkbeil/distant.nvim',
-  'ms-jpq/coq_nvim',
+--  'ms-jpq/coq_nvim',
   'mfussenegger/nvim-dap-python',
   'mfussenegger/nvim-jdtls',
   'nvim-telescope/telescope-media-files.nvim',
