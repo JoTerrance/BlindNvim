@@ -123,7 +123,6 @@ cmp.setup {
     { name = 'plugins' },
     { name = 'tags' },
     { name = 'npm', keyword_length = 4 },
-    { name = 'zsh' },
     { name = 'nvim_lsp_signature_help' },
     { name = 'nvim_lsp_document_symbol' },
     {
@@ -158,6 +157,16 @@ cmp.setup {
   --   sources = {
   --   },
 }
+
+
+if vim.fn.executable('/bin/zsh') == 1 then 
+  -- append zsh cmp to sources
+  cmp.setup.sources = cmp.setup.sources({
+    { name = 'zsh' }
+  })
+ end
+
+
 
 cmp.setup.cmdline("/", {
   completion = {
