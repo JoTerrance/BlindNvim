@@ -31,7 +31,7 @@ require("lazy").setup({
   {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', config = function() require("treesitter-config") end, enabled = not vscode},
   {'tamton-aquib/staline.nvim', dependencies = {'kyazdani42/nvim-web-devicons',lazy = true} },
   {"LinArcX/telescope-command-palette.nvim" },
---  {'nat-418/telescope-color-names.nvim', config = function() require('telescope').load_extension('color_names') end, enabled = not vscode},
+  {'nat-418/telescope-color-names.nvim', config = function() require('telescope').load_extension('color_names') end, enabled = not vscode},
   {"neanias/telescope-lines.nvim", dependencies = "nvim-telescope/telescope.nvim",},
   {'akinsho/bufferline.nvim',version="*", dependencies = 'kyazdani42/nvim-web-devicons'},
   {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' },
