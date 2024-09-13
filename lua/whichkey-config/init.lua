@@ -33,10 +33,7 @@ local conf = {
     scroll_up = '<c-u>', -- binding to scroll up inside the popup
   },
   win = {
-    border = "none", -- none, single, double, shadow
-    position = "top", -- bottom, top
-    padding = { 0, 0, 1, 0 }, -- extra window padding [top, right, bottom, left]
-    winblend = 0
+    padding = { 1, 0 }, -- extra window padding [top, right, bottom, left]
   },
   layout = {
     height = { min = 100, max = 125 }, -- min and max height of the columns
