@@ -64,19 +64,7 @@ require('telescope').setup {
         vim.cmd("FloatermSend " .. command)
       end
     },
-    bookmarks = {
-      -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
-      selected_browser = 'google_chrome',
-      
 
-      -- Either provide a shell command to open the URL
-      url_open_command = 'xdg-open',
-
-      -- Or provide the plugin name which is already installed
-      -- Available: 'vim_external', 'open_browser'
-      url_open_plugin = 'open_browser',
-      firefox_profile_name = nil,
-    },
     command_palette = {
       {"File",
         { "entire selection (C-a)", ':call feedkeys("GVgg")' },
@@ -141,4 +129,9 @@ require("telescope").load_extension("notify")
 require("telescope").load_extension("githubcoauthors")
 require("telescope").load_extension("lines")
 require("telescope").load_extension("undo")
+require('browser_bookmarks').setup({
+  selected_browser = "google_chrome",
+  url_open_command = "xdg-open",
+  url_open_plugin = "open_browser"
+})
 require("telescope").load_extension("docker")
