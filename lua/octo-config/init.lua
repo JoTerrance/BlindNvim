@@ -12,6 +12,9 @@
     size = 10,                             -- changed files panel rows
     use_icons = true                       -- use web-devicons in file panel
   },
+  suppress_missing_scope = {
+    projects_v2 = true,
+  },
   mappings = {
     issue = {
       close_issue = "<space>ic",           -- close issue
@@ -120,6 +123,6 @@
       select_prev_entry = "[q",            -- move to next changed file
       close_review_tab = "<C-c>",          -- close review tab
       toggle_viewed = "<leader><space>",   -- toggle viewer viewed state
-    }
+    },
   }
 })
