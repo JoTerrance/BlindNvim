@@ -161,7 +161,7 @@ cmp.setup {
 
 if vim.fn.executable('/bin/zsh') == 1 then 
   -- append zsh cmp to sources
-  cmp.setup.sources = cmp.setup.sources({
+  sources = cmp.config.sources({
     { name = 'zsh' }
   })
  end
