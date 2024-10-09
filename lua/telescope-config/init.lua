@@ -135,3 +135,4 @@ require('browser_bookmarks').setup({
   url_open_plugin = "open_browser"
 })
 require("telescope").load_extension("docker")
+require("telescope").load_extension("emoji")

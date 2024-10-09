@@ -15,14 +15,48 @@ local vscode = vim.g.vscode == 1
 require("lazy").setup({
   'wbthomason/packer.nvim',
   'ibhagwan/smartyank.nvim',
+  'pteroctopus/faster.nvim',
   'mg979/vim-visual-multi',
   'Civitasv/cmake-tools.nvim',
   'debugloop/telescope-undo.nvim',
+  'xiyaowong/telescope-emoji.nvim', 
   'HiPhish/rainbow-delimiters.nvim',
   'https://codeberg.org/esensar/nvim-dev-container',
   'lpoto/telescope-docker.nvim',
   'williamboman/mason.nvim',
   'nvimtools/none-ls.nvim',
+{
+  'stevearc/aerial.nvim',
+  opts = {},
+  -- Optional dependencies
+  dependencies = {
+     "nvim-treesitter/nvim-treesitter",
+     "nvim-tree/nvim-web-devicons"
+  },
+},
+  {
+  "emmanueltouzery/decisive.nvim",
+  config = function()
+    require('decisive').setup{}
+  end,
+  lazy=true,
+  ft = {'csv'},
+  keys = {
+    { '<leader>cca', ":lua require('decisive').align_csv({})<cr>",       { silent = true }, desc = "Align CSV",          mode = 'n' },
+    { '<leader>ccA', ":lua require('decisive').align_csv_clear({})<cr>", { silent = true }, desc = "Align CSV clear",    mode = 'n' },
+    { '[c', ":lua require('decisive').align_csv_prev_col()<cr>",         { silent = true }, desc = "Align CSV prev col", mode = 'n' },
+    { ']c', ":lua require('decisive').align_csv_next_col()<cr>",         { silent = true }, desc = "Align CSV next col", mode = 'n' },
+    }
+  },
+  {
+  'stevearc/oil.nvim',
+  ---@module 'oil'
+  ---@type oil.SetupOpts
+  opts = {},
+  -- Optional dependencies
+  dependencies = { { "echasnovski/mini.icons", opts = {} } },
+  -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+},
   "jay-babu/mason-null-ls.nvim",
   'mfussenegger/nvim-dap',
   'jayp0521/mason-nvim-dap.nvim',
@@ -34,7 +68,7 @@ require("lazy").setup({
   {'nat-418/telescope-color-names.nvim', config = function() require('telescope').load_extension('color_names') end, enabled = not vscode},
   {"neanias/telescope-lines.nvim", dependencies = "nvim-telescope/telescope.nvim",},
   {'akinsho/bufferline.nvim',version="*", dependencies = 'kyazdani42/nvim-web-devicons'},
-  {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' },
+  -- {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' },
   {'windwp/nvim-ts-autotag', event = "InsertEnter", after = "nvim-treesitter" },
   {'windwp/nvim-autopairs', config = true, event="InsertEnter", after = "nvim-cmp", enabled = not vscode},
   {'folke/which-key.nvim', event = "BufWinEnter", config = function() require('whichkey-config') end, enabled = not vscode },
@@ -52,11 +86,18 @@ require("lazy").setup({
   {'quangnguyen30192/cmp-nvim-tags', ft = {'kotlin','java'} },
   'folke/lua-dev.nvim',
   'folke/trouble.nvim',
+  {
+  "folke/persistence.nvim",
+  event = "BufReadPre", -- this will only start session saving when an actual file was opened
+  opts = {
+    -- add any custom options here
+  }},
   'monaqa/dial.nvim',
   'ggandor/leap.nvim',
   'ggandor/leap-ast.nvim',
   'ggandor/leap-spooky.nvim',
   'cwebster2/github-coauthors.nvim',
+  { 'wet-sandwich/hyper.nvim', dependencies = { 'nvim-lua/plenary.nvim' }},
   {
   "folke/noice.nvim",
   event = "VeryLazy",
