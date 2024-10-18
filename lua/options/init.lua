@@ -57,6 +57,7 @@ vim.o.expandtab = true
 vim.bo.expandtab = true
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
+vim.opt_local.conceallevel = 2
 vim.diagnostic.config({ virtual_lines = false })
 -- vim.cmd[[colorscheme tokyonight]]
 -- vim.g.tokyonight_style = 'night'
