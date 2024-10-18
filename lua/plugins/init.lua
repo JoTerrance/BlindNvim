@@ -111,6 +111,7 @@ require("lazy").setup({
     "rcarriga/nvim-notify",
     }
 },
+  {"epwalsh/obsidian.nvim", version = "*",  lazy = true, ft = "markdown",dependencies = {"nvim-lua/plenary.nvim"},},
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-vsnip',
   'hrsh7th/vim-vsnip',
