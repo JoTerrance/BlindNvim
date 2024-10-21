@@ -136,3 +136,4 @@ require('browser_bookmarks').setup({
 })
 require("telescope").load_extension("docker")
 require("telescope").load_extension("emoji")
+require('telescope').load_extension('tailiscope')
