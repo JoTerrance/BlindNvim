@@ -25,6 +25,7 @@ require("lazy").setup({
   'lpoto/telescope-docker.nvim',
   'williamboman/mason.nvim',
   'nvimtools/none-ls.nvim',
+  'smjonas/live-command.nvim',
 {
   'stevearc/aerial.nvim',
   opts = {},
