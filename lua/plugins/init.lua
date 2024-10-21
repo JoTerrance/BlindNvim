@@ -111,6 +111,7 @@ require("lazy").setup({
   opts = {
     -- add any custom options here
   }},
+  {'willothy/wezterm.nvim',config = true},
   'monaqa/dial.nvim',
   'ggandor/leap.nvim',
   'ggandor/leap-ast.nvim',
