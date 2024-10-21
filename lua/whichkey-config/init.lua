@@ -148,13 +148,8 @@ local mappings = {
     }
     },
   p = {
-    name = "Packer",
-    c = { "<cmd>PackerCompile<cr>", "Compile" },
-    i = { "<cmd>PackerInstall<cr>", "Install" },
-    s = { "<cmd>PackerSync<cr>", "Sync" },
-    S = { "<cmd>PackerStatus<cr>", "Status" },
-    u = { "<cmd>PackerUpdate<cr>", "Update" },
-    P = {'<cmd>lua require("telescope").extensions.packer.plugins(opts)<CR>', "Telescope Packer"},
+    name = "DBEE",
+    o = { "<cmd>lua require'dbee'.open()<cr>", "Open" },
   },
   j = {
     name = "Java",

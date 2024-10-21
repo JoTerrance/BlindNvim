@@ -75,11 +75,28 @@ require("lazy").setup({
   {'folke/which-key.nvim', event = "BufWinEnter", config = function() require('whichkey-config') end, enabled = not vscode },
   'nvim-telescope/telescope.nvim',
   'LinArcX/telescope-env.nvim',
+  {
+  "kndndrj/nvim-dbee",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+  },
+  build = function()
+    -- Install tries to automatically detect the install method.
+    -- if it fails, try calling it with one of these parameters:
+    --    "curl", "wget", "bitsadmin", "go"
+    require("dbee").install()
+  end,
+  config = function()
+    require("dbee").setup(--[[optional config]])
+  end,
+},
   'williamboman/mason-lspconfig.nvim',
   { 'neovim/nvim-lspconfig', requires = {'williamboman/mason.nvim','williamboman/mason-lspconfig.nvim','j-hui/fidget.nvim', }, },
+  {"MattiasMTS/cmp-dbee",dependencies = {{"kndndrj/nvim-dbee"}},ft = "sql", opts = {}, },
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'hrsh7th/cmp-nvim-lsp-document-symbol',
+  'danielvolchek/tailiscope.nvim',
   'f3fora/cmp-spell',
   'uga-rosa/cmp-dictionary',
   {"Dosx001/cmp-commit", requires = "hrsh7th/nvim-cmp"},
