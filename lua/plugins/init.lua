@@ -35,6 +35,7 @@ require("lazy").setup({
      "nvim-tree/nvim-web-devicons"
   },
 },
+  {'stevearc/aerial.nvim',opts = {},},
   {
   "emmanueltouzery/decisive.nvim",
   config = function()
