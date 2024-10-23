@@ -82,9 +82,6 @@ require("lazy").setup({
     "MunifTanjim/nui.nvim",
   },
   build = function()
-    -- Install tries to automatically detect the install method.
-    -- if it fails, try calling it with one of these parameters:
-    --    "curl", "wget", "bitsadmin", "go"
     require("dbee").install()
   end,
   config = function()
@@ -123,11 +120,7 @@ require("lazy").setup({
   event = "VeryLazy",
   -- opts = {},
   dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
     "rcarriga/nvim-notify",
     }
 },
@@ -144,7 +137,6 @@ require("lazy").setup({
   'norcalli/nvim-colorizer.lua',
   'lewis6991/gitsigns.nvim',
   'kdheepak/lazygit.nvim',
- -- {'tanvirtin/vgit.nvim', config = function() require('vgit').setup() end, enabled = not vscode },
   'echasnovski/mini.nvim',
   {"simrat39/symbols-outline.nvim", config = function() require("symbols-outline").setup() end, enabled = not vscode },
   'glepnir/dashboard-nvim',
@@ -158,7 +150,6 @@ require("lazy").setup({
 --  {'beauwilliams/focus.nvim', config = function() require("focus").setup() end, enabled = not vscode},
 --  'szw/vim-maximizer',
   'lambdalisue/suda.vim',
--- 'puremourning/vimspector',
   'Shougo/vimproc.vim',
   'hashivim/vim-terraform',
   'nvim-lua/popup.nvim',
