@@ -1,6 +1,9 @@
 -- Simple plugin manager using vim.pack (Neovim's built-in package system)
 -- This replaces Lazy.nvim with a minimal implementation using vim.fn.system for git operations
 
+-- Configuration constants
+local TREESITTER_UPDATE_DELAY = 1000 -- milliseconds to delay TSUpdate to avoid blocking startup
+
 local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
 local vscode = vim.g.vscode == 1
 
@@ -213,8 +216,10 @@ vim.cmd('helptags ALL')
 local function build_plugin(plugin_name, build_cmd)
   local plugin_path = pack_path .. "/" .. plugin_name
   if vim.loop.fs_stat(plugin_path) then
+    -- Ensure build_cmd is a table for vim.fn.jobstart
+    local cmd = type(build_cmd) == "table" and build_cmd or {build_cmd}
     -- Use vim.fn.jobstart for safer command execution
-    vim.fn.jobstart(build_cmd, {
+    vim.fn.jobstart(cmd, {
       cwd = plugin_path,
       on_exit = function(_, code)
         if code ~= 0 then
@@ -313,7 +318,7 @@ pcall(function()
   if vim.loop.fs_stat(ts_path) then
     vim.defer_fn(function()
       vim.cmd('TSUpdate')
-    end, 1000) -- Delay by 1 second to avoid blocking startup
+    end, TREESITTER_UPDATE_DELAY)
   end
 end)
 
