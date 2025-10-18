@@ -213,18 +213,26 @@ vim.cmd('helptags ALL')
 local function build_plugin(plugin_name, build_cmd)
   local plugin_path = pack_path .. "/" .. plugin_name
   if vim.loop.fs_stat(plugin_path) then
-    vim.fn.system("cd " .. plugin_path .. " && " .. build_cmd)
+    -- Use vim.fn.jobstart for safer command execution
+    vim.fn.jobstart(build_cmd, {
+      cwd = plugin_path,
+      on_exit = function(_, code)
+        if code ~= 0 then
+          print("Warning: Build failed for " .. plugin_name)
+        end
+      end
+    })
   end
 end
 
 -- Build avante.nvim if it exists
 pcall(function()
-  build_plugin("avante.nvim", "make")
+  build_plugin("avante.nvim", {"make"})
 end)
 
 -- Build cmp-tabnine if it exists
 pcall(function()
-  build_plugin("cmp-tabnine", "./install.sh")
+  build_plugin("cmp-tabnine", {"./install.sh"})
 end)
 
 -- Install dbee binaries if needed
@@ -298,11 +306,14 @@ pcall(function()
   require("dbee").setup()
 end)
 
--- Update Treesitter parsers if nvim-treesitter is installed
+-- Update Treesitter parsers asynchronously if nvim-treesitter is installed
+-- This is done asynchronously to avoid blocking startup
 pcall(function()
   local ts_path = pack_path .. "/nvim-treesitter"
   if vim.loop.fs_stat(ts_path) then
-    vim.cmd('TSUpdate')
+    vim.defer_fn(function()
+      vim.cmd('TSUpdate')
+    end, 1000) -- Delay by 1 second to avoid blocking startup
   end
 end)
 
