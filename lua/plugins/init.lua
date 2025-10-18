@@ -1,317 +1,274 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
+-- Simple plugin manager using vim.pack (Neovim's built-in package system)
+-- This replaces Lazy.nvim with a minimal implementation using vim.fn.system for git operations
+
+local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
 local vscode = vim.g.vscode == 1
-  -- Lazy can manage itself
-require("lazy").setup({
-  'wbthomason/packer.nvim',
-  'ibhagwan/smartyank.nvim',
-  'pteroctopus/faster.nvim',
-  'mg979/vim-visual-multi',
-  'Civitasv/cmake-tools.nvim',
-  'debugloop/telescope-undo.nvim',
-  'xiyaowong/telescope-emoji.nvim', 
-  'HiPhish/rainbow-delimiters.nvim',
-  'https://codeberg.org/esensar/nvim-dev-container',
-  'lpoto/telescope-docker.nvim',
-  'williamboman/mason.nvim',
-  'nvimtools/none-ls.nvim',
-  'smjonas/live-command.nvim',
-{
-  'stevearc/aerial.nvim',
-  opts = {},
-  -- Optional dependencies
-  dependencies = {
-     "nvim-treesitter/nvim-treesitter",
-     "nvim-tree/nvim-web-devicons"
-  },
-},
-  {'stevearc/aerial.nvim',opts = {},},
-  {
-  "emmanueltouzery/decisive.nvim",
-  config = function()
-    require('decisive').setup{}
-  end,
-  lazy=true,
-  ft = {'csv'},
-  keys = {
-    { '<leader>cca', ":lua require('decisive').align_csv({})<cr>",       { silent = true }, desc = "Align CSV",          mode = 'n' },
-    { '<leader>ccA', ":lua require('decisive').align_csv_clear({})<cr>", { silent = true }, desc = "Align CSV clear",    mode = 'n' },
-    { '[c', ":lua require('decisive').align_csv_prev_col()<cr>",         { silent = true }, desc = "Align CSV prev col", mode = 'n' },
-    { ']c', ":lua require('decisive').align_csv_next_col()<cr>",         { silent = true }, desc = "Align CSV next col", mode = 'n' },
-    }
-  },
-  {
-  'stevearc/oil.nvim',
-  ---@module 'oil'
-  ---@type oil.SetupOpts
-  opts = {},
-  -- Optional dependencies
-  dependencies = { { "echasnovski/mini.icons", opts = {} } },
-  -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-},
-  "jay-babu/mason-null-ls.nvim",
-  'mfussenegger/nvim-dap',
-  'jayp0521/mason-nvim-dap.nvim',
-  {'VonHeikemen/lsp-zero.nvim'},
-  {'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim'},
-  {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', config = function() require("treesitter-config") end, enabled = not vscode},
-  {'tamton-aquib/staline.nvim', dependencies = {'kyazdani42/nvim-web-devicons',lazy = true} },
-  {"LinArcX/telescope-command-palette.nvim" },
-  {'nat-418/telescope-color-names.nvim', config = function() require('telescope').load_extension('color_names') end, enabled = not vscode},
-  {"neanias/telescope-lines.nvim", dependencies = "nvim-telescope/telescope.nvim",},
-  {'akinsho/bufferline.nvim',version="*", dependencies = 'kyazdani42/nvim-web-devicons'},
-  -- {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' },
-  {'windwp/nvim-ts-autotag', event = "InsertEnter", after = "nvim-treesitter" },
-  {'windwp/nvim-autopairs', config = true, event="InsertEnter", after = "nvim-cmp", enabled = not vscode},
-  {'folke/which-key.nvim', event = "BufWinEnter", config = function() require('whichkey-config') end, enabled = not vscode },
-  'nvim-telescope/telescope.nvim',
-  'LinArcX/telescope-env.nvim',
-  {
-  "kndndrj/nvim-dbee",
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-  },
-  build = function()
-    require("dbee").install()
-  end,
-  config = function()
-    require("dbee").setup(--[[optional config]])
-  end,
-},
-  'williamboman/mason-lspconfig.nvim',
-  { 'neovim/nvim-lspconfig', requires = {'williamboman/mason.nvim','williamboman/mason-lspconfig.nvim','j-hui/fidget.nvim', }, },
-  {"MattiasMTS/cmp-dbee",dependencies = {{"kndndrj/nvim-dbee"}},ft = "sql", opts = {}, },
-  'hrsh7th/cmp-nvim-lsp',
-  'hrsh7th/cmp-nvim-lsp-signature-help',
-  'hrsh7th/cmp-nvim-lsp-document-symbol',
-  'danielvolchek/tailiscope.nvim',
-  'f3fora/cmp-spell',
-  'uga-rosa/cmp-dictionary',
-  {"Dosx001/cmp-commit", requires = "hrsh7th/nvim-cmp"},
-  {"hrsh7th/nvim-cmp", requires = {"KadoBOT/cmp-plugins", config = function() require("cmp-plugins").setup({ files = { ".*\\.lua" }  }) end, }},
-  {'quangnguyen30192/cmp-nvim-tags', ft = {'kotlin','java'} },
-  'folke/lua-dev.nvim',
-  'folke/trouble.nvim',
-  {
-  "folke/persistence.nvim",
-  event = "BufReadPre", -- this will only start session saving when an actual file was opened
-  opts = {
-    -- add any custom options here
-  }},
-  'monaqa/dial.nvim',
-  'ggandor/leap.nvim',
-  'ggandor/leap-ast.nvim',
-  'ggandor/leap-spooky.nvim',
-  'cwebster2/github-coauthors.nvim',
-  { 'wet-sandwich/hyper.nvim', dependencies = { 'nvim-lua/plenary.nvim' }},
-  {
-  "folke/noice.nvim",
-  event = "VeryLazy",
-  -- opts = {},
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
-    }
-},
-  {"epwalsh/obsidian.nvim", version = "*",  lazy = true, ft = "markdown",dependencies = {"nvim-lua/plenary.nvim"},},
-  {"MeanderingProgrammer/render-markdown.nvim", dependencies = {"nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons"}, ft = "markdown"},
-  'hrsh7th/cmp-buffer',
-  'hrsh7th/cmp-vsnip',
-  'hrsh7th/vim-vsnip',
-  'lukas-reineke/cmp-rg',
-  'hrsh7th/vim-vsnip-integ',
-  'hrsh7th/cmp-path',
-  'hrsh7th/cmp-cmdline',
-  {'David-Kunz/cmp-npm', requires = {'nvim-lua/plenary.nvim' } },
-  'tamago324/cmp-zsh',
-  'norcalli/nvim-colorizer.lua',
-  'lewis6991/gitsigns.nvim',
-  {
-    "f-person/git-blame.nvim",
-    -- load the plugin at startup
-    event = "VeryLazy",
-    opts = {
-        enabled = true,  -- if you want to enable the plugin
-        message_template = " <summary> • <date> • <author> • <<sha>>", -- template for the blame message, check the Message template section for more options
-        date_format = "%m-%d-%Y %H:%M:%S", -- template for the date, check Date format section for more options
-        virtual_text_column = 1,  -- virtual text start column, check Start virtual text at column section for more options
-    },
-},
-  'kdheepak/lazygit.nvim',
-  'echasnovski/mini.nvim',
-  {'lukas-reineke/indent-blankline.nvim', main = "ibl"},
-  {'akinsho/toggleterm.nvim', branch = 'main', config = function() require('toggleterm-config') end, enabled = not vscode },
-  {'numToStr/Comment.nvim', config = function() require('Comment') end, enabled = not vscode },
-  'jeffkreeftmeijer/vim-numbertoggle',
-  {'glepnir/lspsaga.nvim', branch = "main" },
-  {'folke/zen-mode.nvim', config = function() require("zen-mode-config") end, enabled = not vscode },
-  {'folke/twilight.nvim', config = function() require("twilight-config") end, enabled = not vscode },
---  {'beauwilliams/focus.nvim', config = function() require("focus").setup() end, enabled = not vscode},
---  'szw/vim-maximizer',
-  'lambdalisue/suda.vim',
-  'Shougo/vimproc.vim',
-  'hashivim/vim-terraform',
-  'nvim-lua/popup.nvim',
-  'nvim-lua/plenary.nvim',
-  'nvim-treesitter/playground',
-  'kyazdani42/nvim-web-devicons',
-  'scalameta/nvim-metals',
-  'sudormrfbin/cheatsheet.nvim',
-  'romgrk/nvim-treesitter-context',
-  'nvim-treesitter/nvim-treesitter-textobjects',
-  'RRethy/nvim-treesitter-textsubjects',
-  {
-    'yetone/avante.nvim',
-    event = "VeryLazy",
-    lazy = false,
-    version = false,
-    opts = {},
-    build = "make",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "zbirenbaum/copilot.lua",
-      {
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
-  },
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    dependencies = { "zbirenbaum/copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup()
-    end,
-  },
-  {
-    'robitx/gp.nvim',
-    config = function()
-      require('mcphub-config')
-    end,
-  },
-  'eandrju/cellular-automaton.nvim',
-  {'tzachar/cmp-tabnine', build = './install.sh', dependencies = 'hrsh7th/nvim-cmp'},
---  { 'codota/tabnine-nvim', build = "./dl_binaries.sh", enabled = not vscode },
-  'ray-x/cmp-treesitter',
-  'ray-x/lsp_signature.nvim',
-  'octaltree/cmp-look',
-  'crispgm/telescope-heading.nvim',
-  'nvim-telescope/telescope-packer.nvim',
-  'nvim-telescope/telescope-vimspector.nvim',
-  'fannheyward/telescope-coc.nvim',
-  'axieax/urlview.nvim',
-  'mfussenegger/nvim-lint',
-  'nvim-neotest/nvim-nio',
-  { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
-  'rcarriga/nvim-notify',
-  'rcarriga/cmp-dap',
-  'theHamsta/nvim-dap-virtual-text',
-  'nvim-telescope/telescope-dap.nvim',
-  'ravenxrz/DAPInstall.nvim',
-  'mbbill/undotree',
-  'voldikss/vim-translator',
-  'tpope/vim-dadbod',
-  'kristijanhusak/vim-dadbod-ui',
-  'kristijanhusak/vim-dadbod-completion',
-  'chipsenkbeil/distant.nvim',
---  'ms-jpq/coq_nvim',
-  'mfussenegger/nvim-dap-python',
-  'mfussenegger/nvim-jdtls',
-  'nvim-telescope/telescope-media-files.nvim',
-  {'nvim-telescope/telescope-z.nvim', requires = { { 'nvim-lua/plenary.nvim' }, { 'nvim-lua/popup.nvim' }, { 'nvim-telescope/telescope.nvim' } } },
-  'softinio/scaladex.nvim',
-  'onsails/lspkind-nvim',
-  'WhoIsSethDaniel/mason-tool-installer.nvim',
-  'rafamadriz/friendly-snippets',
-  'kitagry/vs-snippets',
-  'petertriho/cmp-git',
-  'TC72/telescope-tele-tabby.nvim',
-  'tjdevries/complextras.nvim',
-  'folke/tokyonight.nvim',
-  'Mofiqul/vscode.nvim',
-  { 'nvim-lualine/lualine.nvim', enabled = not vscode },
-  'unblevable/quick-scope',
-  'tamago324/telescope-openbrowser.nvim',
-  'tyru/open-browser.vim',
-  'camgraff/telescope-tmux.nvim',
-  'norcalli/nvim-terminal.lua',
-  'danielpieper/telescope-tmuxinator.nvim',
-  'ThePrimeagen/refactoring.nvim',
-  'fcying/telescope-ctags-outline.nvim',
-  'jvgrootveld/telescope-zoxide',
-  'dhruvmanila/telescope-bookmarks.nvim',
-  'nvim-telescope/telescope-github.nvim',
-  'cljoly/telescope-repo.nvim',
-  'LinArcX/telescope-changes.nvim',
-  {"kylechui/nvim-surround", version = "*" },
-  {"AckslD/nvim-neoclip.lua", config = function() require('neoclip').setup() end, enabled = not vscode },
-  'L3MON4D3/LuaSnip',
-  { 'saadparwaiz1/cmp_luasnip' },
-  'kristijanhusak/vim-carbon-now-sh',
-  'pwntester/octo.nvim',
-  {'https://git.sr.ht/~whynothugo/lsp_lines.nvim', config = true, enabled = not vscode},
-  'sam4llis/nvim-lua-gf',
--- { 'anuvyklack/windows.nvim', dependencies = { 'anuvyklack/middleclass', 'anuvyklack/animation.nvim' },
---    config = function()  vim.o.winwidth = 20 vim.o.winminwidth = 10 vim.o.equalalways = false
---      require('windows').setup()  end, disable = vscode
---  },
-  {'neoclide/coc.nvim', branch = 'release', disable = vscode, cond = function() return vim.g.vscode ~= nil end },
-  { 'kevinhwang91/nvim-bqf' },
-  { 'junegunn/fzf', build = function() vim.fn['fzf#install']() end },
-  {'danymat/neogen', config = function() require('neogen').setup {} end, disable = vscode },
-  -- Additional plugins
-  {'ZWindL/orphans.nvim', config = function() require('orphans-config') end, enabled = not vscode },
-  {'chrisgrieser/nvim-puppeteer', config = function() require('puppeteer-config') end, enabled = not vscode },
-  {'dundalek/bloat.nvim', config = function() require('bloat-config') end, enabled = not vscode },
-  {'bennypowers/splitjoin.nvim', config = function() require('splitjoin-config') end, enabled = not vscode },
-  -- New plugins
-  {'Ramilito/kubectl.nvim', config = function() require('kubectl').setup() end, enabled = not vscode },
-  {'cshuaimin/ssr.nvim', config = function() require('ssr').setup() end },
-  {'stevearc/conform.nvim', config = function() require('conform').setup() end },
-  {'folke/todo-comments.nvim', dependencies = { "nvim-lua/plenary.nvim" }, config = function() require('todo-comments').setup() end },
-  {'folke/flash.nvim', event = "VeryLazy", opts = {} },
-  {'nvim-pack/nvim-spectre', dependencies = { "nvim-lua/plenary.nvim" }, config = function() require('spectre').setup() end },
-})
+
+-- Helper function to clone a plugin if it doesn't exist
+local function ensure_plugin(plugin_url, plugin_name)
+  local plugin_path = pack_path .. "/" .. plugin_name
+  if not vim.loop.fs_stat(plugin_path) then
+    vim.fn.mkdir(pack_path, "p")
+    print("Installing " .. plugin_name .. "...")
+    vim.fn.system({
+      "git",
+      "clone",
+      "--depth=1",
+      plugin_url,
+      plugin_path,
+    })
+  end
+end
+
+-- Helper function to ensure GitHub plugin
+local function ensure_github_plugin(repo)
+  local plugin_name = repo:match("^[^/]+/(.+)$")
+  ensure_plugin("https://github.com/" .. repo .. ".git", plugin_name)
+end
+
+-- Install essential plugins
+ensure_github_plugin('wbthomason/packer.nvim')
+ensure_github_plugin('ibhagwan/smartyank.nvim')
+ensure_github_plugin('pteroctopus/faster.nvim')
+ensure_github_plugin('mg979/vim-visual-multi')
+ensure_github_plugin('Civitasv/cmake-tools.nvim')
+ensure_github_plugin('debugloop/telescope-undo.nvim')
+ensure_github_plugin('xiyaowong/telescope-emoji.nvim')
+ensure_github_plugin('HiPhish/rainbow-delimiters.nvim')
+ensure_plugin('https://codeberg.org/esensar/nvim-dev-container.git', 'nvim-dev-container')
+ensure_github_plugin('lpoto/telescope-docker.nvim')
+ensure_github_plugin('williamboman/mason.nvim')
+ensure_github_plugin('nvimtools/none-ls.nvim')
+ensure_github_plugin('smjonas/live-command.nvim')
+ensure_github_plugin('stevearc/aerial.nvim')
+ensure_github_plugin('nvim-treesitter/nvim-treesitter')
+ensure_github_plugin('nvim-tree/nvim-web-devicons')
+ensure_github_plugin('emmanueltouzery/decisive.nvim')
+ensure_github_plugin('stevearc/oil.nvim')
+ensure_github_plugin('echasnovski/mini.icons')
+ensure_github_plugin('jay-babu/mason-null-ls.nvim')
+ensure_github_plugin('mfussenegger/nvim-dap')
+ensure_github_plugin('jayp0521/mason-nvim-dap.nvim')
+ensure_github_plugin('VonHeikemen/lsp-zero.nvim')
+ensure_github_plugin('sindrets/diffview.nvim')
+ensure_github_plugin('nvim-lua/plenary.nvim')
+ensure_github_plugin('tamton-aquib/staline.nvim')
+ensure_github_plugin('kyazdani42/nvim-web-devicons')
+ensure_github_plugin('LinArcX/telescope-command-palette.nvim')
+ensure_github_plugin('nat-418/telescope-color-names.nvim')
+ensure_github_plugin('neanias/telescope-lines.nvim')
+ensure_github_plugin('nvim-telescope/telescope.nvim')
+ensure_github_plugin('akinsho/bufferline.nvim')
+ensure_github_plugin('windwp/nvim-ts-autotag')
+ensure_github_plugin('windwp/nvim-autopairs')
+ensure_github_plugin('folke/which-key.nvim')
+ensure_github_plugin('LinArcX/telescope-env.nvim')
+ensure_github_plugin('kndndrj/nvim-dbee')
+ensure_github_plugin('MunifTanjim/nui.nvim')
+ensure_github_plugin('williamboman/mason-lspconfig.nvim')
+ensure_github_plugin('neovim/nvim-lspconfig')
+ensure_github_plugin('j-hui/fidget.nvim')
+ensure_github_plugin('MattiasMTS/cmp-dbee')
+ensure_github_plugin('hrsh7th/cmp-nvim-lsp')
+ensure_github_plugin('hrsh7th/cmp-nvim-lsp-signature-help')
+ensure_github_plugin('hrsh7th/cmp-nvim-lsp-document-symbol')
+ensure_github_plugin('danielvolchek/tailiscope.nvim')
+ensure_github_plugin('f3fora/cmp-spell')
+ensure_github_plugin('uga-rosa/cmp-dictionary')
+ensure_github_plugin('Dosx001/cmp-commit')
+ensure_github_plugin('hrsh7th/nvim-cmp')
+ensure_github_plugin('KadoBOT/cmp-plugins')
+ensure_github_plugin('quangnguyen30192/cmp-nvim-tags')
+ensure_github_plugin('folke/lua-dev.nvim')
+ensure_github_plugin('folke/trouble.nvim')
+ensure_github_plugin('folke/persistence.nvim')
+ensure_github_plugin('monaqa/dial.nvim')
+ensure_github_plugin('ggandor/leap.nvim')
+ensure_github_plugin('ggandor/leap-ast.nvim')
+ensure_github_plugin('ggandor/leap-spooky.nvim')
+ensure_github_plugin('cwebster2/github-coauthors.nvim')
+ensure_github_plugin('wet-sandwich/hyper.nvim')
+ensure_github_plugin('folke/noice.nvim')
+ensure_github_plugin('rcarriga/nvim-notify')
+ensure_github_plugin('epwalsh/obsidian.nvim')
+ensure_github_plugin('MeanderingProgrammer/render-markdown.nvim')
+ensure_github_plugin('hrsh7th/cmp-buffer')
+ensure_github_plugin('hrsh7th/cmp-vsnip')
+ensure_github_plugin('hrsh7th/vim-vsnip')
+ensure_github_plugin('lukas-reineke/cmp-rg')
+ensure_github_plugin('hrsh7th/vim-vsnip-integ')
+ensure_github_plugin('hrsh7th/cmp-path')
+ensure_github_plugin('hrsh7th/cmp-cmdline')
+ensure_github_plugin('David-Kunz/cmp-npm')
+ensure_github_plugin('tamago324/cmp-zsh')
+ensure_github_plugin('norcalli/nvim-colorizer.lua')
+ensure_github_plugin('lewis6991/gitsigns.nvim')
+ensure_github_plugin('f-person/git-blame.nvim')
+ensure_github_plugin('kdheepak/lazygit.nvim')
+ensure_github_plugin('echasnovski/mini.nvim')
+ensure_github_plugin('lukas-reineke/indent-blankline.nvim')
+ensure_github_plugin('akinsho/toggleterm.nvim')
+ensure_github_plugin('numToStr/Comment.nvim')
+ensure_github_plugin('jeffkreeftmeijer/vim-numbertoggle')
+ensure_github_plugin('glepnir/lspsaga.nvim')
+ensure_github_plugin('folke/zen-mode.nvim')
+ensure_github_plugin('folke/twilight.nvim')
+ensure_github_plugin('lambdalisue/suda.vim')
+ensure_github_plugin('Shougo/vimproc.vim')
+ensure_github_plugin('hashivim/vim-terraform')
+ensure_github_plugin('nvim-lua/popup.nvim')
+ensure_github_plugin('nvim-treesitter/playground')
+ensure_github_plugin('scalameta/nvim-metals')
+ensure_github_plugin('sudormrfbin/cheatsheet.nvim')
+ensure_github_plugin('romgrk/nvim-treesitter-context')
+ensure_github_plugin('nvim-treesitter/nvim-treesitter-textobjects')
+ensure_github_plugin('RRethy/nvim-treesitter-textsubjects')
+ensure_github_plugin('yetone/avante.nvim')
+ensure_github_plugin('stevearc/dressing.nvim')
+ensure_github_plugin('zbirenbaum/copilot.lua')
+ensure_github_plugin('HakonHarnes/img-clip.nvim')
+ensure_github_plugin('zbirenbaum/copilot-cmp')
+ensure_github_plugin('robitx/gp.nvim')
+ensure_github_plugin('eandrju/cellular-automaton.nvim')
+ensure_github_plugin('tzachar/cmp-tabnine')
+ensure_github_plugin('ray-x/cmp-treesitter')
+ensure_github_plugin('ray-x/lsp_signature.nvim')
+ensure_github_plugin('octaltree/cmp-look')
+ensure_github_plugin('crispgm/telescope-heading.nvim')
+ensure_github_plugin('nvim-telescope/telescope-packer.nvim')
+ensure_github_plugin('nvim-telescope/telescope-vimspector.nvim')
+ensure_github_plugin('fannheyward/telescope-coc.nvim')
+ensure_github_plugin('axieax/urlview.nvim')
+ensure_github_plugin('mfussenegger/nvim-lint')
+ensure_github_plugin('nvim-neotest/nvim-nio')
+ensure_github_plugin('rcarriga/nvim-dap-ui')
+ensure_github_plugin('rcarriga/cmp-dap')
+ensure_github_plugin('theHamsta/nvim-dap-virtual-text')
+ensure_github_plugin('nvim-telescope/telescope-dap.nvim')
+ensure_github_plugin('ravenxrz/DAPInstall.nvim')
+ensure_github_plugin('mbbill/undotree')
+ensure_github_plugin('voldikss/vim-translator')
+ensure_github_plugin('tpope/vim-dadbod')
+ensure_github_plugin('kristijanhusak/vim-dadbod-ui')
+ensure_github_plugin('kristijanhusak/vim-dadbod-completion')
+ensure_github_plugin('chipsenkbeil/distant.nvim')
+ensure_github_plugin('mfussenegger/nvim-dap-python')
+ensure_github_plugin('mfussenegger/nvim-jdtls')
+ensure_github_plugin('nvim-telescope/telescope-media-files.nvim')
+ensure_github_plugin('nvim-telescope/telescope-z.nvim')
+ensure_github_plugin('softinio/scaladex.nvim')
+ensure_github_plugin('onsails/lspkind-nvim')
+ensure_github_plugin('WhoIsSethDaniel/mason-tool-installer.nvim')
+ensure_github_plugin('rafamadriz/friendly-snippets')
+ensure_github_plugin('kitagry/vs-snippets')
+ensure_github_plugin('petertriho/cmp-git')
+ensure_github_plugin('TC72/telescope-tele-tabby.nvim')
+ensure_github_plugin('tjdevries/complextras.nvim')
+ensure_github_plugin('folke/tokyonight.nvim')
+ensure_github_plugin('Mofiqul/vscode.nvim')
+ensure_github_plugin('nvim-lualine/lualine.nvim')
+ensure_github_plugin('unblevable/quick-scope')
+ensure_github_plugin('tamago324/telescope-openbrowser.nvim')
+ensure_github_plugin('tyru/open-browser.vim')
+ensure_github_plugin('camgraff/telescope-tmux.nvim')
+ensure_github_plugin('norcalli/nvim-terminal.lua')
+ensure_github_plugin('danielpieper/telescope-tmuxinator.nvim')
+ensure_github_plugin('ThePrimeagen/refactoring.nvim')
+ensure_github_plugin('fcying/telescope-ctags-outline.nvim')
+ensure_github_plugin('jvgrootveld/telescope-zoxide')
+ensure_github_plugin('dhruvmanila/telescope-bookmarks.nvim')
+ensure_github_plugin('nvim-telescope/telescope-github.nvim')
+ensure_github_plugin('cljoly/telescope-repo.nvim')
+ensure_github_plugin('LinArcX/telescope-changes.nvim')
+ensure_github_plugin('kylechui/nvim-surround')
+ensure_github_plugin('AckslD/nvim-neoclip.lua')
+ensure_github_plugin('L3MON4D3/LuaSnip')
+ensure_github_plugin('saadparwaiz1/cmp_luasnip')
+ensure_github_plugin('kristijanhusak/vim-carbon-now-sh')
+ensure_github_plugin('pwntester/octo.nvim')
+ensure_plugin('https://git.sr.ht/~whynothugo/lsp_lines.nvim', 'lsp_lines.nvim')
+ensure_github_plugin('sam4llis/nvim-lua-gf')
+ensure_github_plugin('neoclide/coc.nvim')
+ensure_github_plugin('kevinhwang91/nvim-bqf')
+ensure_github_plugin('junegunn/fzf')
+ensure_github_plugin('danymat/neogen')
+ensure_github_plugin('ZWindL/orphans.nvim')
+ensure_github_plugin('chrisgrieser/nvim-puppeteer')
+ensure_github_plugin('dundalek/bloat.nvim')
+ensure_github_plugin('bennypowers/splitjoin.nvim')
+ensure_github_plugin('Ramilito/kubectl.nvim')
+ensure_github_plugin('cshuaimin/ssr.nvim')
+ensure_github_plugin('stevearc/conform.nvim')
+ensure_github_plugin('folke/todo-comments.nvim')
+ensure_github_plugin('folke/flash.nvim')
+ensure_github_plugin('nvim-pack/nvim-spectre')
+
+-- Add the pack directory to runtimepath
+vim.opt.rtp:prepend(pack_path)
+
+-- Run post-install setup for plugins that need it
+vim.cmd('helptags ALL')
+
+-- Setup plugins that require configuration
+if not vscode then
+  -- Load treesitter
+  pcall(require, 'treesitter-config')
+  
+  -- Load whichkey
+  pcall(require, 'whichkey-config')
+  
+  -- Load toggleterm
+  pcall(require, 'toggleterm-config')
+  
+  -- Load zen-mode
+  pcall(require, 'zen-mode-config')
+  
+  -- Load twilight
+  pcall(require, 'twilight-config')
+  
+  -- Load orphans
+  pcall(require, 'orphans-config')
+  
+  -- Load puppeteer
+  pcall(require, 'puppeteer-config')
+  
+  -- Load bloat
+  pcall(require, 'bloat-config')
+  
+  -- Load splitjoin
+  pcall(require, 'splitjoin-config')
+end
+
+-- Setup plugins that work in both environments
+pcall(function() require('Comment').setup() end)
+pcall(function() require('decisive').setup{} end)
+pcall(function() require('nvim-autopairs').setup() end)
+pcall(function() require('neoclip').setup() end)
+pcall(function() require('lsp_lines').setup() end)
+pcall(function() require('neogen').setup{} end)
+pcall(function() require('kubectl').setup() end)
+pcall(function() require('ssr').setup() end)
+pcall(function() require('conform').setup() end)
+pcall(function() require('todo-comments').setup() end)
+pcall(function() require('spectre').setup() end)
+pcall(function() require('mcphub-config') end)
+pcall(function() require("cmp-plugins").setup({ files = { ".*\\.lua" } }) end)
+pcall(function() 
+  require("copilot").setup({
+    suggestion = { enabled = false },
+    panel = { enabled = false },
+  })
+end)
+pcall(function() require("copilot_cmp").setup() end)
+pcall(function() require('telescope').load_extension('color_names') end)
+
+-- Handle special plugin builds
+pcall(function()
+  vim.fn['fzf#install']()
+end)
+
+-- Setup dbee if needed
+pcall(function()
+  require("dbee").setup()
+end)
 
