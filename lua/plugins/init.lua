@@ -209,6 +209,32 @@ vim.opt.rtp:prepend(pack_path)
 -- Run post-install setup for plugins that need it
 vim.cmd('helptags ALL')
 
+-- Build plugins that require special post-install steps
+local function build_plugin(plugin_name, build_cmd)
+  local plugin_path = pack_path .. "/" .. plugin_name
+  if vim.loop.fs_stat(plugin_path) then
+    vim.fn.system("cd " .. plugin_path .. " && " .. build_cmd)
+  end
+end
+
+-- Build avante.nvim if it exists
+pcall(function()
+  build_plugin("avante.nvim", "make")
+end)
+
+-- Build cmp-tabnine if it exists
+pcall(function()
+  build_plugin("cmp-tabnine", "./install.sh")
+end)
+
+-- Install dbee binaries if needed
+pcall(function()
+  local dbee_path = pack_path .. "/nvim-dbee"
+  if vim.loop.fs_stat(dbee_path) then
+    require("dbee").install()
+  end
+end)
+
 -- Setup plugins that require configuration
 if not vscode then
   -- Load treesitter
@@ -270,5 +296,13 @@ end)
 -- Setup dbee if needed
 pcall(function()
   require("dbee").setup()
+end)
+
+-- Update Treesitter parsers if nvim-treesitter is installed
+pcall(function()
+  local ts_path = pack_path .. "/nvim-treesitter"
+  if vim.loop.fs_stat(ts_path) then
+    vim.cmd('TSUpdate')
+  end
 end)
 
