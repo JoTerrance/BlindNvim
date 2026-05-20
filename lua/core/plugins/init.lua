@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 local vscode = vim.g.vscode == 1
   -- Lazy can manage itself
 require("lazy").setup({
-  'wbthomason/packer.nvim',
+  --'wbthomason/packer.nvim', -> Deprecated
   'ibhagwan/smartyank.nvim',
   'pteroctopus/faster.nvim',
   'gpanders/editorconfig.nvim',
