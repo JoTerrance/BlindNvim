@@ -81,3 +81,5 @@ $RECYCLE.BIN/
 # ── Backups generados por el script de reorganización ─────────────────────────
 *-backup-*/
 /DOCUMENTATION
+.vscode
+TestingLenguajes
