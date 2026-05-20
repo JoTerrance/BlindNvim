@@ -1,0 +1,82 @@
+# =============================================================================
+# .gitignore — BlindNvim / NeoVim configuration
+# =============================================================================
+
+# ── Lazy.nvim (plugin manager) ────────────────────────────────────────────────
+# Los plugins se instalan en runtime, no se versionan
+lazy-lock.json
+
+# ── NeoVim runtime data ───────────────────────────────────────────────────────
+# Directorios de datos generados por NeoVim (stdpath("data"))
+# Linux/macOS: ~/.local/share/nvim/
+# Windows:     ~/AppData/Local/nvim-data/
+
+# Caché de treesitter, lazy, mason, etc.
+plugin/
+.netrwhist
+
+# ── LSP / Mason ───────────────────────────────────────────────────────────────
+# Mason instala binarios localmente — no se versiona
+mason/
+
+# ── DAP ───────────────────────────────────────────────────────────────────────
+# Adaptadores instalados por mason-nvim-dap
+.dap/
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+lsp.log
+
+# ── Swap, backup y undo de NeoVim ─────────────────────────────────────────────
+*.swp
+*.swo
+*.swn
+*~
+.*.sw?
+
+# Directorio de undo persistente si se configura localmente
+undodir/
+
+# ── Avante ────────────────────────────────────────────────────────────────────
+# Instrucciones locales de proyecto (pueden contener contexto privado)
+avante.md
+
+# ── Copilot ───────────────────────────────────────────────────────────────────
+# Tokens y credenciales — NUNCA versionar
+.copilot/
+github-copilot/
+
+# ── Secretos y configuración local ───────────────────────────────────────────
+# Ficheros con API keys, tokens o configuración personal
+.env
+.env.local
+secrets.lua
+local.lua
+
+# Configuración local que sobreescribe la del repo (patrón común en NeoVim)
+lua/local/
+lua/private/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+
+# ── Editores ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── Backups generados por el script de reorganización ─────────────────────────
+*-backup-*/
