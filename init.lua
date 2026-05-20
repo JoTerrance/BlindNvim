@@ -1,7 +1,8 @@
 --REQUIRES
-require('core.options')
-require('core.keybindings')
-require('core.plugins')
+--INITIAL LOAD
+require('core.options') -- Vim basic options
+require('core.keybindings') -- Global keybindings (TTS shoud be there configurated)
+require('core.plugins') -- Packages manager (lazy.vim)
 
 --If we dont execute NeoVim on VSCODE -> Load all this modules
 if not vim.g.vscode then
@@ -35,7 +36,7 @@ if not vim.g.vscode then
     vim.cmd [[colorscheme tokyonight-night]]
 end
 --This tools works in NeoVim and VSCode
-require('tools.dial-config')
-require('navigation.leap-config')
-require('tools.surround-config')
+require('tools.dial-config') --Improve numbers management
+require('navigation.leap-config') --Faster movement on ui
+require('tools.surround-config') -- Add, change and remove surrounding in pairs(parentheses, brackets, quotes, XML tags...)
 
