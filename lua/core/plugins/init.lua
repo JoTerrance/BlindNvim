@@ -1,5 +1,9 @@
--- Documentación: módulo `lua/core/plugins/init.lua`.
--- Propósito: define registro y carga de plugins dentro de BlindNvim sin alterar lógica de ejecución.
+-- Módulo `lua/core/plugins/init.lua`: catálogo central de plugins de BlindNvim.
+-- Nota de mantenimiento:
+-- - Este archivo no debe contener reglas de negocio de cada plugin;
+--   solo declaración de specs, dependencias y condiciones de carga.
+-- - La configuración detallada vive en `lua/<categoria>/<plugin>-config/init.lua`
+--   (por ejemplo: `lua/tools/toggleterm-config/init.lua`).
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- Bootstrap lazy.nvim automatically if it is not installed yet.
@@ -15,11 +19,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- In VSCode mode some UI/terminal-heavy plugins are disabled in their specs.
+-- En modo VSCode, varios plugins usan `enabled = not vscode` para no cargar
+-- integraciones que dependen de TUI nativa, floating windows o terminal embebida.
 local vscode = vim.g.vscode == 1
 
--- Central plugin registry for this Neovim setup.
--- Keep this list as the single source of truth for enabled integrations.
+-- Registro único de plugins para todo el setup.
+-- Si una funcionalidad "no aparece", primero revisar si su spec está aquí y
+-- luego validar su módulo `*-config` correspondiente.
 require("lazy").setup({
   --'wbthomason/packer.nvim', -> Deprecated
   -- Core editing quality-of-life plugins.
