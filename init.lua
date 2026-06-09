@@ -1,5 +1,9 @@
 -- Documentación: módulo `init.lua`.
--- Propósito: define configuración modular de Neovim dentro de BlindNvim sin alterar lógica de ejecución.
+-- Propósito: definir el punto de entrada de BlindNvim y el orden de carga global.
+-- Mapa mental rápido:
+-- 1) `core.*` prepara opciones base, keymaps y registro de plugins.
+-- 2) Se cargan módulos "seguros" para Neovim y VSCode.
+-- 3) El resto de integraciones solo se activa fuera de VSCode.
 
 --REQUIRES
 --INITIAL LOAD
@@ -12,7 +16,8 @@ require('navigation.leap-config') -- Leap: jump quickly to visible targets for f
 require('tools.dial-config') -- Dial: increment/decrement numbers, dates, and similar values
 require('tools.surround-config') -- nvim-surround: add/change/delete surrounding pairs like quotes/brackets/tags
 
---If we dont execute NeoVim on VSCODE -> Load all this modules
+-- Si se ejecuta dentro de VSCode (`vim.g.vscode`), evitamos módulos con UI pesada,
+-- LSP completo y utilidades que asumen runtime puro de Neovim.
 if not vim.g.vscode then
     require('lsp') -- LSP configuration
 

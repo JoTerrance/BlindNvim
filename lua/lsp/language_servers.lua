@@ -1,14 +1,20 @@
 -- Documentación: módulo `lua/lsp/language_servers.lua`.
--- Propósito: define integración de LSP y autocompletado dentro de BlindNvim sin alterar lógica de ejecución.
+-- Propósito: centralizar bootstrap de Mason + lspconfig + capacidades de cmp.
+-- Flujo:
+-- 1) Mason instala servidores definidos en `servers`.
+-- 2) lsp-zero aplica setup por defecto a cada servidor.
+-- 3) handlers especiales sobrescriben casos puntuales (ej. lua_ls).
 
--- Enable the following language servers
--- Feel free to add/remove any LSPs that you want here. They will automatically be installed
+-- Lista explícita de LSPs a instalar automáticamente.
+-- Está vacía por defecto para no forzar toolchains en todos los entornos.
+-- Ejemplo: { 'clangd', 'pyright', 'lua_ls' }
 -- local servers = { 'clangd', 'pyright', 'tsserver', 'lua_ls', 'rust_analyzer' }
 local servers = {}
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- Mantener capacidades de completion unificadas para todos los servidores.
 local lsp = require('lsp-zero')
 
 local lsp_zero = require('lsp-zero')
@@ -23,6 +29,7 @@ require('mason-lspconfig').setup({
   ensure_installed = servers,
     handlers = {
       lsp_zero.default_setup,
+      -- `lua_ls` usa ajustes recomendados para runtime de Neovim (`vim` global, etc.).
       lua_ls = function()
         local lua_opts = lsp_zero.nvim_lua_ls()
         require('lspconfig').lua_ls.setup(lua_opts)
