@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/lsp/cmp.lua`.
+-- Propósito: define integración de LSP y autocompletado dentro de BlindNvim sin alterar lógica de ejecución.
+
 local lspkind = require "lspkind"
 local cmp = require "cmp"
 local luasnip = require 'luasnip'

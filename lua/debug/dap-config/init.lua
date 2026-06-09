@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/debug/dap-config/init.lua`.
+-- Propósito: define configuración de depuración dentro de BlindNvim sin alterar lógica de ejecución.
+
 require("dapui").setup()
 require("mason-nvim-dap").setup()
 require("nvim-dap-virtual-text").setup {

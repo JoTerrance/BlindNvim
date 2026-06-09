@@ -1,3 +1,6 @@
+-- Documentación: módulo `ftplugin/lua.lua`.
+-- Propósito: define ajustes específicos por tipo de archivo dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup({
     library = {

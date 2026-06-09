@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ui/vscode-theme/init.lua`.
+-- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- Lua:
 -- For dark theme (neovim's default)
 vim.o.background = 'dark'

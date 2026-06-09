@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/lsp/diagnostic_signs.lua`.
+-- Propósito: define integración de LSP y autocompletado dentro de BlindNvim sin alterar lógica de ejecución.
+
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
 for type, icon in pairs(signs) do

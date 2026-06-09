@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/git/fugit2-config/init.lua`.
+-- Propósito: define integraciones de flujo de trabajo con Git dentro de BlindNvim sin alterar lógica de ejecución.
+
 require('fugit2').setup {
   width = 70,
   min_width = 50,

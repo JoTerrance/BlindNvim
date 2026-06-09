@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ui/noice-config/init.lua`.
+-- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
+
 local blind = {
   cmdline = {
     view = "cmdline",

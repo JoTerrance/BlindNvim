@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ui/dashboard-config/init.lua`.
+-- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
+
 require('dashboard').setup {
     theme = 'hyper',    -- theme is doom and hyper default is hyper
     disable_move = false,       -- default is false disable move keymap for hyper

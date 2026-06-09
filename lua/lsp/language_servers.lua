@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/lsp/language_servers.lua`.
+-- Propósito: define integración de LSP y autocompletado dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- Enable the following language servers
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
 -- local servers = { 'clangd', 'pyright', 'tsserver', 'lua_ls', 'rust_analyzer' }

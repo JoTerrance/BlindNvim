@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/core/keybindings/init.lua`.
+-- Propósito: define atajos globales del editor dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- Complextras.nvim configuration
 local map = vim.api.nvim_set_keymap
 map('n', '<C-h>', '<C-w>h', {noremap = true, silent = false})

@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/core/plugins/init.lua`.
+-- Propósito: define registro y carga de plugins dentro de BlindNvim sin alterar lógica de ejecución.
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- Bootstrap lazy.nvim automatically if it is not installed yet.
 if not vim.loop.fs_stat(lazypath) then

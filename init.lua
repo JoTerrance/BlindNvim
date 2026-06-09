@@ -1,3 +1,6 @@
+-- Documentación: módulo `init.lua`.
+-- Propósito: define configuración modular de Neovim dentro de BlindNvim sin alterar lógica de ejecución.
+
 --REQUIRES
 --INITIAL LOAD
 require('core.options') -- Vim basic options

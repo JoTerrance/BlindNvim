@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ai/tabnine-config/init.lua`.
+-- Propósito: define integraciones de asistentes de IA dentro de BlindNvim sin alterar lógica de ejecución.
+
 require('tabnine').setup({
   disable_auto_comment=true,
   accept_keymap="<C-x>",

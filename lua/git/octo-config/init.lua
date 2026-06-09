@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/git/octo-config/init.lua`.
+-- Propósito: define integraciones de flujo de trabajo con Git dentro de BlindNvim sin alterar lógica de ejecución.
+
 require"octo".setup({
   use_local_fs = false,                    -- use local files on right side of reviews
   enable_builtin = false,                  -- shows a list of builtin actions when no action is provided

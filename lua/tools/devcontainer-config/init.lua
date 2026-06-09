@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/tools/devcontainer-config/init.lua`.
+-- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- nvim-dev-container configuration
 -- Plugin for managing development containers from within Neovim
 require("devcontainer").setup({

@@ -1,3 +1,6 @@
+-- Documentación: módulo `ftplugin/cpp.lua`.
+-- Propósito: define ajustes específicos por tipo de archivo dentro de BlindNvim sin alterar lógica de ejecución.
+
 local scan = require "plenary.scandir"
 local contains = function(tbl, str)
     for _, v in ipairs(tbl) do

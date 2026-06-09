@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/navigation/telescope-config/init.lua`.
+-- Propósito: define herramientas de navegación y búsqueda dentro de BlindNvim sin alterar lógica de ejecución.
+
 local actions = require('telescope.actions')
 require('telescope').setup {
     defaults = {

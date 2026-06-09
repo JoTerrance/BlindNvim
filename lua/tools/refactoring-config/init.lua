@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/tools/refactoring-config/init.lua`.
+-- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
+
 require('refactoring').setup({
     prompt_func_return_type = {
         go = false,
