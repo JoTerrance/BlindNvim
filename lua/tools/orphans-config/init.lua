@@ -3,8 +3,6 @@
 
 -- Configuration for orphans.nvim
 -- Plugin for managing orphaned buffers
--- Línea documentada: `require('orphans').setup({`.
 require('orphans').setup({
   -- Configuration options for orphans.nvim
--- Línea documentada: `})`.
 })
