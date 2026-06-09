@@ -3,6 +3,8 @@
 
 -- Configuration for bloat.nvim
 -- Plugin for analyzing startup time and plugin impact
+-- Línea documentada: `require('bloat').setup({`.
 require('bloat').setup({
   -- Configuration options for bloat.nvim
+-- Línea documentada: `})`.
 })

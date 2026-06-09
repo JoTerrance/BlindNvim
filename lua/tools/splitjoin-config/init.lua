@@ -3,6 +3,8 @@
 
 -- Configuration for splitjoin.nvim
 -- Plugin for splitting/joining code structures
+-- Línea documentada: `require('splitjoin').setup({`.
 require('splitjoin').setup({
   -- Configuration options for splitjoin.nvim
+-- Línea documentada: `})`.
 })
