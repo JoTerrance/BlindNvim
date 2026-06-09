@@ -131,7 +131,6 @@ require("lazy").setup({
     end,
   },
   
-  {"epwalsh/obsidian.nvim", version = "*",  lazy = true, ft = "markdown",dependencies = {"nvim-lua/plenary.nvim"},},
   {"MeanderingProgrammer/render-markdown.nvim", dependencies = {"nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons"}, ft = "markdown"},
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-vsnip',
