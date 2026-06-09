@@ -110,7 +110,7 @@ require("lazy").setup({
     -- add any custom options here
   }},
   'monaqa/dial.nvim',
-  'ggandor/leap.nvim',
+  'https://codeberg.org/andyg/leap.nvim',
   'ggandor/leap-ast.nvim',
   'ggandor/leap-spooky.nvim',
   'cwebster2/github-coauthors.nvim',
