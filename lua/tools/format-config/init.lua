@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/tools/format-config/init.lua`.
+-- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
+
   -- Create a command `:Format` local to the LSP buffer
 require'format'.setup {
   html = {{cmd = {"prettier -w"}}},

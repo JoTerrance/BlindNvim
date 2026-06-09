@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/tools/null-ls-config/init.lua`.
+-- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
+
 local null_ls = require('null-ls')
 
 local formatting = null_ls.builtins.formatting

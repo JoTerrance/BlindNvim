@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ai/avante-config/init.lua`.
+-- Propósito: define integraciones de asistentes de IA dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- Avante.nvim configuration
 -- AI coding assistant for Neovim with GitHub Copilot integration
 

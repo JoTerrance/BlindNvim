@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ui/zen-mode-config/init.lua`.
+-- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
+
 require("zen-mode").setup {
   window = {
     backdrop = 0.95,

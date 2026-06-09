@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/core/options/init.lua`.
+-- Propósito: define opciones base del editor dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- Function to return different values based on the presence of a braille device
 local has_braille = require("accessibility.check-braille").has_braille_device()
 function BlindReturn(if_true, if_false)

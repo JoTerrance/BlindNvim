@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ui/whichkey-config/init.lua`.
+-- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
+
 local wk = require("which-key")
 
 local conf = {

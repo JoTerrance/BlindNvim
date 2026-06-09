@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/tools/urlview-config/init.lua`.
+-- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
+
 require("urlview").setup({
   -- Prompt title (`<context> <default_title>`, e.g. `Buffer Links:`)
   default_title = "Links:",

@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/git/gitsigns-config/init.lua`.
+-- Propósito: define integraciones de flujo de trabajo con Git dentro de BlindNvim sin alterar lógica de ejecución.
+
 require('gitsigns').setup {
   current_line_blame = false,
   signs = {

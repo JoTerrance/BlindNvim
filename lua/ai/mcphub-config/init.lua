@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ai/mcphub-config/init.lua`.
+-- Propósito: define integraciones de asistentes de IA dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- MCPHub.nvim configuration (using gp.nvim as MCP integration)
 -- Model Context Protocol Hub for Neovim
 

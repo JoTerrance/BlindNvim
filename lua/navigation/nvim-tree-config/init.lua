@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/navigation/nvim-tree-config/init.lua`.
+-- Propósito: define herramientas de navegación y búsqueda dentro de BlindNvim sin alterar lógica de ejecución.
+
 --
 -- This function has been generated from your
 --   view.mappings.list

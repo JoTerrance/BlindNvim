@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ui/blankline-config/init.lua`.
+-- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
+
 if not vim.g.visual_impairing then
 
 local highlight = {

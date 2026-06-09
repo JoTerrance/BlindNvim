@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/tools/cmake-config/init.lua`.
+-- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
+
 require("cmake-tools").setup {
   cmake_command = "cmake", -- this is used to specify cmake command path
   ctest_command = "ctest", -- this is used to specify ctest command path

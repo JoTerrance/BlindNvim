@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/accessibility/check-braille/init.lua`.
+-- Propósito: define funcionalidades de accesibilidad dentro de BlindNvim sin alterar lógica de ejecución.
+
 -- check_braille.lua
 -- Detecta si hay un dispositivo Braille conectado en Linux
 

@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ai/copilot-config/init.lua`.
+-- Propósito: define integraciones de asistentes de IA dentro de BlindNvim sin alterar lógica de ejecución.
+
 require('copilot').setup({
   panel = {
     enabled = true,

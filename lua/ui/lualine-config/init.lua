@@ -1,3 +1,6 @@
+-- Documentación: módulo `lua/ui/lualine-config/init.lua`.
+-- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
+
   require('lualine').setup({
     options = {
       theme = 'vscode', 
