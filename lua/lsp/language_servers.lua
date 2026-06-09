@@ -1,5 +1,4 @@
--- Documentación: módulo `lua/lsp/language_servers.lua`.
--- Propósito: centralizar bootstrap de Mason + lspconfig + capacidades de cmp.
+-- Módulo `lua/lsp/language_servers.lua`: bootstrap de Mason + lspconfig + cmp.
 -- Flujo:
 -- 1) Mason instala servidores definidos en `servers`.
 -- 2) lsp-zero aplica setup por defecto a cada servidor.
@@ -14,7 +13,8 @@ local servers = {}
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
--- Mantener capacidades de completion unificadas para todos los servidores.
+-- Mantener capacidades de completion unificadas evita diferencias de UX entre
+-- servidores (sugerencias, snippets y fuentes de completado disponibles).
 local lsp = require('lsp-zero')
 
 local lsp_zero = require('lsp-zero')

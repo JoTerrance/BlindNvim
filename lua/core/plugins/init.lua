@@ -1,9 +1,9 @@
--- Documentación: módulo `lua/core/plugins/init.lua`.
--- Propósito: actuar como catálogo central de plugins de BlindNvim.
+-- Módulo `lua/core/plugins/init.lua`: catálogo central de plugins de BlindNvim.
 -- Nota de mantenimiento:
 -- - Este archivo no debe contener reglas de negocio de cada plugin;
 --   solo declaración de specs, dependencias y condiciones de carga.
--- - La configuración detallada vive en `lua/**/<plugin>-config/init.lua`.
+-- - La configuración detallada vive en `lua/<categoria>/<plugin>-config/init.lua`
+--   (por ejemplo: `lua/tools/toggleterm-config/init.lua`).
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- Bootstrap lazy.nvim automatically if it is not installed yet.

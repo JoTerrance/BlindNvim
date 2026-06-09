@@ -1,5 +1,4 @@
--- Documentación: módulo `init.lua`.
--- Propósito: definir el punto de entrada de BlindNvim y el orden de carga global.
+-- Módulo `init.lua`: punto de entrada de BlindNvim y orden de carga global.
 -- Mapa mental rápido:
 -- 1) `core.*` prepara opciones base, keymaps y registro de plugins.
 -- 2) Se cargan módulos "seguros" para Neovim y VSCode.
