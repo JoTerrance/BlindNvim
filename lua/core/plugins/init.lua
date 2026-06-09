@@ -1,4 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- Bootstrap lazy.nvim automatically if it is not installed yet.
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -10,10 +11,15 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+
+-- In VSCode mode some UI/terminal-heavy plugins are disabled in their specs.
 local vscode = vim.g.vscode == 1
-  -- Lazy can manage itself
+
+-- Central plugin registry for this Neovim setup.
+-- Keep this list as the single source of truth for enabled integrations.
 require("lazy").setup({
   --'wbthomason/packer.nvim', -> Deprecated
+  -- Core editing quality-of-life plugins.
   'ibhagwan/smartyank.nvim',
   'pteroctopus/faster.nvim',
   'gpanders/editorconfig.nvim',
@@ -60,6 +66,7 @@ require("lazy").setup({
   dependencies = { { "echasnovski/mini.icons", opts = {} } },
   -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 },
+  -- LSP, DAP, and language tooling foundation.
   "jay-babu/mason-null-ls.nvim",
   'mfussenegger/nvim-dap',
   'jayp0521/mason-nvim-dap.nvim',
@@ -69,6 +76,7 @@ require("lazy").setup({
   {'tamton-aquib/staline.nvim', dependencies = {'kyazdani42/nvim-web-devicons',lazy = true} },
   {"LinArcX/telescope-command-palette.nvim" },
   {"neanias/telescope-lines.nvim", dependencies = "nvim-telescope/telescope.nvim",},
+  -- UI navigation and editing helpers.
   {'akinsho/bufferline.nvim',version="*", dependencies = 'kyazdani42/nvim-web-devicons'},
   -- {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' },
   {'windwp/nvim-ts-autotag', event = "InsertEnter", after = "nvim-treesitter" },
@@ -88,6 +96,7 @@ require("lazy").setup({
     require("dbee").setup(--[[optional config]])
   end,
 },
+  -- Completion, diagnostics, and session helpers.
   'williamboman/mason-lspconfig.nvim',
   { 'neovim/nvim-lspconfig', requires = {'williamboman/mason.nvim','williamboman/mason-lspconfig.nvim','j-hui/fidget.nvim', }, },
   {"MattiasMTS/cmp-dbee",dependencies = {{"kndndrj/nvim-dbee"}},ft = "sql", opts = {}, },
@@ -130,6 +139,7 @@ require("lazy").setup({
     end,
   },
   
+  -- Additional markdown, completion, and git workflow plugins.
   {"MeanderingProgrammer/render-markdown.nvim", dependencies = {"nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons"}, ft = "markdown"},
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-vsnip',
@@ -238,6 +248,7 @@ require("lazy").setup({
   'nvim-telescope/telescope-vimspector.nvim',
   'fannheyward/telescope-coc.nvim',
   'axieax/urlview.nvim',
+  -- Linting, debugger UI, and run-time inspection tools.
   'mfussenegger/nvim-lint',
   'nvim-neotest/nvim-nio',
   { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
@@ -308,6 +319,7 @@ require("lazy").setup({
   {'nvim-pack/nvim-spectre', dependencies = { "nvim-lua/plenary.nvim" }, config = function() require('spectre').setup() end },
   {
   "yetone/avante.nvim",
+  -- AI assistant plugin with multi-provider and markdown/chat integrations.
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   -- ⚠️ must add this setting! ! !
   build = vim.fn.has("win32") ~= 0
@@ -365,4 +377,3 @@ require("lazy").setup({
 }
 
 })
-
