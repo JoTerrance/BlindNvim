@@ -91,10 +91,6 @@ vim.o.timeoutlen = 100
 -- Diagnostic settings (LSP)
 vim.diagnostic.config({ virtual_lines = false })
 
--- Theme settings
--- vim.cmd[[colorscheme tokyonight]]
--- vim.g.tokyonight_style = 'night'
-
 -- Visual Multi settings (specific plugin setting)
 vim.g.VM_default_mappings = 0
 
