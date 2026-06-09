@@ -39,6 +39,7 @@ if not vim.g.vscode then
     require('ui.lualine-config')
     require('ui.bufferline-config')
     require('ui.render-markdown-config')
+    require('ui.dashboard-config')
     require('ui.vscode-theme')
 
     require('ai.copilot-config')

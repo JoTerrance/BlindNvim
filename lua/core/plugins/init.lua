@@ -171,7 +171,8 @@ require("lazy").setup({
     config = function() require('git.fugit2-config') end,
   },
   'echasnovski/mini.nvim',
-  {'lukas-reineke/indent-blankline.nvim', main = "ibl"},
+  {'lukas-reineke/indent-blankline.nvim', main = "ibl",},
+  
   {'akinsho/toggleterm.nvim', branch = 'main', config = function() require('tools.toggleterm-config') end, enabled = not vscode },
   {'numToStr/Comment.nvim', config = function() require('Comment') end, enabled = not vscode },
   'jeffkreeftmeijer/vim-numbertoggle',
@@ -204,6 +205,7 @@ require("lazy").setup({
     -- put your config here
   end,
   },
+  {'nvimdev/dashboard-nvim', enabled = not vscode },
   {
   "zbirenbaum/copilot.lua",
   requires = {
