@@ -43,7 +43,7 @@ if not vim.g.vscode then
     require('ui.vscode-theme') -- vscode.nvim theme and highlight tuning
 
     require('ai.copilot-config') -- GitHub Copilot suggestions and integrations
-    require('ai.avante-config')  -- Avante AI assistant integration (loaded early for snacks support)
+    require('ai.avante-config')  -- Avante AI assistant integration (loaded early so snacks.nvim UI helpers are ready)
     require('ai.mcphub-config') -- MCP/GP assistant integrations and AI command workflows
    
     -- Theme settings
