@@ -84,17 +84,8 @@ require("lazy").setup({
   dependencies = { { "echasnovski/mini.icons", opts = {} } },
   -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 },
-  -- Shared dependency plugins used by multiple specs.
-  -- Keep them top-level so the repo still installs them explicitly.
-  'nvim-lua/popup.nvim',
-  'nvim-lua/plenary.nvim',
-  'nvim-tree/nvim-web-devicons',
-  'nvim-neotest/nvim-nio',
-  'MunifTanjim/nui.nvim',
-  'stevearc/dressing.nvim',
   -- LSP, DAP, and language tooling foundation.
   "jay-babu/mason-null-ls.nvim",
-  'mfussenegger/nvim-dap',
   'jayp0521/mason-nvim-dap.nvim',
   {'VonHeikemen/lsp-zero.nvim'},
   {'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim'},
@@ -107,7 +98,6 @@ require("lazy").setup({
   {'windwp/nvim-ts-autotag', event = "InsertEnter", dependencies = "nvim-treesitter/nvim-treesitter" },
   {'windwp/nvim-autopairs', config = true, event="InsertEnter", dependencies = "hrsh7th/nvim-cmp", enabled = not vscode},
   {'folke/which-key.nvim', event = "BufWinEnter", config = function() require('ui.whichkey-config') end, enabled = not vscode },
-  'nvim-telescope/telescope.nvim',
   'LinArcX/telescope-env.nvim',
   {
   "kndndrj/nvim-dbee",
