@@ -5,6 +5,16 @@
 -- - La configuración detallada vive en `lua/<categoria>/<plugin>-config/init.lua`
 --   (por ejemplo: `lua/tools/toggleterm-config/init.lua`).
 
+-- Get platform dependant build script
+local function tabnine_build_path()
+  -- Replace vim.uv with vim.loop if using NVIM 0.9.0 or below
+  if vim.uv.os_uname().sysname == "Windows_NT" then
+    return "pwsh.exe -file .\\dl_binaries.ps1"
+  else
+    return "./dl_binaries.sh"
+  end
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- Bootstrap lazy.nvim automatically if it is not installed yet.
 if not vim.uv.fs_stat(lazypath) then
@@ -255,8 +265,7 @@ require("lazy").setup({
     end,
   },
   'eandrju/cellular-automaton.nvim',
-  {'tzachar/cmp-tabnine', build = './install.sh', dependencies = 'hrsh7th/nvim-cmp'},
---  { 'codota/tabnine-nvim', build = "./dl_binaries.sh", enabled = not vscode },
+  { 'codota/tabnine-nvim', build = tabnine_build_path(), enabled = not vscode },
   'ray-x/cmp-treesitter',
   'ray-x/lsp_signature.nvim',
   'octaltree/cmp-look',
@@ -343,15 +352,6 @@ require("lazy").setup({
       or "make",
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
-  ---@module 'avante'
-  ---@type avante.Config
-  opts = {
-    -- add any opts here
-    -- this file can contain specific instructions for your project
-    instructions_file = "avante.md",
-    -- for example
-    provider = "copilot",
-  },
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
