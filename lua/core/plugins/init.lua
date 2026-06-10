@@ -7,7 +7,7 @@
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- Bootstrap lazy.nvim automatically if it is not installed yet.
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -21,7 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- En modo VSCode, varios plugins usan `enabled = not vscode` para no cargar
 -- integraciones que dependen de TUI nativa, floating windows o terminal embebida.
-local vscode = vim.g.vscode == 1
+local vscode = vim.g.vscode ~= nil and vim.g.vscode ~= false and vim.g.vscode ~= 0
 
 -- Registro único de plugins para todo el setup.
 -- Si una funcionalidad "no aparece", primero revisar si su spec está aquí y
@@ -42,7 +42,7 @@ require("lazy").setup({
   'williamboman/mason.nvim',
   'nvimtools/none-ls.nvim',
   'smjonas/live-command.nvim',
-{
+  {
   'stevearc/aerial.nvim',
   opts = {},
   -- Optional dependencies
@@ -51,8 +51,7 @@ require("lazy").setup({
      "nvim-tree/nvim-web-devicons"
   },
 },
-  {'stevearc/aerial.nvim',opts = {},},
-  {
+    {
   "emmanueltouzery/decisive.nvim",
   config = function()
     require('decisive').setup{}
@@ -82,14 +81,13 @@ require("lazy").setup({
   {'VonHeikemen/lsp-zero.nvim'},
   {'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim'},
   {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', lazy = false, enabled = not vscode},
-  {'tamton-aquib/staline.nvim', dependencies = {'kyazdani42/nvim-web-devicons',lazy = true} },
+  {'tamton-aquib/staline.nvim', dependencies = {'nvim-tree/nvim-web-devicons'} },
   {"LinArcX/telescope-command-palette.nvim" },
   {"neanias/telescope-lines.nvim", dependencies = "nvim-telescope/telescope.nvim",},
   -- UI navigation and editing helpers.
-  {'akinsho/bufferline.nvim',version="*", dependencies = 'kyazdani42/nvim-web-devicons'},
-  -- {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' },
-  {'windwp/nvim-ts-autotag', event = "InsertEnter", after = "nvim-treesitter" },
-  {'windwp/nvim-autopairs', config = true, event="InsertEnter", after = "nvim-cmp", enabled = not vscode},
+  {'akinsho/bufferline.nvim',version="*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  {'windwp/nvim-ts-autotag', event = "InsertEnter", dependencies = "nvim-treesitter/nvim-treesitter" },
+  {'windwp/nvim-autopairs', config = true, event="InsertEnter", dependencies = "hrsh7th/nvim-cmp", enabled = not vscode},
   {'folke/which-key.nvim', event = "BufWinEnter", config = function() require('ui.whichkey-config') end, enabled = not vscode },
   'nvim-telescope/telescope.nvim',
   'LinArcX/telescope-env.nvim',
@@ -107,7 +105,7 @@ require("lazy").setup({
 },
   -- Completion, diagnostics, and session helpers.
   'williamboman/mason-lspconfig.nvim',
-  { 'neovim/nvim-lspconfig', requires = {'williamboman/mason.nvim','williamboman/mason-lspconfig.nvim','j-hui/fidget.nvim', }, },
+  { 'neovim/nvim-lspconfig', dependencies = {'williamboman/mason.nvim','williamboman/mason-lspconfig.nvim','j-hui/fidget.nvim', }, },
   {"MattiasMTS/cmp-dbee",dependencies = {{"kndndrj/nvim-dbee"}},ft = "sql", opts = {}, },
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -115,8 +113,18 @@ require("lazy").setup({
   'danielvolchek/tailiscope.nvim',
   'f3fora/cmp-spell',
   'uga-rosa/cmp-dictionary',
-  {"Dosx001/cmp-commit", requires = "hrsh7th/nvim-cmp"},
-  {"hrsh7th/nvim-cmp", requires = {"KadoBOT/cmp-plugins", config = function() require("cmp-plugins").setup({ files = { ".*\\.lua" }  }) end, }},
+  {"Dosx001/cmp-commit", dependencies = "hrsh7th/nvim-cmp"},
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      {
+        "KadoBOT/cmp-plugins",
+        config = function()
+          require("cmp-plugins").setup({ files = { ".*\\.lua" } })
+        end,
+      },
+    },
+  },
   {'quangnguyen30192/cmp-nvim-tags', ft = {'kotlin','java'} },
   'folke/lua-dev.nvim',
   'folke/trouble.nvim',
@@ -157,7 +165,7 @@ require("lazy").setup({
   'hrsh7th/vim-vsnip-integ',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
-  {'David-Kunz/cmp-npm', requires = {'nvim-lua/plenary.nvim' } },
+  {'David-Kunz/cmp-npm', dependencies = {'nvim-lua/plenary.nvim' } },
   'tamago324/cmp-zsh',
   'norcalli/nvim-colorizer.lua',
   'lewis6991/gitsigns.nvim',
@@ -195,7 +203,7 @@ require("lazy").setup({
   {'akinsho/toggleterm.nvim', branch = 'main', config = function() require('tools.toggleterm-config') end, enabled = not vscode },
   {'numToStr/Comment.nvim', config = function() require('Comment') end, enabled = not vscode },
   'jeffkreeftmeijer/vim-numbertoggle',
-  {'glepnir/lspsaga.nvim', branch = "main" },
+  {'nvimdev/lspsaga.nvim', branch = "main" },
   {'folke/zen-mode.nvim', config = function() require("ui.zen-mode-config") end, enabled = not vscode },
   {'folke/twilight.nvim', config = function() require("ui.twilight-config") end, enabled = not vscode },
   'lambdalisue/suda.vim',
@@ -203,7 +211,7 @@ require("lazy").setup({
   'hashivim/vim-terraform',
   'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
-  'kyazdani42/nvim-web-devicons',
+  'nvim-tree/nvim-web-devicons',
   'scalameta/nvim-metals',
   'sudormrfbin/cheatsheet.nvim',
   {
@@ -227,7 +235,7 @@ require("lazy").setup({
   {'nvimdev/dashboard-nvim', enabled = not vscode },
   {
   "zbirenbaum/copilot.lua",
-  requires = {
+  dependencies = {
     "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
   },
   cmd = "Copilot",
@@ -253,14 +261,13 @@ require("lazy").setup({
   'ray-x/lsp_signature.nvim',
   'octaltree/cmp-look',
   'crispgm/telescope-heading.nvim',
-  'nvim-telescope/telescope-packer.nvim',
   'nvim-telescope/telescope-vimspector.nvim',
   'fannheyward/telescope-coc.nvim',
   'axieax/urlview.nvim',
   -- Linting, debugger UI, and run-time inspection tools.
   'mfussenegger/nvim-lint',
   'nvim-neotest/nvim-nio',
-  { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
   'rcarriga/nvim-notify',
   'rcarriga/cmp-dap',
   'theHamsta/nvim-dap-virtual-text',
@@ -274,7 +281,7 @@ require("lazy").setup({
   'mfussenegger/nvim-dap-python',
   'mfussenegger/nvim-jdtls',
   'nvim-telescope/telescope-media-files.nvim',
-  {'nvim-telescope/telescope-z.nvim', requires = { { 'nvim-lua/plenary.nvim' }, { 'nvim-lua/popup.nvim' }, { 'nvim-telescope/telescope.nvim' } } },
+  {'nvim-telescope/telescope-z.nvim', dependencies = { { 'nvim-lua/plenary.nvim' }, { 'nvim-lua/popup.nvim' }, { 'nvim-telescope/telescope.nvim' } } },
   'softinio/scaladex.nvim',
   'onsails/lspkind-nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
