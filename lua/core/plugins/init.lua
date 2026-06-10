@@ -238,7 +238,7 @@ require("lazy").setup({
   dependencies = {
     "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
   },
-  cmd = "Copilot",
+  cmd = "Copilot enable",
   event = "InsertEnter",
   },
   {
