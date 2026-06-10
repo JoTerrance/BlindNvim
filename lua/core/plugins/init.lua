@@ -84,6 +84,14 @@ require("lazy").setup({
   dependencies = { { "echasnovski/mini.icons", opts = {} } },
   -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 },
+  -- Shared dependency plugins used by multiple specs.
+  -- Keep them top-level so the repo still installs them explicitly.
+  'nvim-lua/popup.nvim',
+  'nvim-lua/plenary.nvim',
+  'nvim-tree/nvim-web-devicons',
+  'nvim-neotest/nvim-nio',
+  'MunifTanjim/nui.nvim',
+  'stevearc/dressing.nvim',
   -- LSP, DAP, and language tooling foundation.
   "jay-babu/mason-null-ls.nvim",
   'mfussenegger/nvim-dap',
@@ -219,9 +227,6 @@ require("lazy").setup({
   'lambdalisue/suda.vim',
   'Shougo/vimproc.vim',
   'hashivim/vim-terraform',
-  'nvim-lua/popup.nvim',
-  'nvim-lua/plenary.nvim',
-  'nvim-tree/nvim-web-devicons',
   'scalameta/nvim-metals',
   'sudormrfbin/cheatsheet.nvim',
   {
@@ -275,7 +280,6 @@ require("lazy").setup({
   'axieax/urlview.nvim',
   -- Linting, debugger UI, and run-time inspection tools.
   'mfussenegger/nvim-lint',
-  'nvim-neotest/nvim-nio',
   { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
   'rcarriga/nvim-notify',
   'rcarriga/cmp-dap',
