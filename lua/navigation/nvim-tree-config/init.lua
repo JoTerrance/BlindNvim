@@ -236,4 +236,6 @@ local normal ={
   },
 }
 
-require'nvim-tree'.setup(BlindReturn(blind ,normal))
+local config = BlindReturn(blind, normal)
+config.on_attach = on_attach
+require'nvim-tree'.setup(config)

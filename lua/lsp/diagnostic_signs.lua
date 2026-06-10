@@ -8,6 +8,15 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
+vim.diagnostic.config({
+  underline = true,
+  virtual_text = {
+    spacing = 5,
+    severity = { min = vim.diagnostic.severity.WARN },
+  },
+  update_in_insert = true,
+})
+
 
 local group = vim.api.nvim_create_augroup('OoO', {})
 
