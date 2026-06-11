@@ -29,7 +29,7 @@ local icons = {
   workspace = BlindReturn("WS", "󰙅"),
   format = BlindReturn("FMT", "ﭧ"),
   open = BlindReturn("OPEN", ""),
-  insert = BlindReturn("INS", "󰏪"),
+  http = BlindReturn("HTTP", "󰖟"),
   utilities = BlindReturn("UTIL", "󰘥"),
   focus = BlindReturn("FOCUS", "󰍹"),
   refactor = BlindReturn("REFACTOR", "󰛿"),
@@ -230,6 +230,9 @@ wk.add({
   { "<space>uKs", "<cmd>Kubectl services<cr>", desc = "Services" },
   { "<space>uKd", "<cmd>Kubectl deployments<cr>", desc = "Deployments" },
   { "<space>uKn", "<cmd>Kubectl namespaces<cr>", desc = "Namespaces" },
+  { "<space>uH", group = "HTTP", icon = icons.http },
+  { "<space>uHa", "<cmd>Hyper<cr>", desc = "Open Request" },
+  { "<space>uHi", "<cmd>HyperJump<cr>", desc = "Jump Request" },
 
   -- Database
   { "<space>ud", group = "Database", icon = icons.database },
@@ -398,11 +401,6 @@ wk.add({
   { "<space>ov", "<cmd>vsplit<cr>", desc = "Vertical Split" },
   { "<space>ot", "<cmd>tabnew<cr>", desc = "Tab" },
   { "<space>ow", "<cmd>new<cr>", desc = "Window" },
-
-  -- Insert
-  { "<space>i", group = "HTTP", icon = icons.insert },
-  { "<space>ia", "<cmd>Hyper<cr>", desc = "Open Request" },
-  { "<space>ii", "<cmd>HyperJump<cr>", desc = "Jump Request" },
 
   -- Utilities
   { "<space>U", group = "Utilities", icon = icons.utilities },
