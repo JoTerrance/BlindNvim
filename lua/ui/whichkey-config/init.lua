@@ -13,7 +13,10 @@ local icons = {
   tools = BlindReturn("TOOLS", ""),
   cmake = BlindReturn("CMAKE", ""),
   devcontainer = BlindReturn("DEV", ""),
+  lazy = BlindReturn("LAZY", "󰒲"),
   database = BlindReturn("DB", "󰆼"),
+  mason = BlindReturn("MASON", "󰏖"),
+  kubectl = BlindReturn("K8S", ""),
   treesitter = BlindReturn("TS", ""),
   java = BlindReturn("JAVA", ""),
   git = BlindReturn("GIT", ""),
@@ -30,6 +33,10 @@ local icons = {
   utilities = BlindReturn("UTIL", "󰘥"),
   focus = BlindReturn("FOCUS", "󰍹"),
   refactor = BlindReturn("REFACTOR", "󰛿"),
+  fzf = BlindReturn("FZF", ""),
+  todo = BlindReturn("TODO", "󰄲"),
+  undo = BlindReturn("UNDO", ""),
+  translate = BlindReturn("TR", ""),
 }
 
 local conf = {
@@ -140,6 +147,17 @@ wk.add({
   { "<space>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
   { "<space>sp", "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>", desc = "Colorscheme Preview" },
   { "<space>st", "<cmd>Telescope live_grep<cr>", desc = "Text" },
+  { "<space>sF", group = "FZF", icon = icons.fzf },
+  { "<space>sFf", "<cmd>FzfLua files<cr>", desc = "Files" },
+  { "<space>sFb", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+  { "<space>sFg", "<cmd>FzfLua live_grep<cr>", desc = "Live Grep" },
+  { "<space>sFr", "<cmd>FzfLua resume<cr>", desc = "Resume" },
+  { "<space>sT", group = "TODO", icon = icons.todo },
+  { "<space>sTt", "<cmd>TodoTelescope<cr>", desc = "Telescope" },
+  { "<space>sTq", "<cmd>TodoQuickFix<cr>", desc = "Quickfix" },
+  { "<space>sTl", "<cmd>TodoLocList<cr>", desc = "Loclist" },
+  { "<space>sTn", "]t", desc = "Next" },
+  { "<space>sTp", "[t", desc = "Prev" },
   { "<space>sx", group = "Telescope Extras", icon = icons.telescope },
   { "<space>sxb", "<cmd>Telescope bookmarks<cr>", desc = "Bookmarks" },
   { "<space>sxd", "<cmd>Telescope docker<cr>", desc = "Docker" },
@@ -180,6 +198,24 @@ wk.add({
   { "<space>uDS", "<cmd>DevcontainerStop<cr>", desc = "Stop" },
   { "<space>uDs", "<cmd>DevcontainerStart<cr>", desc = "Start" },
   { "<space>uDt", "<cmd>DevcontainerToggle<cr>", desc = "Toggle Terminal" },
+  { "<space>uL", group = "Lazy", icon = icons.lazy },
+  { "<space>uLo", "<cmd>Lazy<cr>", desc = "Open" },
+  { "<space>uLs", "<cmd>Lazy sync<cr>", desc = "Sync" },
+  { "<space>uLu", "<cmd>Lazy update<cr>", desc = "Update" },
+  { "<space>uLc", "<cmd>Lazy clean<cr>", desc = "Clean" },
+  { "<space>uLi", "<cmd>Lazy install<cr>", desc = "Install" },
+  { "<space>uM", group = "Mason", icon = icons.mason },
+  { "<space>uMo", "<cmd>Mason<cr>", desc = "Open" },
+  { "<space>uMi", "<cmd>MasonInstall<cr>", desc = "Install" },
+  { "<space>uMu", "<cmd>MasonUpdate<cr>", desc = "Update" },
+  { "<space>uMl", "<cmd>MasonLog<cr>", desc = "Log" },
+  { "<space>uMc", "<cmd>MasonUninstall<cr>", desc = "Uninstall" },
+  { "<space>uK", group = "Kubectl", icon = icons.kubectl },
+  { "<space>uKm", "<cmd>Kubectl<cr>", desc = "Main Menu" },
+  { "<space>uKp", "<cmd>Kubectl pods<cr>", desc = "Pods" },
+  { "<space>uKs", "<cmd>Kubectl services<cr>", desc = "Services" },
+  { "<space>uKd", "<cmd>Kubectl deployments<cr>", desc = "Deployments" },
+  { "<space>uKn", "<cmd>Kubectl namespaces<cr>", desc = "Namespaces" },
 
   -- Database
   { "<space>ud", group = "Database", icon = icons.database },
@@ -218,7 +254,7 @@ wk.add({
   { "<space>uji", "<Cmd>lua require'jdtls'.organize_imports()<CR>", desc = "Organize Imports" },
   { "<space>ujn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", desc = "Test Nearest Method" },
   { "<space>ujT", "<Cmd>lua require'jdtls'.test_class()<CR>", desc = "Test Class" },
-  { "<space>ujs", "<Cmd>lua require('telescope').extensions.scaladex.scaladex.search()<cr>", desc = "Scaladex Search" },
+  { "<space>ujs", "<Cmd>lua require('telescope').extensions.scaladex.scaladex.search()<cr>", desc = "Scaladex Search", icon = icons.search },
 
   -- Git
   { "<space>ug", group = "Git", icon = icons.git },
@@ -348,6 +384,8 @@ wk.add({
   { "<space>eJ", ":m .+1<CR>==", desc = "Move Line Down" },
   { "<space>eK", ":m .-2<CR>==", desc = "Move Line Up" },
   { "<space>eL", ":m >", desc = "Move Line Right" },
+  { "<space>eu", "<cmd>UndotreeToggle<cr>", desc = "Undo Tree", icon = icons.undo },
+  { "<space>et", "<cmd>TranslateW<cr>", desc = "Translate Word", icon = icons.translate },
 
   -- Workspace
   { "<space>W", group = "Workspace", icon = icons.workspace },
@@ -357,7 +395,7 @@ wk.add({
 
   -- Format
   { "<space>f", group = "Format", icon = icons.format },
-  { "<space>ff", "<cmd>lua vim.lsp.buf.format()<CR>", desc = "Format Buffer" },
+  { "<space>ff", "<cmd>Format<cr>", desc = "Format Buffer" },
   { "<space>fi", "<cmd>ConformInfo<cr>", desc = "Conform Info" },
 
   -- Open
