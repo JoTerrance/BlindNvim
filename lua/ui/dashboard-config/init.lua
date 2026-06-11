@@ -10,7 +10,7 @@ require('dashboard').setup {
     change_to_vcs_root = false, -- default is false,for open file in hyper mru. it will change to the root of vcs
     config = {
     week_header = {
-        enable = true,
+        enable = BlindReturn(false, true),
     },
       shortcut = {
         { desc = BlindReturn('Update', '󰊳 Update'), group = '@property', action = 'Lazy update', key = 'u' },

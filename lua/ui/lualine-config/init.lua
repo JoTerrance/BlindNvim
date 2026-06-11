@@ -3,7 +3,7 @@
 
   require('lualine').setup({
     options = {
-      theme = 'vscode', 
+      theme = 'auto', 
       icons_enabled = BlindReturn( false, true),
       component_separators = BlindReturn({left = '', right = ''} ,{ left = '', right = ''}),
       section_separators = BlindReturn({left = '', right = ''} , { left = '', right = ''}),
