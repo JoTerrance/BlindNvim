@@ -10,12 +10,12 @@ require('dashboard').setup {
     change_to_vcs_root = false, -- default is false,for open file in hyper mru. it will change to the root of vcs
     config = {
     week_header = {
-        enable = true,
+        enable = BlindReturn(false, true),
     },
       shortcut = {
-        { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
+        { desc = BlindReturn('Update', '󰊳 Update'), group = '@property', action = 'Lazy update', key = 'u' },
         {
-          icon = ' ',
+         icon = BlindReturn('FILES', ' '),
           icon_hl = '@variable',
           desc = 'Files',
           group = 'Label',
@@ -24,7 +24,7 @@ require('dashboard').setup {
         },
         
         {
-            icon = ' ',
+           icon = BlindReturn('RECENT', ' '),
             icon_hl = '@variable',
           desc = 'Recent files',
           group = 'Label',
@@ -32,7 +32,7 @@ require('dashboard').setup {
           key = 'r',
         },
         {
-        icon = ' ',
+        icon = BlindReturn('APPS', ' '),
         icon_hl = '@variable',
           desc = 'Apps',
           group = 'DiagnosticHint',
@@ -40,7 +40,7 @@ require('dashboard').setup {
           key = 'a',
         },
         {
-          icon = ' ',
+         icon = BlindReturn('DOTS', ' '),
           icon_hl = '@variable',
           desc = 'dotfiles',
           group = 'Number',
@@ -52,8 +52,8 @@ require('dashboard').setup {
         -- limit how many projects list, action when you press key or enter it will run this action.
         -- action can be a function type, e.g.
         -- action = func(path) vim.cmd('Telescope find_files cwd=' .. path) end
-        project = { enable = true, limit = 8, icon = ' ', label = 'projects', action = 'Telescope find_files cwd=' },
-        mru = { enable = true, limit = 10, icon = ' ', label = 'recent', cwd_only = false },
+        project = { enable = true, limit = 8, icon = BlindReturn('PROJECTS', ' '), label = 'projects', action = 'Telescope find_files cwd=' },
+        mru = { enable = true, limit = 10, icon = BlindReturn('RECENT', ' '), label = 'recent', cwd_only = false },
         footer = {}, -- footer
 
     },       -- config used for theme

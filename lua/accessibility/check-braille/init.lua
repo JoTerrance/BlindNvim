@@ -12,6 +12,24 @@ local function run_command(cmd)
   return result or ""
 end
 
+local function env_flag(name)
+  local value = vim.env[name]
+  if value == nil then
+    return nil
+  end
+
+  value = tostring(value):lower()
+  if value == "" then
+    return nil
+  end
+
+  if value == "0" or value == "false" or value == "no" or value == "off" then
+    return false
+  end
+
+  return true
+end
+
 local function has_braille_device()
   local found = false
   local details = {}
@@ -60,8 +78,23 @@ local function has_braille_device()
   end
 end
 
+local function is_visual_impairing()
+  local override = env_flag("BLINDNIM_VISUAL_IMPAIRING")
+  if override ~= nil then
+    return override
+  end
+
+  local global_override = vim.g.visual_impairing
+  if global_override ~= nil then
+    return not not global_override
+  end
+
+  return has_braille_device()
+end
+
 -- Export module table so callers can use the function when requiring this file
 local M = {}
 M.has_braille_device = has_braille_device
+M.is_visual_impairing = is_visual_impairing
 
 return M

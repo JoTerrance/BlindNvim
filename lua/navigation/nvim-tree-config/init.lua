@@ -117,14 +117,17 @@ local function on_attach(bufnr)
 
 end
 
-if (vim.g.visual_impairing) then
-vim.g.nvim_tree_show_icons = {
+vim.g.nvim_tree_show_icons = BlindReturn({
   folders = 0,
   files = 0,
   git = 0,
   folder_arrows = 0,
-}
-end
+}, {
+  folders = 1,
+  files = 1,
+  git = 1,
+  folder_arrows = 1,
+})
 local function open_nvim_tree()
 
   -- open the tree
@@ -141,12 +144,17 @@ local blind={
   update_cwd          = false,
   diagnostics = {
     enable = false,
-    icons = {
+    icons = BlindReturn({
+      hint = "hint",
+      info = "info",
+      warning = "warn",
+      error = "err",
+    }, {
       hint ="?",
       info ="I",
       warning ="W",
       error ="E",
-    }
+    })
   },
   update_focused_file = {
     enable      = false,
@@ -198,12 +206,17 @@ local normal ={
   update_cwd          = false,
   diagnostics = {
     enable = false,
-    icons = {
+    icons = BlindReturn({
+      hint = "hint",
+      info = "info",
+      warning = "warn",
+      error = "err",
+    }, {
       hint ="",
       info ="",
       warning ="",
       error ="",
-    }
+    })
   },
   update_focused_file = {
     enable      = false,

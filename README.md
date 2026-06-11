@@ -12,6 +12,12 @@ Requisitos
 - Linux (recomendado). Esta configuración está pensada para entornos tipo Unix.
 - Git. En Windows algunas integraciones pueden requerir PowerShell o WSL.
 
+Modo accesible y simulación
+- La configuración usa `BlindReturn(...)` para elegir variantes más limpias cuando detecta un entorno braille.
+- Para simular la experiencia sin hardware, arranca Neovim con `BLINDNIM_VISUAL_IMPAIRING=1`.
+- Para forzar el modo normal, usa `BLINDNIM_VISUAL_IMPAIRING=0`.
+- Prioridad de detección: variable de entorno > `vim.g.visual_impairing` > detección automática de braille.
+
 Compatibilidad de plataformas
 - Plataforma principal: Linux. Muchos plugins y utilidades asumen herramientas Unix (ripgrep, fd, make, etc.).
 - Windows: puede funcionar parcialmente, pero varios plugins (terminal integraciones, herramientas de building, soporte de rutas) pueden no funcionar sin adaptaciones. Se recomienda usar WSL2 para una experiencia más fiel a Linux.
@@ -57,5 +63,4 @@ Contacto
 - Abre un issue en el repositorio para preguntas o reportes de errores.
 
 Gracias por usar y contribuir a BlindNeoVim.
-
 

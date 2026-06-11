@@ -32,12 +32,77 @@ vim.opt.rtp:prepend(lazypath)
 -- En modo VSCode, varios plugins usan `enabled = not vscode` para no cargar
 -- integraciones que dependen de TUI nativa, floating windows o terminal embebida.
 local vscode = vim.g.vscode ~= nil and vim.g.vscode ~= false and vim.g.vscode ~= 0
+local lazy_ui = BlindReturn({
+  size = { width = 1, height = 1 },
+  wrap = false,
+  border = "none",
+  backdrop = 0,
+  title = nil,
+  title_pos = "center",
+  pills = false,
+  icons = {
+    cmd = "cmd",
+    config = "config",
+    debug = "debug",
+    event = "event",
+    favorite = "fav",
+    ft = "ft",
+    init = "init",
+    import = "import",
+    keys = "keys",
+    lazy = "lazy",
+    loaded = "loaded",
+    not_loaded = "not loaded",
+    plugin = "plugin",
+    runtime = "runtime",
+    require = "require",
+    source = "source",
+    start = "start",
+    task = "task",
+    list = { "-", ">", "*", "-" },
+  },
+}, {
+  size = { width = 0.8, height = 0.8 },
+  wrap = true,
+  border = "none",
+  backdrop = 60,
+  title = nil,
+  title_pos = "center",
+  pills = true,
+  icons = {
+    cmd = " ",
+    config = "",
+    debug = "● ",
+    event = " ",
+    favorite = " ",
+    ft = " ",
+    init = " ",
+    import = " ",
+    keys = " ",
+    lazy = "󰒲 ",
+    loaded = "●",
+    not_loaded = "○",
+    plugin = " ",
+    runtime = " ",
+    require = "󰢱 ",
+    source = " ",
+    start = " ",
+    task = "✔ ",
+    list = {
+      "●",
+      "➜",
+      "★",
+      "‒",
+    },
+  },
+})
 
 -- Registro único de plugins para todo el setup.
 -- Si una funcionalidad "no aparece", primero revisar si su spec está aquí y
 -- luego validar su módulo `*-config` correspondiente.
 require("lazy").setup({
-  --'wbthomason/packer.nvim', -> Deprecated
+  ui = lazy_ui,
+  spec = {
   -- Core editing quality-of-life plugins.
   'ibhagwan/smartyank.nvim',
   'pteroctopus/faster.nvim',
@@ -75,15 +140,7 @@ require("lazy").setup({
     { ']c', ":lua require('decisive').align_csv_next_col()<cr>",         { silent = true }, desc = "Align CSV next col", mode = 'n' },
     }
   },
-  {
-  'stevearc/oil.nvim',
-  ---@module 'oil'
-  ---@type oil.SetupOpts
-  opts = {},
-  -- Optional dependencies
-  dependencies = { { "echasnovski/mini.icons", opts = {} } },
-  -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-},
+  {'stevearc/oil.nvim',opts = {}, dependencies = { { "echasnovski/mini.icons", opts = {} } },},
   -- LSP, DAP, and language tooling foundation.
   "jay-babu/mason-null-ls.nvim",
   'jayp0521/mason-nvim-dap.nvim',
@@ -108,7 +165,7 @@ require("lazy").setup({
     require("dbee").install()
   end,
   config = function()
-    require("dbee").setup(--[[optional config]])
+    require("tools.dbee-config")
   end,
 },
   -- Completion, diagnostics, and session helpers.
@@ -160,6 +217,15 @@ require("lazy").setup({
         quickfile = { enabled = false },
         statuscolumn = { enabled = false },
         words = { enabled = false },
+      }, {
+        ui = BlindReturn({
+          fullscreen = true,
+          border = "none",
+          size = {
+            width = 1,
+            height = 1,
+          },
+        }, {}),
       })
     end,
   },
@@ -279,7 +345,13 @@ require("lazy").setup({
   'mbbill/undotree',
   'voldikss/vim-translator',
   'tpope/vim-dadbod',
-  'kristijanhusak/vim-dadbod-ui',
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    cmd = { 'DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer' },
+    config = function()
+      require('tools.dadbod-ui-config')
+    end,
+  },
   'kristijanhusak/vim-dadbod-completion',
   'mfussenegger/nvim-dap-python',
   'mfussenegger/nvim-jdtls',
@@ -384,6 +456,6 @@ require("lazy").setup({
       ft = { "markdown", "Avante" },
     },
   },
-}
-
+},
+},
 })

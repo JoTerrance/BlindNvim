@@ -30,6 +30,8 @@ local icons = {
   format = BlindReturn("FMT", "ﭧ"),
   open = BlindReturn("OPEN", ""),
   insert = BlindReturn("INS", "󰏪"),
+  http = BlindReturn("HTTP", "󰖟"),
+  clipboard = BlindReturn("CLIP", ""),
   utilities = BlindReturn("UTIL", "󰘥"),
   focus = BlindReturn("FOCUS", "󰍹"),
   refactor = BlindReturn("REFACTOR", "󰛿"),
@@ -71,15 +73,16 @@ local conf = {
     scroll_up = '<c-u>', -- binding to scroll up inside the popup
   },
   win = {
-    padding = { 1, 0 }, -- extra window padding [top, right, bottom, left]
+    padding = BlindReturn({ 0, 0 }, { 1, 0 }), -- extra window padding [top, right, bottom, left]
+    height = BlindReturn({ min = 0.9, max = 0.98 }, { min = 4, max = 25 }),
   },
   layout = {
     height = { min = 100, max = 125 }, -- min and max height of the columns
-    width = { min = 20, max = 50 }, -- min and max width of the columns
-    spacing = 2, -- spacing between columns
+    width = BlindReturn({ min = 999 }, { min = 20, max = 50 }), -- min and max width of the columns
+    spacing = BlindReturn(1, 2), -- spacing between columns
     align = "left", -- align columns left, center or right
   },
-  show_help = true, -- show help message on the command line when the popup is visible
+  show_help = BlindReturn(false, true), -- show help message on the command line when the popup is visible
   -- triggers = {"<leader>"} -- or specify a list manually
   triggers = {
     { "<auto>", mode = "nxso" },
@@ -96,6 +99,23 @@ local toggle_lazygit = function()
   local lazygit = Terminal:new({cmd = 'lazygit', direction = "float"})
   return lazygit:toggle()
 end
+local dbee = require("dbee")
+local devcontainer_commands = require("devcontainer.commands")
+
+local function dbee_execute_query()
+  local query = vim.fn.input("Dbee query: ")
+  if query ~= "" then
+    dbee.execute(query)
+  end
+end
+
+local function devcontainer_build_attach()
+  devcontainer_commands.docker_build_run_and_attach()
+end
+
+local function copilot_toggle_auto_trigger()
+  require("copilot.suggestion").toggle_auto_trigger()
+end
 
 wk.add({
   -- Core
@@ -110,7 +130,7 @@ wk.add({
   { "<space>bn", "<cmd>BufferLineCycleNext<cr>", desc = "Next" },
   { "<space>bf", "<cmd>Telescope buffers<cr>", desc = "Find" },
   { "<space>bj", "<cmd>BufferLinePick<cr>", desc = "Jump" },
-  { "<space>bc", "<cmd>BufferKill<CR>", desc = "Close" },
+  { "<space>bc", "<cmd>bd<cr>", desc = "Close" },
   { "<space>be", "<cmd>BufferLinePickClose<cr>", desc = "Pick to Close" },
   { "<space>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Left" },
   { "<space>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close Right" },
@@ -189,15 +209,15 @@ wk.add({
   { "<space>uCs", "<cmd>CMakeSelectBuildTarget<cr>", desc = "Select Target" },
   { "<space>uD", group = "DevContainer", icon = icons.devcontainer },
   { "<space>uDa", "<cmd>DevcontainerAttach<cr>", desc = "Attach" },
-  { "<space>uDb", "<cmd>DevcontainerBuild<cr>", desc = "Build" },
-  { "<space>uDc", "<cmd>DevcontainerConnect<cr>", desc = "Connect" },
+  { "<space>uDb", devcontainer_build_attach, desc = "Build & Attach" },
+  { "<space>uDc", "<cmd>DevcontainerStart<cr>", desc = "Start" },
   { "<space>uDe", "<cmd>DevcontainerExec<cr>", desc = "Exec" },
   { "<space>uDl", "<cmd>DevcontainerLogs<cr>", desc = "Logs" },
-  { "<space>uDo", "<cmd>DevcontainerOpen<cr>", desc = "Open Config" },
-  { "<space>uDr", "<cmd>DevcontainerRemove<cr>", desc = "Remove" },
-  { "<space>uDS", "<cmd>DevcontainerStop<cr>", desc = "Stop" },
-  { "<space>uDs", "<cmd>DevcontainerStart<cr>", desc = "Start" },
-  { "<space>uDt", "<cmd>DevcontainerToggle<cr>", desc = "Toggle Terminal" },
+  { "<space>uDo", "<cmd>DevcontainerEditNearestConfig<cr>", desc = "Open Config" },
+  { "<space>uDr", "<cmd>DevcontainerRemoveAll<cr>", desc = "Remove All" },
+  { "<space>uDS", "<cmd>DevcontainerStopAll<cr>", desc = "Stop All" },
+  { "<space>uDs", "<cmd>DevcontainerStop<cr>", desc = "Stop" },
+  { "<space>uDt", "<cmd>DevcontainerStart<cr>", desc = "Restart" },
   { "<space>uL", group = "Lazy", icon = icons.lazy },
   { "<space>uLo", "<cmd>Lazy<cr>", desc = "Open" },
   { "<space>uLs", "<cmd>Lazy sync<cr>", desc = "Sync" },
@@ -216,36 +236,25 @@ wk.add({
   { "<space>uKs", "<cmd>Kubectl services<cr>", desc = "Services" },
   { "<space>uKd", "<cmd>Kubectl deployments<cr>", desc = "Deployments" },
   { "<space>uKn", "<cmd>Kubectl namespaces<cr>", desc = "Namespaces" },
+  { "<space>uH", group = "HTTP", icon = icons.http },
+  { "<space>uHa", "<cmd>Hyper<cr>", desc = "Open Request" },
+  { "<space>uHi", "<cmd>HyperJump<cr>", desc = "Jump Request" },
 
   -- Database
   { "<space>ud", group = "Database", icon = icons.database },
-  { "<space>udC", ":DBUIConnect<cr>", desc = "Connect" },
-  { "<space>udD", ":DBUIDisconnect<cr>", desc = "Disconnect" },
-  { "<space>udE", ":DBUIExecute<cr>", desc = "Execute" },
-  { "<space>uda", ":DBUIAddConnection<cr>", desc = "Add Connection" },
-  { "<space>udp", "<cmd>Dbee<cr>", desc = "Dbee" },
-  { "<space>ude", ":DBUIEditConnection<cr>", desc = "Edit Connection" },
-  { "<space>udf", ":DBUIFindBuffer<cr>", desc = "Find Buffer" },
-  { "<space>udi", ":DBUI<cr>", desc = "Open UI" },
-  { "<space>udI", ":DBUILastQueryInfo<cr>", desc = "Last Query Info" },
-  { "<space>udl", ":DBUIListConnections<cr>", desc = "List Connections" },
-  { "<space>udn", ":DBUINewQuery<cr>", desc = "New Query" },
-  { "<space>udo", ":DBUIOpen<cr>", desc = "Open" },
-  { "<space>udq", ":DBUIQuickQuery<cr>", desc = "Quick Query" },
-  { "<space>udr", ":DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
-  { "<space>udR", ":DBUIRenameConnection<cr>", desc = "Rename Connection" },
-  { "<space>uds", ":DBUIShowHistory<cr>", desc = "History" },
-  { "<space>udt", ":DBUIToggleResults<cr>", desc = "Toggle Results" },
-  { "<space>udu", ":DBUIUseConnection<cr>", desc = "Use Connection" },
-  { "<space>udw", ":DBUIWhereAmI<cr>", desc = "Where Am I" },
-  { "<space>udd", ":DBUIDeleteConnection<cr>", desc = "Delete Connection" },
+  { "<space>udb", "<cmd>DBUI<cr>", desc = "Dadbod UI" },
+  { "<space>udi", "<cmd>Dbee<cr>", desc = "Toggle UI" },
+  { "<space>udo", "<cmd>Dbee open<cr>", desc = "Open UI" },
+  { "<space>udc", "<cmd>Dbee close<cr>", desc = "Close UI" },
+  { "<space>udq", dbee_execute_query, desc = "Execute Query" },
+  { "<space>uds", "<cmd>Dbee store<cr>", desc = "Store Result" },
 
   -- Treesitter
   { "<space>ut", group = "Treesitter", icon = icons.treesitter },
-  { "<space>uti", ":TSConfigInfo<cr>", desc = "Info" },
-  { "<space>utp", ":TSPlaygroundToggle<cr>", desc = "Playground" },
-  { "<space>utR", ":TSBufDisable highlight<cr>", desc = "Disable Highlight" },
-  { "<space>utr", ":TSBufEnable highlight<cr>", desc = "Enable Highlight" },
+  { "<space>uti", "<cmd>InspectTree<cr>", desc = "Inspect Tree" },
+  { "<space>utp", "<cmd>Inspect<cr>", desc = "Inspect" },
+  { "<space>utR", "<cmd>TSUpdate<cr>", desc = "Update Parsers" },
+  { "<space>utr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
 
   -- Java
   { "<space>uj", group = "Java", icon = icons.java },
@@ -276,21 +285,11 @@ wk.add({
   { "<space>ugFg", "<cmd>Fugit2Graph<cr>", desc = "Graph" },
   { "<space>ugFd", "<cmd>Fugit2Diff<cr>", desc = "Diff" },
   { "<space>ugG", group = "Git Commands", icon = icons.git },
-  { "<space>ugGa", ":GitAdd<cr>", desc = "Add" },
-  { "<space>ugGb", ":GitBranch<cr>", desc = "Branch" },
-  { "<space>ugGc", ":GitCommit<cr>", desc = "Commit" },
-  { "<space>ugGd", ":GitDiff<cr>", desc = "Diff" },
-  { "<space>ugGe", ":GitExport<cr>", desc = "Export" },
-  { "<space>ugGg", ":GitGrep<cr>", desc = "Grep" },
-  { "<space>ugGi", ":GitIgnore<cr>", desc = "Ignore" },
-  { "<space>ugGm", ":GitMerge<cr>", desc = "Merge" },
-  { "<space>ugGn", ":GitNew<cr>", desc = "New" },
-  { "<space>ugGp", ":GitPush<cr>", desc = "Push" },
-  { "<space>ugGr", ":GitRevert<cr>", desc = "Revert" },
-  { "<space>ugGs", ":GitStash<cr>", desc = "Stash" },
-  { "<space>ugGt", ":GitTag<cr>", desc = "Tag" },
-  { "<space>ugGu", ":GitPull<cr>", desc = "Pull" },
-  { "<space>ugGy", ":GitShow<cr>", desc = "Show" },
+  { "<space>ugGa", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
+  { "<space>ugGb", "<cmd>Telescope git_branches<cr>", desc = "Branches" },
+  { "<space>ugGc", "<cmd>Fugit2<cr>", desc = "Open Fugit2" },
+  { "<space>ugGd", "<cmd>DiffviewOpen<cr>", desc = "Diffview" },
+  { "<space>ugGh", "<cmd>DiffviewFileHistory<cr>", desc = "History" },
   { "<space>ugO", group = "GitHub", icon = icons.github },
   { "<space>ugOi", "<cmd>Octo issue list<cr>", desc = "Issues" },
   { "<space>ugOp", "<cmd>Octo pr list<cr>", desc = "Pull Requests" },
@@ -302,6 +301,12 @@ wk.add({
   { "<space>ae", "<cmd>AvanteEdit<cr>", desc = "Edit" },
   { "<space>ah", "<cmd>AvanteHistory<cr>", desc = "History" },
   { "<space>am", "<cmd>AvanteModels<cr>", desc = "Models" },
+  { "<space>ai", group = "Copilot", icon = icons.ai },
+  { "<space>aip", "<cmd>Copilot panel<cr>", desc = "Panel" },
+  { "<space>aie", "<cmd>Copilot enable<cr>", desc = "Enable" },
+  { "<space>aid", "<cmd>Copilot disable<cr>", desc = "Disable" },
+  { "<space>ais", "<cmd>Copilot status<cr>", desc = "Status" },
+  { "<space>ait", copilot_toggle_auto_trigger, desc = "Toggle Auto Trigger" },
 
   -- Terminal
   { "<space>t", group = "Terminal", icon = icons.terminal },
@@ -386,6 +391,13 @@ wk.add({
   { "<space>eL", ":m >", desc = "Move Line Right" },
   { "<space>eu", "<cmd>UndotreeToggle<cr>", desc = "Undo Tree", icon = icons.undo },
   { "<space>et", "<cmd>TranslateW<cr>", desc = "Translate Word", icon = icons.translate },
+  { "<space>eC", group = "Clipboard", icon = icons.clipboard },
+  { "<space>eCc", "<cmd>Telescope neoclip<cr>", desc = "Clipboard History" },
+  { "<space>eN", group = "Neogen", icon = icons.edit },
+  { "<space>eNg", "<cmd>Neogen<cr>", desc = "Generate Docs" },
+  { "<space>eNf", "<cmd>Neogen func<cr>", desc = "Generate Function Docs" },
+  { "<space>eS", group = "SSR", icon = icons.refactor },
+  { "<space>eSs", "<cmd>lua require('ssr').open()<cr>", desc = "Structural Replace" },
 
   -- Workspace
   { "<space>W", group = "Workspace", icon = icons.workspace },
@@ -395,50 +407,19 @@ wk.add({
 
   -- Format
   { "<space>f", group = "Format", icon = icons.format },
-  { "<space>ff", "<cmd>Format<cr>", desc = "Format Buffer" },
+  { "<space>ff", "<cmd>lua require('conform').format({ async = true, lsp_format = 'fallback' })<cr>", desc = "Format Buffer" },
   { "<space>fi", "<cmd>ConformInfo<cr>", desc = "Conform Info" },
 
   -- Open
   { "<space>o", group = "Open", icon = icons.open },
-  { "<space>oo", ":Open<cr>", desc = "Open" },
-  { "<space>oa", ":OpenAll<cr>", desc = "Open All" },
-  { "<space>ob", ":OpenNewHorizSplit<cr>", desc = "New Horizontal Split" },
-  { "<space>oc", ":OpenCwd<cr>", desc = "Open Cwd" },
-  { "<space>oC", ":OpenDir<cr>", desc = "Open Directory" },
-  { "<space>od", ":OpenWinDown<cr>", desc = "Open Down" },
-  { "<space>oe", ":OpenFile<cr>", desc = "Open File" },
-  { "<space>oh", ":OpenHorizSplit<cr>", desc = "Horizontal Split" },
-  { "<space>oj", ":OpenWinDown<cr>", desc = "Open Down" },
-  { "<space>ok", ":OpenWinUp<cr>", desc = "Open Up" },
-  { "<space>ol", ":OpenWinLeft<cr>", desc = "Open Left" },
-  { "<space>om", ":OpenNewPane<cr>", desc = "New Pane" },
-  { "<space>on", ":OpenNewTab<cr>", desc = "New Tab" },
-  { "<space>op", ":OpenPane<cr>", desc = "Pane" },
-  { "<space>oq", ":OpenNewWin<cr>", desc = "New Window" },
-  { "<space>or", ":OpenWinRight<cr>", desc = "Open Right" },
-  { "<space>os", ":OpenSplit<cr>", desc = "Split" },
-  { "<space>ot", ":OpenTab<cr>", desc = "Tab" },
-  { "<space>ou", ":OpenWinUp<cr>", desc = "Open Up" },
-  { "<space>ov", ":OpenVertSplit<cr>", desc = "Vertical Split" },
-  { "<space>ow", ":OpenWin<cr>", desc = "Window" },
-
-  -- Insert
-  { "<space>i", group = "Insert", icon = icons.insert },
-  { "<space>ia", ":InsertAll<cr>", desc = "Insert All" },
-  { "<space>ic", ":InsertCwd<cr>", desc = "Insert Cwd" },
-  { "<space>iC", ":InsertDir<cr>", desc = "Insert Directory" },
-  { "<space>id", ":InsertWinDown<cr>", desc = "Insert Down" },
-  { "<space>if", ":InsertFile<cr>", desc = "Insert File" },
-  { "<space>ih", ":InsertHorizSplit<cr>", desc = "Insert Horizontal Split" },
-  { "<space>ii", ":Insert<cr>", desc = "Insert" },
-  { "<space>il", ":InsertWinLeft<cr>", desc = "Insert Left" },
-  { "<space>ip", ":InsertPane<cr>", desc = "Insert Pane" },
-  { "<space>ir", ":InsertWinRight<cr>", desc = "Insert Right" },
-  { "<space>is", ":InsertSplit<cr>", desc = "Insert Split" },
-  { "<space>it", ":InsertTab<cr>", desc = "Insert Tab" },
-  { "<space>iu", ":InsertWinUp<cr>", desc = "Insert Up" },
-  { "<space>iv", ":InsertVertSplit<cr>", desc = "Insert Vertical Split" },
-  { "<space>iw", ":InsertWin<cr>", desc = "Insert Window" },
+  { "<space>oo", "<cmd>Oil<cr>", desc = "Open" },
+  { "<space>oa", "<cmd>Oil --float<cr>", desc = "Float" },
+  { "<space>oc", function() vim.cmd("Oil " .. vim.fn.fnameescape(vim.fn.expand("%:p:h"))) end, desc = "Current Dir" },
+  { "<space>oe", "<cmd>edit %<cr>", desc = "Open File" },
+  { "<space>os", "<cmd>split<cr>", desc = "Split" },
+  { "<space>ov", "<cmd>vsplit<cr>", desc = "Vertical Split" },
+  { "<space>ot", "<cmd>tabnew<cr>", desc = "Tab" },
+  { "<space>ow", "<cmd>new<cr>", desc = "Window" },
 
   -- Utilities
   { "<space>U", group = "Utilities", icon = icons.utilities },

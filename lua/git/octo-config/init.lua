@@ -1,6 +1,56 @@
 -- Documentación: módulo `lua/git/octo-config/init.lua`.
 -- Propósito: define integraciones de flujo de trabajo con Git dentro de BlindNvim sin alterar lógica de ejecución.
 
+local blind = {
+  comment_icon = "#",                       -- comment marker
+  outdated_icon = "outdated",               -- outdated indicator
+  resolved_icon = "done",                   -- resolved indicator
+  reaction_viewer_hint_icon = "reactions",  -- marker for user reactions
+  user_icon = "user",                       -- user icon
+  ghost_icon = "ghost",                     -- ghost icon
+  timeline_marker = ">",                    -- timeline marker
+  timeline_indent = 2,                      -- timeline indentation
+  use_timeline_icons = false,               -- toggle timeline icons
+  timeline_icons = {
+    commit = "commit",
+    label = "label",
+    reference = "ref",
+    connected = "connected",
+    subissue = "subissue",
+    cross_reference = "xref",
+    parent_issue = "parent",
+    pinned = "pinned",
+    milestone = "milestone",
+    renamed = "renamed",
+    merged = { "merged", "OctoPurple" },
+    closed = {
+      closed = { "closed", "OctoRed" },
+      completed = { "completed", "OctoPurple" },
+      not_planned = { "not planned", "OctoGrey" },
+      duplicate = { "duplicate", "OctoGrey" },
+    },
+    reopened = { "reopened", "OctoGreen" },
+    assigned = "assigned",
+    review_requested = "review requested",
+  },
+  right_bubble_delimiter = "|",             -- bubble delimiter
+  left_bubble_delimiter = "|",              -- bubble delimiter
+  runs = {
+    icons = {
+      pending = "pending",
+      in_progress = "in progress",
+      failed = "failed",
+      succeeded = "",
+      skipped = "skipped",
+      cancelled = "cancelled",
+    },
+  },
+  file_panel = {
+    size = 10,                               -- changed files panel rows
+    icons = false                            -- use text-only labels in accessible mode
+  },
+}
+
 require"octo".setup({
   use_local_fs = false,                    -- use local files on right side of reviews
   enable_builtin = false,                  -- shows a list of builtin actions when no action is provided
@@ -33,18 +83,18 @@ require"octo".setup({
       },
     },
   },
-  comment_icon = "▎",                      -- comment marker
-  outdated_icon = "󰅒 ",                    -- outdated indicator
-  resolved_icon = " ",                    -- resolved indicator
-  reaction_viewer_hint_icon = " ",        -- marker for user reactions
+  comment_icon = BlindReturn(blind.comment_icon, "▎"),                      -- comment marker
+  outdated_icon = BlindReturn(blind.outdated_icon, "󰅒 "),                  -- outdated indicator
+  resolved_icon = BlindReturn(blind.resolved_icon, " "),                  -- resolved indicator
+  reaction_viewer_hint_icon = BlindReturn(blind.reaction_viewer_hint_icon, " "), -- marker for user reactions
   commands = {},                           -- additional subcommands made available to `Octo` command
   users = "search",                        -- Users for assignees or reviewers. Values: "search" | "mentionable" | "assignable"
-  user_icon = " ",                        -- user icon
-  ghost_icon = "󰊠 ",                       -- ghost icon
-  timeline_marker = " ",                  -- timeline marker
-  timeline_indent = 2,                   -- timeline indentation
-  use_timeline_icons = true,               -- toggle timeline icons
-  timeline_icons = {                       -- the default icons based on timelineItems
+  user_icon = BlindReturn(blind.user_icon, " "),                        -- user icon
+  ghost_icon = BlindReturn(blind.ghost_icon, "󰊠 "),                      -- ghost icon
+  timeline_marker = BlindReturn(blind.timeline_marker, " "),            -- timeline marker
+  timeline_indent = blind.timeline_indent,                                -- timeline indentation
+  use_timeline_icons = BlindReturn(blind.use_timeline_icons, true),      -- toggle timeline icons
+  timeline_icons = BlindReturn(blind.timeline_icons, {                   -- the default icons based on timelineItems
     commit = "  ",
     label = "  ",
     reference = " ",
@@ -65,9 +115,9 @@ require"octo".setup({
     reopened = { "  ", "OctoGreen" },
     assigned = "  ",
     review_requested = "  ",
-  },
-  right_bubble_delimiter = "",            -- bubble delimiter
-  left_bubble_delimiter = "",             -- bubble delimiter
+  }),
+  right_bubble_delimiter = BlindReturn(blind.right_bubble_delimiter, ""), -- bubble delimiter
+  left_bubble_delimiter = BlindReturn(blind.left_bubble_delimiter, ""),   -- bubble delimiter
   github_hostname = "",                    -- GitHub Enterprise host
   snippet_context_lines = 4,               -- number or lines around commented lines
   gh_cmd = "gh",                           -- Command to use when calling Github CLI
@@ -89,14 +139,14 @@ require"octo".setup({
     focus             = "right",           -- focus right buffer on diff open
   },
   runs = {
-    icons = {
+    icons = BlindReturn(blind.runs.icons, {
       pending = "🕖",
       in_progress = "🔄",
       failed = "❌",
       succeeded = "",
       skipped = "⏩",
       cancelled = "✖",
-    },
+    }),
   },
   pull_requests = {
     order_by = {                            -- criteria to sort the results of `Octo pr list`
@@ -112,7 +162,7 @@ require"octo".setup({
   file_panel = {
     size = 10,                             -- changed files panel rows
     --ACTUALIZADO use_icons -> icons
-    icons = true                       -- use web-devicons in file panel (if false, nvim-web-devicons does not need to be installed)
+    icons = BlindReturn(blind.file_panel.icons, true)                       -- use web-devicons in file panel (if false, nvim-web-devicons does not need to be installed)
   },
   colors = {                               -- used for highlight groups (see Colors section below)
     white = "#ffffff",

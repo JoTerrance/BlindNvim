@@ -5,12 +5,14 @@ local actions = require('telescope.actions')
 require('telescope').setup {
     defaults = {
         layout_config = {
-          width = BlindReturn( 0.99 , 0.75),
+          width = BlindReturn(0.99, 0.75),
+          height = BlindReturn(0.99, 0.75),
           prompt_position = "top",
-          preview_cutoff = 50,
+          preview_cutoff = BlindReturn(0, 50),
           horizontal = {mirror = false},
           vertical = {mirror = false},
         },
+        previewer = true,
         find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case'},
         prompt_prefix = BlindReturn( "query: ", " " ),
         selection_caret = BlindReturn( ">", " "),
@@ -132,6 +134,7 @@ require("telescope").load_extension("notify")
 require("telescope").load_extension("githubcoauthors")
 require("telescope").load_extension("lines")
 require("telescope").load_extension("undo")
+require("telescope").load_extension("neoclip")
 require('browser_bookmarks').setup({
   selected_browser = "google_chrome",
   url_open_command = "xdg-open",

@@ -67,7 +67,7 @@ require("gp").setup({
   style_popup_margin_top = 2,
   style_popup_max_width = 160,
   
-  command_prompt_prefix_template = "🤖 {{agent}} ~ ",
+  command_prompt_prefix_template = BlindReturn("{{agent}}: ", "🤖 {{agent}} ~ "),
   command_auto_select_response = true,
   
   curl_params = {},

@@ -3,11 +3,17 @@
 
 require('gitsigns').setup {
   current_line_blame = false,
-  signs = {
+  signs = BlindReturn({
+    add = { text = "add" },
+    change = { text = "chg" },
+    delete = { text = "del" },
+    topdelete = { text = "top" },
+    changedelete = { text = "mod" },
+  }, {
     add = { text = '+' },
     change = { text = '~' },
     delete = { text = '_' },
     topdelete = { text = '‾' },
     changedelete = { text = '~' },
-  },
+  }),
 }
