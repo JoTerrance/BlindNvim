@@ -134,6 +134,7 @@ require("telescope").load_extension("notify")
 require("telescope").load_extension("githubcoauthors")
 require("telescope").load_extension("lines")
 require("telescope").load_extension("undo")
+require("telescope").load_extension("neoclip")
 require('browser_bookmarks').setup({
   selected_browser = "google_chrome",
   url_open_command = "xdg-open",

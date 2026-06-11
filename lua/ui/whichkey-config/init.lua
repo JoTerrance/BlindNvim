@@ -29,7 +29,9 @@ local icons = {
   workspace = BlindReturn("WS", "󰙅"),
   format = BlindReturn("FMT", "ﭧ"),
   open = BlindReturn("OPEN", ""),
+  insert = BlindReturn("INS", "󰏪"),
   http = BlindReturn("HTTP", "󰖟"),
+  clipboard = BlindReturn("CLIP", ""),
   utilities = BlindReturn("UTIL", "󰘥"),
   focus = BlindReturn("FOCUS", "󰍹"),
   refactor = BlindReturn("REFACTOR", "󰛿"),
@@ -109,6 +111,10 @@ end
 
 local function devcontainer_build_attach()
   devcontainer_commands.docker_build_run_and_attach()
+end
+
+local function copilot_toggle_auto_trigger()
+  require("copilot.suggestion").toggle_auto_trigger()
 end
 
 wk.add({
@@ -295,6 +301,12 @@ wk.add({
   { "<space>ae", "<cmd>AvanteEdit<cr>", desc = "Edit" },
   { "<space>ah", "<cmd>AvanteHistory<cr>", desc = "History" },
   { "<space>am", "<cmd>AvanteModels<cr>", desc = "Models" },
+  { "<space>ai", group = "Copilot", icon = icons.ai },
+  { "<space>aip", "<cmd>Copilot panel<cr>", desc = "Panel" },
+  { "<space>aie", "<cmd>Copilot enable<cr>", desc = "Enable" },
+  { "<space>aid", "<cmd>Copilot disable<cr>", desc = "Disable" },
+  { "<space>ais", "<cmd>Copilot status<cr>", desc = "Status" },
+  { "<space>ait", copilot_toggle_auto_trigger, desc = "Toggle Auto Trigger" },
 
   -- Terminal
   { "<space>t", group = "Terminal", icon = icons.terminal },
@@ -379,6 +391,13 @@ wk.add({
   { "<space>eL", ":m >", desc = "Move Line Right" },
   { "<space>eu", "<cmd>UndotreeToggle<cr>", desc = "Undo Tree", icon = icons.undo },
   { "<space>et", "<cmd>TranslateW<cr>", desc = "Translate Word", icon = icons.translate },
+  { "<space>eC", group = "Clipboard", icon = icons.clipboard },
+  { "<space>eCc", "<cmd>Telescope neoclip<cr>", desc = "Clipboard History" },
+  { "<space>eN", group = "Neogen", icon = icons.edit },
+  { "<space>eNg", "<cmd>Neogen<cr>", desc = "Generate Docs" },
+  { "<space>eNf", "<cmd>Neogen func<cr>", desc = "Generate Function Docs" },
+  { "<space>eS", group = "SSR", icon = icons.refactor },
+  { "<space>eSs", "<cmd>lua require('ssr').open()<cr>", desc = "Structural Replace" },
 
   -- Workspace
   { "<space>W", group = "Workspace", icon = icons.workspace },
