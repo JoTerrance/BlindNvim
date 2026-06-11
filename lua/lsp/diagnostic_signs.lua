@@ -1,7 +1,10 @@
 -- Documentación: módulo `lua/lsp/diagnostic_signs.lua`.
 -- Propósito: define integración de LSP y autocompletado dentro de BlindNvim sin alterar lógica de ejecución.
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = BlindReturn(
+  { Error = "E ", Warn = "W ", Hint = "H ", Info = "I " },
+  { Error = " ", Warn = " ", Hint = " ", Info = " " }
+)
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -14,7 +17,7 @@ vim.diagnostic.config({
     spacing = 5,
     severity = { min = vim.diagnostic.severity.WARN },
   },
-  update_in_insert = true,
+  update_in_insert = BlindReturn(false, true),
 })
 
 
