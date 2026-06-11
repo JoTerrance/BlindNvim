@@ -32,51 +32,76 @@ vim.opt.rtp:prepend(lazypath)
 -- En modo VSCode, varios plugins usan `enabled = not vscode` para no cargar
 -- integraciones que dependen de TUI nativa, floating windows o terminal embebida.
 local vscode = vim.g.vscode ~= nil and vim.g.vscode ~= false and vim.g.vscode ~= 0
+local lazy_ui = BlindReturn({
+  size = { width = 1, height = 1 },
+  wrap = false,
+  border = "none",
+  backdrop = 0,
+  title = nil,
+  title_pos = "center",
+  pills = false,
+  icons = {
+    cmd = "cmd",
+    config = "config",
+    debug = "debug",
+    event = "event",
+    favorite = "fav",
+    ft = "ft",
+    init = "init",
+    import = "import",
+    keys = "keys",
+    lazy = "lazy",
+    loaded = "loaded",
+    not_loaded = "not loaded",
+    plugin = "plugin",
+    runtime = "runtime",
+    require = "require",
+    source = "source",
+    start = "start",
+    task = "task",
+    list = { "-", ">", "*", "-" },
+  },
+}, {
+  size = { width = 0.8, height = 0.8 },
+  wrap = true,
+  border = "none",
+  backdrop = 60,
+  title = nil,
+  title_pos = "center",
+  pills = true,
+  icons = {
+    cmd = " ",
+    config = "",
+    debug = "● ",
+    event = " ",
+    favorite = " ",
+    ft = " ",
+    init = " ",
+    import = " ",
+    keys = " ",
+    lazy = "󰒲 ",
+    loaded = "●",
+    not_loaded = "○",
+    plugin = " ",
+    runtime = " ",
+    require = "󰢱 ",
+    source = " ",
+    start = " ",
+    task = "✔ ",
+    list = {
+      "●",
+      "➜",
+      "★",
+      "‒",
+    },
+  },
+})
 
 -- Registro único de plugins para todo el setup.
 -- Si una funcionalidad "no aparece", primero revisar si su spec está aquí y
 -- luego validar su módulo `*-config` correspondiente.
 require("lazy").setup({
-   ui = {
-    -- a number <1 is a percentage., >1 is a fixed size
-    size = { width = 0.8, height = 0.8 },
-    wrap = true, -- wrap the lines in the ui
-    -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-    border = "none",
-    -- The backdrop opacity. 0 is fully opaque, 100 is fully transparent.
-    backdrop = 60,
-    title = nil, ---@type string only works when border is not "none"
-    title_pos = "center", ---@type "center" | "left" | "right"
-    -- Show pills on top of the Lazy window
-    pills = true, ---@type boolean
-    icons = {
-      cmd = " ",
-      config = "",
-      debug = "● ",
-      event = " ",
-      favorite = " ",
-      ft = " ",
-      init = " ",
-      import = " ",
-      keys = " ",
-      lazy = "󰒲 ",
-      loaded = "●",
-      not_loaded = "○",
-      plugin = " ",
-      runtime = " ",
-      require = "󰢱 ",
-      source = " ",
-      start = " ",
-      task = "✔ ",
-      list = {
-        "●",
-        "➜",
-        "★",
-        "‒",
-      },
-    },
-    },
-
+  ui = lazy_ui,
   spec = {
   -- Core editing quality-of-life plugins.
   'ibhagwan/smartyank.nvim',
