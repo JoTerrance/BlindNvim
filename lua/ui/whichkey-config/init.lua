@@ -233,6 +233,7 @@ wk.add({
 
   -- Database
   { "<space>ud", group = "Database", icon = icons.database },
+  { "<space>udb", "<cmd>DBUI<cr>", desc = "Dadbod UI" },
   { "<space>udi", "<cmd>Dbee<cr>", desc = "Toggle UI" },
   { "<space>udo", "<cmd>Dbee open<cr>", desc = "Open UI" },
   { "<space>udc", "<cmd>Dbee close<cr>", desc = "Close UI" },

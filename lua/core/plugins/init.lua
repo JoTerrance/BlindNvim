@@ -165,7 +165,7 @@ require("lazy").setup({
     require("dbee").install()
   end,
   config = function()
-    require("dbee").setup(--[[optional config]])
+    require("tools.dbee-config")
   end,
 },
   -- Completion, diagnostics, and session helpers.
@@ -345,7 +345,13 @@ require("lazy").setup({
   'mbbill/undotree',
   'voldikss/vim-translator',
   'tpope/vim-dadbod',
-  'kristijanhusak/vim-dadbod-ui',
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    cmd = { 'DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer' },
+    config = function()
+      require('tools.dadbod-ui-config')
+    end,
+  },
   'kristijanhusak/vim-dadbod-completion',
   'mfussenegger/nvim-dap-python',
   'mfussenegger/nvim-jdtls',
