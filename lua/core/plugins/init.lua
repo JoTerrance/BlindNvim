@@ -37,7 +37,47 @@ local vscode = vim.g.vscode ~= nil and vim.g.vscode ~= false and vim.g.vscode ~=
 -- Si una funcionalidad "no aparece", primero revisar si su spec está aquí y
 -- luego validar su módulo `*-config` correspondiente.
 require("lazy").setup({
-  --'wbthomason/packer.nvim', -> Deprecated
+   ui = {
+    -- a number <1 is a percentage., >1 is a fixed size
+    size = { width = 0.8, height = 0.8 },
+    wrap = true, -- wrap the lines in the ui
+    -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
+    border = "none",
+    -- The backdrop opacity. 0 is fully opaque, 100 is fully transparent.
+    backdrop = 60,
+    title = nil, ---@type string only works when border is not "none"
+    title_pos = "center", ---@type "center" | "left" | "right"
+    -- Show pills on top of the Lazy window
+    pills = true, ---@type boolean
+    icons = {
+      cmd = " ",
+      config = "",
+      debug = "● ",
+      event = " ",
+      favorite = " ",
+      ft = " ",
+      init = " ",
+      import = " ",
+      keys = " ",
+      lazy = "󰒲 ",
+      loaded = "●",
+      not_loaded = "○",
+      plugin = " ",
+      runtime = " ",
+      require = "󰢱 ",
+      source = " ",
+      start = " ",
+      task = "✔ ",
+      list = {
+        "●",
+        "➜",
+        "★",
+        "‒",
+      },
+    },
+    },
+
+  spec = {
   -- Core editing quality-of-life plugins.
   'ibhagwan/smartyank.nvim',
   'pteroctopus/faster.nvim',
@@ -75,15 +115,7 @@ require("lazy").setup({
     { ']c', ":lua require('decisive').align_csv_next_col()<cr>",         { silent = true }, desc = "Align CSV next col", mode = 'n' },
     }
   },
-  {
-  'stevearc/oil.nvim',
-  ---@module 'oil'
-  ---@type oil.SetupOpts
-  opts = {},
-  -- Optional dependencies
-  dependencies = { { "echasnovski/mini.icons", opts = {} } },
-  -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-},
+  {'stevearc/oil.nvim',opts = {}, dependencies = { { "echasnovski/mini.icons", opts = {} } },},
   -- LSP, DAP, and language tooling foundation.
   "jay-babu/mason-null-ls.nvim",
   'jayp0521/mason-nvim-dap.nvim',
@@ -393,6 +425,6 @@ require("lazy").setup({
       ft = { "markdown", "Avante" },
     },
   },
-}
-
+},
+},
 })
