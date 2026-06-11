@@ -9,6 +9,16 @@ require('avante').setup({
   mode = "agentic",
   auto_suggestions_provider = "copilot",
   input_provider = "snacks",  -- Use snacks.nvim for password inputs
+  acp_providers = {
+    codex = {
+      command = "npx",
+      args = { "@zed-industries/codex-acp" },
+      env = {
+        NODE_NO_WARNINGS = "1",
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
+      },
+    },
+  },
   behaviour = {
     auto_suggestions = true,
     auto_set_highlight_group = true,
