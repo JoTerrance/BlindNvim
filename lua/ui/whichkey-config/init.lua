@@ -3,6 +3,35 @@
 
 local wk = require("which-key")
 
+local icons = {
+  save = BlindReturn("SAVE", ""),
+  search = BlindReturn("SRCH", "󰍉"),
+  comment = BlindReturn("COMM", "󰅺"),
+  buffers = BlindReturn("BUFS", "󰓩"),
+  navigation = BlindReturn("NAV", ""),
+  telescope = BlindReturn("TEL", ""),
+  tools = BlindReturn("TOOLS", ""),
+  cmake = BlindReturn("CMAKE", ""),
+  devcontainer = BlindReturn("DEV", ""),
+  database = BlindReturn("DB", "󰆼"),
+  treesitter = BlindReturn("TS", ""),
+  java = BlindReturn("JAVA", ""),
+  git = BlindReturn("GIT", ""),
+  github = BlindReturn("GH", ""),
+  ai = BlindReturn("AI", "󰚩"),
+  terminal = BlindReturn("TERM", ""),
+  lsp = BlindReturn("LSP", ""),
+  debug = BlindReturn("DBG", ""),
+  edit = BlindReturn("EDIT", "󰏫"),
+  workspace = BlindReturn("WS", "󰙅"),
+  format = BlindReturn("FMT", "ﭧ"),
+  open = BlindReturn("OPEN", ""),
+  insert = BlindReturn("INS", "󰏪"),
+  utilities = BlindReturn("UTIL", "󰘥"),
+  focus = BlindReturn("FOCUS", "󰍹"),
+  refactor = BlindReturn("REFACTOR", "󰛿"),
+}
+
 local conf = {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
@@ -63,13 +92,13 @@ end
 
 wk.add({
   -- Core
-  { "<space>w", "<cmd>w!<CR>", desc = "Save" },
-  { "<space>h", "<cmd>nohlsearch<CR>", desc = "Clear Search Highlight" },
-  { "<space>/", "<Plug>(comment_toggle_linewise_current)", desc = "Toggle Comment" },
-  { "<space>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Toggle Comment", mode = "v" },
+  { "<space>w", "<cmd>w!<CR>", desc = "Save", icon = icons.save },
+  { "<space>h", "<cmd>nohlsearch<CR>", desc = "Clear Search Highlight", icon = icons.search },
+  { "<space>/", "<Plug>(comment_toggle_linewise_current)", desc = "Toggle Comment", icon = icons.comment },
+  { "<space>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Toggle Comment", mode = "v", icon = icons.comment },
 
   -- Buffers
-  { "<space>b", group = "Buffers" },
+  { "<space>b", group = "Buffers", icon = icons.buffers },
   { "<space>bb", "<cmd>BufferLineCyclePrev<cr>", desc = "Previous" },
   { "<space>bn", "<cmd>BufferLineCycleNext<cr>", desc = "Next" },
   { "<space>bf", "<cmd>Telescope buffers<cr>", desc = "Find" },
@@ -82,7 +111,7 @@ wk.add({
   { "<space>bL", "<cmd>BufferLineSortByExtension<cr>", desc = "Sort by Language" },
 
   -- Navigation
-  { "<space>n", group = "Navigation" },
+  { "<space>n", group = "Navigation", icon = icons.navigation },
   { "<space>no", "<cmd>Oil<CR>", desc = "Oil" },
   { "<space>nO", "<cmd>Oil --float<CR>", desc = "Oil Float" },
   { "<space>na", "<cmd>AerialToggle!<CR>", desc = "Aerial Toggle" },
@@ -95,7 +124,7 @@ wk.add({
   { "<space>nu", "<cmd>UrlView<CR>", desc = "URLs" },
 
   -- Search
-  { "<space>s", group = "Search" },
+  { "<space>s", group = "Search", icon = icons.search },
   { "<space>sa", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
   { "<space>sb", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
   { "<space>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
@@ -111,7 +140,7 @@ wk.add({
   { "<space>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
   { "<space>sp", "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>", desc = "Colorscheme Preview" },
   { "<space>st", "<cmd>Telescope live_grep<cr>", desc = "Text" },
-  { "<space>sx", group = "Telescope Extras" },
+  { "<space>sx", group = "Telescope Extras", icon = icons.telescope },
   { "<space>sxb", "<cmd>Telescope bookmarks<cr>", desc = "Bookmarks" },
   { "<space>sxd", "<cmd>Telescope docker<cr>", desc = "Docker" },
   { "<space>sxe", "<cmd>Telescope emoji<cr>", desc = "Emoji" },
@@ -132,15 +161,15 @@ wk.add({
   { "<space>sxG", "<cmd>Telescope githubcoauthors<cr>", desc = "Git Coauthors" },
 
   -- Tools
-  { "<space>u", group = "Tools" },
-  { "<space>uC", group = "CMake" },
+  { "<space>u", group = "Tools", icon = icons.tools },
+  { "<space>uC", group = "CMake", icon = icons.cmake },
   { "<space>uCb", "<cmd>CMakeBuild<cr>", desc = "Build" },
   { "<space>uCc", "<cmd>CMakeClean<cr>", desc = "Clean" },
   { "<space>uCd", "<cmd>CMakeDebug<cr>", desc = "Debug" },
   { "<space>uCg", "<cmd>CMakeGenerate<cr>", desc = "Generate" },
   { "<space>uCr", "<cmd>CMakeRun<cr>", desc = "Run" },
   { "<space>uCs", "<cmd>CMakeSelectBuildTarget<cr>", desc = "Select Target" },
-  { "<space>uD", group = "DevContainer" },
+  { "<space>uD", group = "DevContainer", icon = icons.devcontainer },
   { "<space>uDa", "<cmd>DevcontainerAttach<cr>", desc = "Attach" },
   { "<space>uDb", "<cmd>DevcontainerBuild<cr>", desc = "Build" },
   { "<space>uDc", "<cmd>DevcontainerConnect<cr>", desc = "Connect" },
@@ -153,7 +182,7 @@ wk.add({
   { "<space>uDt", "<cmd>DevcontainerToggle<cr>", desc = "Toggle Terminal" },
 
   -- Database
-  { "<space>ud", group = "Database" },
+  { "<space>ud", group = "Database", icon = icons.database },
   { "<space>udC", ":DBUIConnect<cr>", desc = "Connect" },
   { "<space>udD", ":DBUIDisconnect<cr>", desc = "Disconnect" },
   { "<space>udE", ":DBUIExecute<cr>", desc = "Execute" },
@@ -176,14 +205,14 @@ wk.add({
   { "<space>udd", ":DBUIDeleteConnection<cr>", desc = "Delete Connection" },
 
   -- Treesitter
-  { "<space>ut", group = "Treesitter" },
+  { "<space>ut", group = "Treesitter", icon = icons.treesitter },
   { "<space>uti", ":TSConfigInfo<cr>", desc = "Info" },
   { "<space>utp", ":TSPlaygroundToggle<cr>", desc = "Playground" },
   { "<space>utR", ":TSBufDisable highlight<cr>", desc = "Disable Highlight" },
   { "<space>utr", ":TSBufEnable highlight<cr>", desc = "Enable Highlight" },
 
   -- Java
-  { "<space>uj", group = "Java" },
+  { "<space>uj", group = "Java", icon = icons.java },
   { "<space>uje", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", desc = "Extract Variable" },
   { "<space>ujE", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", desc = "Extract Method" },
   { "<space>uji", "<Cmd>lua require'jdtls'.organize_imports()<CR>", desc = "Organize Imports" },
@@ -192,7 +221,7 @@ wk.add({
   { "<space>ujs", "<Cmd>lua require('telescope').extensions.scaladex.scaladex.search()<cr>", desc = "Scaladex Search" },
 
   -- Git
-  { "<space>ug", group = "Git" },
+  { "<space>ug", group = "Git", icon = icons.git },
   { "<space>ugb", "<cmd>Telescope git_branches<cr>", desc = "Checkout Branch" },
   { "<space>ugc", "<cmd>Telescope git_commits<cr>", desc = "Checkout Commit" },
   { "<space>ugC", "<cmd>Telescope git_bcommits<cr>", desc = "Current File Commit" },
@@ -206,11 +235,11 @@ wk.add({
   { "<space>ugs", "<cmd>lua require('gitsigns').stage_hunk()<cr>", desc = "Stage Hunk" },
   { "<space>ugu", "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", desc = "Undo Stage" },
   { "<space>ugo", "<cmd>Telescope git_status<cr>", desc = "Changed Files" },
-  { "<space>ugF", group = "Fugit2" },
+  { "<space>ugF", group = "Fugit2", icon = icons.git },
   { "<space>ugFo", "<cmd>Fugit2<cr>", desc = "Open" },
   { "<space>ugFg", "<cmd>Fugit2Graph<cr>", desc = "Graph" },
   { "<space>ugFd", "<cmd>Fugit2Diff<cr>", desc = "Diff" },
-  { "<space>ugG", group = "Git Commands" },
+  { "<space>ugG", group = "Git Commands", icon = icons.git },
   { "<space>ugGa", ":GitAdd<cr>", desc = "Add" },
   { "<space>ugGb", ":GitBranch<cr>", desc = "Branch" },
   { "<space>ugGc", ":GitCommit<cr>", desc = "Commit" },
@@ -226,12 +255,12 @@ wk.add({
   { "<space>ugGt", ":GitTag<cr>", desc = "Tag" },
   { "<space>ugGu", ":GitPull<cr>", desc = "Pull" },
   { "<space>ugGy", ":GitShow<cr>", desc = "Show" },
-  { "<space>ugO", group = "GitHub" },
+  { "<space>ugO", group = "GitHub", icon = icons.github },
   { "<space>ugOi", "<cmd>Octo issue list<cr>", desc = "Issues" },
   { "<space>ugOp", "<cmd>Octo pr list<cr>", desc = "Pull Requests" },
 
   -- AI
-  { "<space>a", group = "AI" },
+  { "<space>a", group = "AI", icon = icons.ai },
   { "<space>aa", "<cmd>AvanteAsk<cr>", desc = "Ask" },
   { "<space>ac", "<cmd>AvanteChat<cr>", desc = "Chat" },
   { "<space>ae", "<cmd>AvanteEdit<cr>", desc = "Edit" },
@@ -239,13 +268,13 @@ wk.add({
   { "<space>am", "<cmd>AvanteModels<cr>", desc = "Models" },
 
   -- Terminal
-  { "<space>t", group = "Terminal" },
+  { "<space>t", group = "Terminal", icon = icons.terminal },
   { "<space>tf", toggle_float, desc = "Floating" },
   { "<space>tl", toggle_lazygit, desc = "LazyGit" },
   { "<space>tt", ":ToggleTerm<cr>", desc = "Split Below" },
 
   -- LSP
-  { "<space>l", group = "LSP" },
+  { "<space>l", group = "LSP", icon = icons.lsp },
   { "<space>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
   { "<space>lb", "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", desc = "Buffer Diagnostics" },
   { "<space>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Definition" },
@@ -270,7 +299,7 @@ wk.add({
   { "<space>lt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Type Definition" },
   { "<space>lv", "<cmd>lua require('lsp_lines').toggle()<cr>", desc = "Virtual Lines" },
   { "<space>ll", vim.lsp.codelens.run, desc = "CodeLens" },
-  { "<space>lF", group = "Refactor" },
+  { "<space>lF", group = "Refactor", icon = icons.refactor },
   { "<space>lFS", "<cmd>lua require('refactoring').select_refactor()<CR>", desc = "Select" },
   { "<space>lFb", "<cmd>lua require('refactoring').refactor('Extract Block')<CR>", desc = "Extract Block" },
   { "<space>lFB", "<cmd>lua require('refactoring').refactor('Extract Block To File')<CR>", desc = "Extract Block File" },
@@ -282,7 +311,7 @@ wk.add({
   { "<space>lFR", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
 
   -- Debug
-  { "<space>d", group = "Debug" },
+  { "<space>d", group = "Debug", icon = icons.debug },
   { "<space>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", desc = "Toggle Breakpoint" },
   { "<space>dB", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", desc = "Conditional Breakpoint" },
   { "<space>dc", "<cmd>lua require('dap').clear_breakpoints()<CR>", desc = "Clear Breakpoints" },
@@ -295,7 +324,7 @@ wk.add({
   { "<space>ds", "<cmd>lua require('dap').stop()<CR>", desc = "Stop" },
   { "<space>di", "<cmd>lua require('dap').step_into()<CR>", desc = "Step Into" },
   { "<space>dv", "<cmd>DapVirtualTextToggle<cr>", desc = "Virtual Text" },
-  { "<space>dD", group = "DapUI" },
+  { "<space>dD", group = "DapUI", icon = icons.debug },
   { "<space>dDb", "<cmd>lua require('dapui').float_element('breakpoints')<CR>", desc = "Breakpoints" },
   { "<space>dDc", "<cmd>lua require('dapui').close()<CR>", desc = "Close" },
   { "<space>dDf", "<cmd>lua require('dapui').float_element('frames')<CR>", desc = "Frames" },
@@ -309,7 +338,7 @@ wk.add({
   { "<space>dDt", "<cmd>lua require('dapui').toggle()<CR>", desc = "Toggle" },
 
   -- Edit
-  { "<space>e", group = "Edit" },
+  { "<space>e", group = "Edit", icon = icons.edit },
   { "<space>ed", ":call DeleteTrailingWhitespace()<CR>", desc = "Trim Trailing Whitespace" },
   { "<space>eh", ":move <left>", desc = "Move Char Left" },
   { "<space>ej", ":move .+1<CR>==", desc = "Move Line Down" },
@@ -321,18 +350,18 @@ wk.add({
   { "<space>eL", ":m >", desc = "Move Line Right" },
 
   -- Workspace
-  { "<space>W", group = "Workspace" },
+  { "<space>W", group = "Workspace", icon = icons.workspace },
   { "<space>WA", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", desc = "Add Folder" },
   { "<space>WR", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove Folder" },
   { "<space>Wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", desc = "List Folders" },
 
   -- Format
-  { "<space>f", group = "Format" },
+  { "<space>f", group = "Format", icon = icons.format },
   { "<space>ff", "<cmd>lua vim.lsp.buf.format()<CR>", desc = "Format Buffer" },
   { "<space>fi", "<cmd>ConformInfo<cr>", desc = "Conform Info" },
 
   -- Open
-  { "<space>o", group = "Open" },
+  { "<space>o", group = "Open", icon = icons.open },
   { "<space>oo", ":Open<cr>", desc = "Open" },
   { "<space>oa", ":OpenAll<cr>", desc = "Open All" },
   { "<space>ob", ":OpenNewHorizSplit<cr>", desc = "New Horizontal Split" },
@@ -356,7 +385,7 @@ wk.add({
   { "<space>ow", ":OpenWin<cr>", desc = "Window" },
 
   -- Insert
-  { "<space>i", group = "Insert" },
+  { "<space>i", group = "Insert", icon = icons.insert },
   { "<space>ia", ":InsertAll<cr>", desc = "Insert All" },
   { "<space>ic", ":InsertCwd<cr>", desc = "Insert Cwd" },
   { "<space>iC", ":InsertDir<cr>", desc = "Insert Directory" },
@@ -374,22 +403,22 @@ wk.add({
   { "<space>iw", ":InsertWin<cr>", desc = "Insert Window" },
 
   -- Utilities
-  { "<space>U", group = "Utilities" },
+  { "<space>U", group = "Utilities", icon = icons.utilities },
   { "<space>Ub", "<cmd>Bloat<cr>", desc = "Plugin Bloat" },
   { "<space>Uo", "<cmd>Orphans<cr>", desc = "Orphans" },
 
   -- Focus
-  { "<space>z", group = "Focus" },
+  { "<space>z", group = "Focus", icon = icons.focus },
   { "<space>zt", ":Twilight<cr>", desc = "Toggle Twilight" },
   { "<space>zz", ":ZenMode<cr>", desc = "Toggle Zen Mode" },
 
   -- Visual mode mappings
-  { "<space>l", group = "LSP", mode = "v" },
+  { "<space>l", group = "LSP", mode = "v", icon = icons.lsp },
   { "<space>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", mode = "v" },
   { "<space>lv", "<cmd>lua require('lsp_lines').toggle()<cr>", desc = "Virtual Lines", mode = "v" },
   { "<space>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Toggle Comment", mode = "v" },
 
-  { "<space>R", group = "Refactor", mode = "v" },
+  { "<space>R", group = "Refactor", mode = "v", icon = icons.refactor },
   { "<space>Rb", "<cmd>lua require('refactoring').refactor('Extract Block')<CR>", desc = "Extract Block", mode = "v" },
   { "<space>RB", "<cmd>lua require('refactoring').refactor('Extract Block To File')<CR>", desc = "Extract Block File", mode = "v" },
   { "<space>Rf", "<cmd>lua require('refactoring').refactor('Extract Function')<CR>", desc = "Extract Function", mode = "v" },
@@ -403,7 +432,7 @@ wk.add({
   { "<space>RV", "<cmd>lua require('refactoring').refactor('Inline Variable')<CR>", desc = "Inline Variable", mode = "v" },
   { "<space>RR", "<cmd>Lspsaga rename<cr>", desc = "Rename", mode = "v" },
 
-  { "<space>uj", group = "Java", mode = "v" },
+  { "<space>uj", group = "Java", mode = "v", icon = icons.java },
   { "<space>uje", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", desc = "Extract Variable", mode = "v" },
   { "<space>ujE", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", desc = "Extract Method", mode = "v" },
 })
