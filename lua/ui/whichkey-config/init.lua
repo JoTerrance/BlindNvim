@@ -97,6 +97,19 @@ local toggle_lazygit = function()
   local lazygit = Terminal:new({cmd = 'lazygit', direction = "float"})
   return lazygit:toggle()
 end
+local dbee = require("dbee")
+local devcontainer_commands = require("devcontainer.commands")
+
+local function dbee_execute_query()
+  local query = vim.fn.input("Dbee query: ")
+  if query ~= "" then
+    dbee.execute(query)
+  end
+end
+
+local function devcontainer_build_attach()
+  devcontainer_commands.docker_build_run_and_attach()
+end
 
 wk.add({
   -- Core
@@ -111,7 +124,7 @@ wk.add({
   { "<space>bn", "<cmd>BufferLineCycleNext<cr>", desc = "Next" },
   { "<space>bf", "<cmd>Telescope buffers<cr>", desc = "Find" },
   { "<space>bj", "<cmd>BufferLinePick<cr>", desc = "Jump" },
-  { "<space>bc", "<cmd>BufferKill<CR>", desc = "Close" },
+  { "<space>bc", "<cmd>bd<cr>", desc = "Close" },
   { "<space>be", "<cmd>BufferLinePickClose<cr>", desc = "Pick to Close" },
   { "<space>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "Close Left" },
   { "<space>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close Right" },
@@ -190,15 +203,15 @@ wk.add({
   { "<space>uCs", "<cmd>CMakeSelectBuildTarget<cr>", desc = "Select Target" },
   { "<space>uD", group = "DevContainer", icon = icons.devcontainer },
   { "<space>uDa", "<cmd>DevcontainerAttach<cr>", desc = "Attach" },
-  { "<space>uDb", "<cmd>DevcontainerBuild<cr>", desc = "Build" },
-  { "<space>uDc", "<cmd>DevcontainerConnect<cr>", desc = "Connect" },
+  { "<space>uDb", devcontainer_build_attach, desc = "Build & Attach" },
+  { "<space>uDc", "<cmd>DevcontainerStart<cr>", desc = "Start" },
   { "<space>uDe", "<cmd>DevcontainerExec<cr>", desc = "Exec" },
   { "<space>uDl", "<cmd>DevcontainerLogs<cr>", desc = "Logs" },
-  { "<space>uDo", "<cmd>DevcontainerOpen<cr>", desc = "Open Config" },
-  { "<space>uDr", "<cmd>DevcontainerRemove<cr>", desc = "Remove" },
-  { "<space>uDS", "<cmd>DevcontainerStop<cr>", desc = "Stop" },
-  { "<space>uDs", "<cmd>DevcontainerStart<cr>", desc = "Start" },
-  { "<space>uDt", "<cmd>DevcontainerToggle<cr>", desc = "Toggle Terminal" },
+  { "<space>uDo", "<cmd>DevcontainerEditNearestConfig<cr>", desc = "Open Config" },
+  { "<space>uDr", "<cmd>DevcontainerRemoveAll<cr>", desc = "Remove All" },
+  { "<space>uDS", "<cmd>DevcontainerStopAll<cr>", desc = "Stop All" },
+  { "<space>uDs", "<cmd>DevcontainerStop<cr>", desc = "Stop" },
+  { "<space>uDt", "<cmd>DevcontainerStart<cr>", desc = "Restart" },
   { "<space>uL", group = "Lazy", icon = icons.lazy },
   { "<space>uLo", "<cmd>Lazy<cr>", desc = "Open" },
   { "<space>uLs", "<cmd>Lazy sync<cr>", desc = "Sync" },
@@ -220,33 +233,18 @@ wk.add({
 
   -- Database
   { "<space>ud", group = "Database", icon = icons.database },
-  { "<space>udC", ":DBUIConnect<cr>", desc = "Connect" },
-  { "<space>udD", ":DBUIDisconnect<cr>", desc = "Disconnect" },
-  { "<space>udE", ":DBUIExecute<cr>", desc = "Execute" },
-  { "<space>uda", ":DBUIAddConnection<cr>", desc = "Add Connection" },
-  { "<space>udp", "<cmd>Dbee<cr>", desc = "Dbee" },
-  { "<space>ude", ":DBUIEditConnection<cr>", desc = "Edit Connection" },
-  { "<space>udf", ":DBUIFindBuffer<cr>", desc = "Find Buffer" },
-  { "<space>udi", ":DBUI<cr>", desc = "Open UI" },
-  { "<space>udI", ":DBUILastQueryInfo<cr>", desc = "Last Query Info" },
-  { "<space>udl", ":DBUIListConnections<cr>", desc = "List Connections" },
-  { "<space>udn", ":DBUINewQuery<cr>", desc = "New Query" },
-  { "<space>udo", ":DBUIOpen<cr>", desc = "Open" },
-  { "<space>udq", ":DBUIQuickQuery<cr>", desc = "Quick Query" },
-  { "<space>udr", ":DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
-  { "<space>udR", ":DBUIRenameConnection<cr>", desc = "Rename Connection" },
-  { "<space>uds", ":DBUIShowHistory<cr>", desc = "History" },
-  { "<space>udt", ":DBUIToggleResults<cr>", desc = "Toggle Results" },
-  { "<space>udu", ":DBUIUseConnection<cr>", desc = "Use Connection" },
-  { "<space>udw", ":DBUIWhereAmI<cr>", desc = "Where Am I" },
-  { "<space>udd", ":DBUIDeleteConnection<cr>", desc = "Delete Connection" },
+  { "<space>udi", "<cmd>Dbee<cr>", desc = "Toggle UI" },
+  { "<space>udo", "<cmd>Dbee open<cr>", desc = "Open UI" },
+  { "<space>udc", "<cmd>Dbee close<cr>", desc = "Close UI" },
+  { "<space>udq", dbee_execute_query, desc = "Execute Query" },
+  { "<space>uds", "<cmd>Dbee store<cr>", desc = "Store Result" },
 
   -- Treesitter
   { "<space>ut", group = "Treesitter", icon = icons.treesitter },
-  { "<space>uti", ":TSConfigInfo<cr>", desc = "Info" },
-  { "<space>utp", ":TSPlaygroundToggle<cr>", desc = "Playground" },
-  { "<space>utR", ":TSBufDisable highlight<cr>", desc = "Disable Highlight" },
-  { "<space>utr", ":TSBufEnable highlight<cr>", desc = "Enable Highlight" },
+  { "<space>uti", "<cmd>InspectTree<cr>", desc = "Inspect Tree" },
+  { "<space>utp", "<cmd>Inspect<cr>", desc = "Inspect" },
+  { "<space>utR", "<cmd>TSUpdate<cr>", desc = "Update Parsers" },
+  { "<space>utr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
 
   -- Java
   { "<space>uj", group = "Java", icon = icons.java },
@@ -277,21 +275,11 @@ wk.add({
   { "<space>ugFg", "<cmd>Fugit2Graph<cr>", desc = "Graph" },
   { "<space>ugFd", "<cmd>Fugit2Diff<cr>", desc = "Diff" },
   { "<space>ugG", group = "Git Commands", icon = icons.git },
-  { "<space>ugGa", ":GitAdd<cr>", desc = "Add" },
-  { "<space>ugGb", ":GitBranch<cr>", desc = "Branch" },
-  { "<space>ugGc", ":GitCommit<cr>", desc = "Commit" },
-  { "<space>ugGd", ":GitDiff<cr>", desc = "Diff" },
-  { "<space>ugGe", ":GitExport<cr>", desc = "Export" },
-  { "<space>ugGg", ":GitGrep<cr>", desc = "Grep" },
-  { "<space>ugGi", ":GitIgnore<cr>", desc = "Ignore" },
-  { "<space>ugGm", ":GitMerge<cr>", desc = "Merge" },
-  { "<space>ugGn", ":GitNew<cr>", desc = "New" },
-  { "<space>ugGp", ":GitPush<cr>", desc = "Push" },
-  { "<space>ugGr", ":GitRevert<cr>", desc = "Revert" },
-  { "<space>ugGs", ":GitStash<cr>", desc = "Stash" },
-  { "<space>ugGt", ":GitTag<cr>", desc = "Tag" },
-  { "<space>ugGu", ":GitPull<cr>", desc = "Pull" },
-  { "<space>ugGy", ":GitShow<cr>", desc = "Show" },
+  { "<space>ugGa", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
+  { "<space>ugGb", "<cmd>Telescope git_branches<cr>", desc = "Branches" },
+  { "<space>ugGc", "<cmd>Fugit2<cr>", desc = "Open Fugit2" },
+  { "<space>ugGd", "<cmd>DiffviewOpen<cr>", desc = "Diffview" },
+  { "<space>ugGh", "<cmd>DiffviewFileHistory<cr>", desc = "History" },
   { "<space>ugO", group = "GitHub", icon = icons.github },
   { "<space>ugOi", "<cmd>Octo issue list<cr>", desc = "Issues" },
   { "<space>ugOp", "<cmd>Octo pr list<cr>", desc = "Pull Requests" },
@@ -411,22 +399,9 @@ wk.add({
   { "<space>ow", "<cmd>new<cr>", desc = "Window" },
 
   -- Insert
-  { "<space>i", group = "Insert", icon = icons.insert },
-  { "<space>ia", ":InsertAll<cr>", desc = "Insert All" },
-  { "<space>ic", ":InsertCwd<cr>", desc = "Insert Cwd" },
-  { "<space>iC", ":InsertDir<cr>", desc = "Insert Directory" },
-  { "<space>id", ":InsertWinDown<cr>", desc = "Insert Down" },
-  { "<space>if", ":InsertFile<cr>", desc = "Insert File" },
-  { "<space>ih", ":InsertHorizSplit<cr>", desc = "Insert Horizontal Split" },
-  { "<space>ii", ":Insert<cr>", desc = "Insert" },
-  { "<space>il", ":InsertWinLeft<cr>", desc = "Insert Left" },
-  { "<space>ip", ":InsertPane<cr>", desc = "Insert Pane" },
-  { "<space>ir", ":InsertWinRight<cr>", desc = "Insert Right" },
-  { "<space>is", ":InsertSplit<cr>", desc = "Insert Split" },
-  { "<space>it", ":InsertTab<cr>", desc = "Insert Tab" },
-  { "<space>iu", ":InsertWinUp<cr>", desc = "Insert Up" },
-  { "<space>iv", ":InsertVertSplit<cr>", desc = "Insert Vertical Split" },
-  { "<space>iw", ":InsertWin<cr>", desc = "Insert Window" },
+  { "<space>i", group = "HTTP", icon = icons.insert },
+  { "<space>ia", "<cmd>Hyper<cr>", desc = "Open Request" },
+  { "<space>ii", "<cmd>HyperJump<cr>", desc = "Jump Request" },
 
   -- Utilities
   { "<space>U", group = "Utilities", icon = icons.utilities },
