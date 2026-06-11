@@ -1,14 +1,11 @@
 -- Documentación: módulo `lua/ai/avante-config/init.lua`.
--- Propósito: define integraciones de asistentes de IA dentro de BlindNvim sin alterar lógica de ejecución.
+-- Propósito: ajustar Avante para uso normal y para un modo braille más textual.
 
--- Avante.nvim configuration
--- AI coding assistant for Neovim with GitHub Copilot integration
-
-require('avante').setup({
+local normal = {
   provider = "codex",
   mode = "agentic",
   auto_suggestions_provider = "copilot",
-  input_provider = "snacks",  -- Use snacks.nvim for password inputs
+  input_provider = "snacks",
   acp_providers = {
     codex = {
       command = "npx",
@@ -62,9 +59,14 @@ require('avante').setup({
     wrap = true,
     width = 30,
     sidebar_header = {
+      enabled = true,
       align = "center",
       rounded = true,
     },
+  },
+  selection = {
+    enabled = true,
+    hint_display = "delayed",
   },
   highlights = {
     diff = {
@@ -76,4 +78,102 @@ require('avante').setup({
     autojump = true,
     list_opener = "copen",
   },
-})
+}
+
+local braille = {
+  provider = "codex",
+  mode = "agentic",
+  auto_suggestions_provider = "copilot",
+  input_provider = "native",
+  acp_providers = normal.acp_providers,
+  behaviour = {
+    auto_suggestions = false,
+    auto_set_highlight_group = true,
+    auto_set_keymaps = true,
+    auto_apply_diff_after_generation = false,
+    support_paste_from_clipboard = false,
+  },
+  mappings = {
+    diff = {
+      ours = "o",
+      theirs = "t",
+      all_theirs = "a",
+      both = "b",
+      cursor = "c",
+      next = "n",
+      prev = "p",
+    },
+    suggestion = {
+      accept = "a",
+      next = "n",
+      prev = "p",
+      dismiss = "d",
+    },
+    jump = {
+      next = "n",
+      prev = "p",
+    },
+    submit = {
+      normal = "<CR>",
+      insert = "<C-s>",
+    },
+    sidebar = {
+      switch_windows = "w",
+      reverse_switch_windows = "W",
+      apply_all = "A",
+      apply_cursor = "a",
+      retry_user_request = "r",
+      edit_user_request = "e",
+      remove_file = "d",
+      add_file = "+",
+      close = { "q", "<Esc>" },
+      close_from_input = { normal = "q", insert = "<C-d>" },
+    },
+    cancel = {
+      normal = { "<C-c>", "<Esc>", "q" },
+      insert = { "<C-c>" },
+    },
+  },
+  hints = { enabled = false },
+  windows = {
+    position = "left",
+    height = 1,
+    wrap = true,
+    width = 100,
+    sidebar_header = {
+      enabled = false,
+      align = "bottom",
+      rounded = false,
+    },
+    input = {
+      prefix = ">",
+      height = 1,
+      width = 100,
+    },
+    ask = {
+      floating = false,
+      start_insert = true,
+      border = "none",
+      focus_on_apply = "ours",
+    },
+    edit = {
+      border = "none",
+      start_insert = true,
+    },
+    spinner = {
+      editing = { "-", "\\", "|", "/" },
+      generating = { ".", "o", "O", "o" },
+      thinking = { ".", "." },
+    },
+  },
+  selection = {
+    enabled = false,
+  },
+  highlights = normal.highlights,
+  diff = {
+    autojump = true,
+    list_opener = "copen",
+  },
+}
+
+require("avante").setup(BlindReturn(braille, normal))
