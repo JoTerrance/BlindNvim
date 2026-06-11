@@ -6,6 +6,20 @@ local normal = {
   mode = "agentic",
   auto_suggestions_provider = "copilot",
   input_provider = "snacks",
+  selector = {
+    provider = "snacks",
+    provider_opts = {
+      layout = {
+        preset = "vertical",
+        layout = {
+          position = "top",
+          width = 1,
+          height = 0.78,
+--          min_width = 100,
+        },
+      },
+    },
+  },
   acp_providers = {
     codex = {
       command = "npx",
@@ -85,6 +99,7 @@ local braille = {
   mode = "agentic",
   auto_suggestions_provider = "copilot",
   input_provider = "native",
+  selector = normal.selector,
   acp_providers = normal.acp_providers,
   behaviour = {
     auto_suggestions = false,
