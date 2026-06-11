@@ -2,7 +2,9 @@
 -- Propósito: define opciones base del editor dentro de BlindNvim sin alterar lógica de ejecución.
 
 -- Function to return different values based on the presence of a braille device
-local has_braille = require("accessibility.check-braille").has_braille_device()
+local accessibility = require("accessibility.check-braille")
+vim.g.visual_impairing = accessibility.is_visual_impairing()
+local has_braille = vim.g.visual_impairing
 function BlindReturn(if_true, if_false)
   if has_braille then return if_true else return if_false end
 end
