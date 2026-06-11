@@ -160,6 +160,15 @@ require("lazy").setup({
         quickfile = { enabled = false },
         statuscolumn = { enabled = false },
         words = { enabled = false },
+      }, {
+        ui = BlindReturn({
+          fullscreen = true,
+          border = "none",
+          size = {
+            width = 1,
+            height = 1,
+          },
+        }, {}),
       })
     end,
   },

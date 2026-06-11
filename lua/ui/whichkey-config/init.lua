@@ -71,15 +71,16 @@ local conf = {
     scroll_up = '<c-u>', -- binding to scroll up inside the popup
   },
   win = {
-    padding = { 1, 0 }, -- extra window padding [top, right, bottom, left]
+    padding = BlindReturn({ 0, 0 }, { 1, 0 }), -- extra window padding [top, right, bottom, left]
+    height = BlindReturn({ min = 0.9, max = 0.98 }, { min = 4, max = 25 }),
   },
   layout = {
     height = { min = 100, max = 125 }, -- min and max height of the columns
-    width = { min = 20, max = 50 }, -- min and max width of the columns
-    spacing = 2, -- spacing between columns
+    width = BlindReturn({ min = 999 }, { min = 20, max = 50 }), -- min and max width of the columns
+    spacing = BlindReturn(1, 2), -- spacing between columns
     align = "left", -- align columns left, center or right
   },
-  show_help = true, -- show help message on the command line when the popup is visible
+  show_help = BlindReturn(false, true), -- show help message on the command line when the popup is visible
   -- triggers = {"<leader>"} -- or specify a list manually
   triggers = {
     { "<auto>", mode = "nxso" },
