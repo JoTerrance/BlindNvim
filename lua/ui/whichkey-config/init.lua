@@ -66,7 +66,7 @@ local conf = {
   icons = {
     breadcrumb = BlindReturn(">", "»"), -- symbol used in the command line area that shows your active key combo
     separator = BlindReturn("->", "➜"), -- symbol used between a key and it's label
-    group = "+", -- symbol prepended to a group
+    group = BlindReturn("GROUP ", "+"), -- symbol prepended to a group
   },
   keys = {
     scroll_down = '<c-d>', -- binding to scroll down inside the popup
@@ -119,13 +119,13 @@ end
 
 wk.add({
   -- Core
-  { "<space>w", "<cmd>w!<CR>", desc = "Save", icon = icons.save },
-  { "<space>h", "<cmd>nohlsearch<CR>", desc = "Clear Search Highlight", icon = icons.search },
-  { "<space>/", "<Plug>(comment_toggle_linewise_current)", desc = "Toggle Comment", icon = icons.comment },
-  { "<space>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Toggle Comment", mode = "v", icon = icons.comment },
+  { "<space>w", "<cmd>w!<CR>", desc = "Save", icon = icons.save, icon_hl = BlindReturn("Normal", "@variable") },
+  { "<space>h", "<cmd>nohlsearch<CR>", desc = "Clear Search Highlight", icon = icons.search, icon_hl = BlindReturn("Normal", "@variable") },
+  { "<space>/", "<Plug>(comment_toggle_linewise_current)", desc = "Toggle Comment", icon = icons.comment, icon_hl = BlindReturn("Normal", "@variable") },
+  { "<space>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Toggle Comment", mode = "v", icon = icons.comment, icon_hl = BlindReturn("Normal", "@variable") },
 
   -- Buffers
-  { "<space>b", group = "Buffers", icon = icons.buffers },
+  { "<space>b", group = "Buffers", icon = icons.buffers, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>bb", "<cmd>BufferLineCyclePrev<cr>", desc = "Previous" },
   { "<space>bn", "<cmd>BufferLineCycleNext<cr>", desc = "Next" },
   { "<space>bf", "<cmd>Telescope buffers<cr>", desc = "Find" },
@@ -138,7 +138,7 @@ wk.add({
   { "<space>bL", "<cmd>BufferLineSortByExtension<cr>", desc = "Sort by Language" },
 
   -- Navigation
-  { "<space>n", group = "Navigation", icon = icons.navigation },
+  { "<space>n", group = "Navigation", icon = icons.navigation, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>no", "<cmd>Oil<CR>", desc = "Oil" },
   { "<space>nO", "<cmd>Oil --float<CR>", desc = "Oil Float" },
   { "<space>na", "<cmd>AerialToggle!<CR>", desc = "Aerial Toggle" },
@@ -151,7 +151,7 @@ wk.add({
   { "<space>nu", "<cmd>UrlView<CR>", desc = "URLs" },
 
   -- Search
-  { "<space>s", group = "Search", icon = icons.search },
+  { "<space>s", group = "Search", icon = icons.search, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>sa", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
   { "<space>sb", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
   { "<space>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
@@ -167,18 +167,18 @@ wk.add({
   { "<space>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
   { "<space>sp", "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>", desc = "Colorscheme Preview" },
   { "<space>st", "<cmd>Telescope live_grep<cr>", desc = "Text" },
-  { "<space>sF", group = "FZF", icon = icons.fzf },
+  { "<space>sF", group = "FZF", icon = icons.fzf, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>sFf", "<cmd>FzfLua files<cr>", desc = "Files" },
   { "<space>sFb", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
   { "<space>sFg", "<cmd>FzfLua live_grep<cr>", desc = "Live Grep" },
   { "<space>sFr", "<cmd>FzfLua resume<cr>", desc = "Resume" },
-  { "<space>sT", group = "TODO", icon = icons.todo },
+  { "<space>sT", group = "TODO", icon = icons.todo, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>sTt", "<cmd>TodoTelescope<cr>", desc = "Telescope" },
   { "<space>sTq", "<cmd>TodoQuickFix<cr>", desc = "Quickfix" },
   { "<space>sTl", "<cmd>TodoLocList<cr>", desc = "Loclist" },
   { "<space>sTn", "]t", desc = "Next" },
   { "<space>sTp", "[t", desc = "Prev" },
-  { "<space>sx", group = "Telescope Extras", icon = icons.telescope },
+  { "<space>sx", group = "Telescope Extras", icon = icons.telescope, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>sxb", "<cmd>Telescope bookmarks<cr>", desc = "Bookmarks" },
   { "<space>sxd", "<cmd>Telescope docker<cr>", desc = "Docker" },
   { "<space>sxe", "<cmd>Telescope emoji<cr>", desc = "Emoji" },
@@ -199,15 +199,15 @@ wk.add({
   { "<space>sxG", "<cmd>Telescope githubcoauthors<cr>", desc = "Git Coauthors" },
 
   -- Tools
-  { "<space>u", group = "Tools", icon = icons.tools },
-  { "<space>uC", group = "CMake", icon = icons.cmake },
+  { "<space>u", group = "Tools", icon = icons.tools, icon_hl = BlindReturn("Normal", "@variable") },
+  { "<space>uC", group = "CMake", icon = icons.cmake, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uCb", "<cmd>CMakeBuild<cr>", desc = "Build" },
   { "<space>uCc", "<cmd>CMakeClean<cr>", desc = "Clean" },
   { "<space>uCd", "<cmd>CMakeDebug<cr>", desc = "Debug" },
   { "<space>uCg", "<cmd>CMakeGenerate<cr>", desc = "Generate" },
   { "<space>uCr", "<cmd>CMakeRun<cr>", desc = "Run" },
   { "<space>uCs", "<cmd>CMakeSelectBuildTarget<cr>", desc = "Select Target" },
-  { "<space>uD", group = "DevContainer", icon = icons.devcontainer },
+  { "<space>uD", group = "DevContainer", icon = icons.devcontainer, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uDa", "<cmd>DevcontainerAttach<cr>", desc = "Attach" },
   { "<space>uDb", devcontainer_build_attach, desc = "Build & Attach" },
   { "<space>uDc", "<cmd>DevcontainerStart<cr>", desc = "Start" },
@@ -218,30 +218,30 @@ wk.add({
   { "<space>uDS", "<cmd>DevcontainerStopAll<cr>", desc = "Stop All" },
   { "<space>uDs", "<cmd>DevcontainerStop<cr>", desc = "Stop" },
   { "<space>uDt", "<cmd>DevcontainerStart<cr>", desc = "Restart" },
-  { "<space>uL", group = "Lazy", icon = icons.lazy },
+  { "<space>uL", group = "Lazy", icon = icons.lazy, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uLo", "<cmd>Lazy<cr>", desc = "Open" },
   { "<space>uLs", "<cmd>Lazy sync<cr>", desc = "Sync" },
   { "<space>uLu", "<cmd>Lazy update<cr>", desc = "Update" },
   { "<space>uLc", "<cmd>Lazy clean<cr>", desc = "Clean" },
   { "<space>uLi", "<cmd>Lazy install<cr>", desc = "Install" },
-  { "<space>uM", group = "Mason", icon = icons.mason },
+  { "<space>uM", group = "Mason", icon = icons.mason, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uMo", "<cmd>Mason<cr>", desc = "Open" },
   { "<space>uMi", "<cmd>MasonInstall<cr>", desc = "Install" },
   { "<space>uMu", "<cmd>MasonUpdate<cr>", desc = "Update" },
   { "<space>uMl", "<cmd>MasonLog<cr>", desc = "Log" },
   { "<space>uMc", "<cmd>MasonUninstall<cr>", desc = "Uninstall" },
-  { "<space>uK", group = "Kubectl", icon = icons.kubectl },
+  { "<space>uK", group = "Kubectl", icon = icons.kubectl, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uKm", "<cmd>Kubectl<cr>", desc = "Main Menu" },
   { "<space>uKp", "<cmd>Kubectl pods<cr>", desc = "Pods" },
   { "<space>uKs", "<cmd>Kubectl services<cr>", desc = "Services" },
   { "<space>uKd", "<cmd>Kubectl deployments<cr>", desc = "Deployments" },
   { "<space>uKn", "<cmd>Kubectl namespaces<cr>", desc = "Namespaces" },
-  { "<space>uH", group = "HTTP", icon = icons.http },
+  { "<space>uH", group = "HTTP", icon = icons.http, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uHa", "<cmd>Hyper<cr>", desc = "Open Request" },
   { "<space>uHi", "<cmd>HyperJump<cr>", desc = "Jump Request" },
 
   -- Database
-  { "<space>ud", group = "Database", icon = icons.database },
+  { "<space>ud", group = "Database", icon = icons.database, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>udb", "<cmd>DBUI<cr>", desc = "Dadbod UI" },
   { "<space>udi", "<cmd>Dbee<cr>", desc = "Toggle UI" },
   { "<space>udo", "<cmd>Dbee open<cr>", desc = "Open UI" },
@@ -250,14 +250,14 @@ wk.add({
   { "<space>uds", "<cmd>Dbee store<cr>", desc = "Store Result" },
 
   -- Treesitter
-  { "<space>ut", group = "Treesitter", icon = icons.treesitter },
+  { "<space>ut", group = "Treesitter", icon = icons.treesitter, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uti", "<cmd>InspectTree<cr>", desc = "Inspect Tree" },
   { "<space>utp", "<cmd>Inspect<cr>", desc = "Inspect" },
   { "<space>utR", "<cmd>TSUpdate<cr>", desc = "Update Parsers" },
   { "<space>utr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
 
   -- Java
-  { "<space>uj", group = "Java", icon = icons.java },
+  { "<space>uj", group = "Java", icon = icons.java, icon_hl = BlindReturn("Normal", "@variable") },
   { "<space>uje", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", desc = "Extract Variable" },
   { "<space>ujE", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", desc = "Extract Method" },
   { "<space>uji", "<Cmd>lua require'jdtls'.organize_imports()<CR>", desc = "Organize Imports" },

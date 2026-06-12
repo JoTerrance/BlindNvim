@@ -19,6 +19,13 @@ vim.g.maplocalleader = "º"
 -- Enable filetype detection and plugins
 vim.cmd('filetype plugin indent on')
 
+if has_braille then
+  -- Keep the braille profile as close to plain text as possible.
+  vim.g.loaded_matchparen = 1
+  vim.o.showmatch = false
+  vim.cmd('syntax off')
+end
+
 -- Mouse and clipboard settings
 vim.o.mouse = "a"
 vim.o.clipboard = "unnamedplus"
@@ -39,13 +46,12 @@ vim.o.breakindent = true
 -- Color and visual settings
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
-vim.o.cursorline = true
-vim.o.conceallevel = 0
-vim.opt_local.conceallevel = 2
+vim.o.cursorline = BlindReturn(false, true)
+vim.o.conceallevel = BlindReturn(0, 2)
 
 -- Line numbers settings
 vim.wo.number = true
-vim.o.relativenumber = true
+vim.o.relativenumber = BlindReturn(false, true)
 
 -- Scroll margins settings
 vim.o.scrolloff = 3

@@ -5,10 +5,31 @@ local blind = {
   cmdline = {
     view = "cmdline",
   },
+  messages = {
+    enabled = false,
+  },
+  notify = {
+    enabled = false,
+  },
+  popupmenu = {
+    enabled = false,
+  },
   lsp = {
+    progress = {
+      enabled = false,
+    },
+    hover = {
+      enabled = false,
+    },
     signature = {
       enabled = false,
     },
+  },
+  presets = {
+    long_message_to_split = true,
+    command_palette = false,
+    bottom_search = true,
+    lsp_doc_border = false,
   },
 }
 local default = {

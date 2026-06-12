@@ -1,22 +1,37 @@
 -- Documentación: módulo `lua/ui/bufferline-config/init.lua`.
 -- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
 
+local function active_buffer_name(buf)
+    local name = buf.name or ""
+    if vim.g.visual_impairing and buf.bufnr == vim.api.nvim_get_current_buf() then
+        return "* " .. name
+    end
+
+    return name
+end
+
 local blind = {
     options = {
-        buffer_close_icon = "close",
+        buffer_close_icon = "",
         close_command = "bdelete %d",
-        close_icon = "close",
+        close_icon = "",
         indicator = {
-          style = "underline",
+          style = "icon",
           icon = "",
         },
-        left_trunc_marker = "<",
-        modified_icon = "+",
+        left_trunc_marker = "",
+        modified_icon = "",
         offsets = { { filetype = "NvimTree", text = "EXPLORER", text_align = "center" } },
         right_mouse_command = "bdelete! %d",
-        right_trunc_marker = ">",
+        right_trunc_marker = "",
+        show_buffer_icons = false,
+        show_buffer_close_icons = false,
         show_close_icon = false,
         show_tab_indicators = false,
+        show_duplicate_prefix = false,
+        enforce_regular_tabs = true,
+        name_formatter = BlindReturn(active_buffer_name, nil),
+        separator_style = { "", "" },
     },
     highlights = {
         fill = {

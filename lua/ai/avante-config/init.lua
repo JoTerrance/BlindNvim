@@ -15,7 +15,6 @@ local normal = {
           position = "top",
           width = 1,
           height = 0.78,
---          min_width = 100,
         },
       },
     },
@@ -103,7 +102,7 @@ local braille = {
   acp_providers = normal.acp_providers,
   behaviour = {
     auto_suggestions = false,
-    auto_set_highlight_group = true,
+    auto_set_highlight_group = false,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,
     support_paste_from_clipboard = false,
@@ -184,7 +183,12 @@ local braille = {
   selection = {
     enabled = false,
   },
-  highlights = normal.highlights,
+  highlights = {
+    diff = {
+      current = nil,
+      incoming = nil,
+    },
+  },
   diff = {
     autojump = true,
     list_opener = "copen",

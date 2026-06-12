@@ -12,7 +12,7 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config({
-  underline = true,
+  underline = BlindReturn(false, true),
   virtual_text = {
     spacing = 5,
     severity = { min = vim.diagnostic.severity.WARN },
@@ -31,14 +31,16 @@ local function au(typ, pattern, cmdOrFn)
 	end
 end
 
-au({ 'CursorHold', 'InsertLeave' }, nil, function()
-	local opts = {
-		focusable = false,
-		scope = 'cursor',
-		close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter' },
-	}
-	vim.diagnostic.open_float(nil, opts)
-end)
+if not vim.g.visual_impairing then
+  au({ 'CursorHold', 'InsertLeave' }, nil, function()
+    local opts = {
+      focusable = false,
+      scope = 'cursor',
+      close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter' },
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end)
+end
 
 au('InsertEnter', nil, function()
 	vim.diagnostic.enable(false)
