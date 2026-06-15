@@ -22,8 +22,7 @@ require('lspconfig').clangd.setup({ capabilities = capabilities,
 })
 
 local dap_ok, dap = pcall(require, 'dap')
-if not (dap_ok) then
-    print('nvim-dap not installed!')
+if not dap_ok then
     return
 end
 
@@ -33,8 +32,7 @@ require('mason-nvim-dap').setup({
 require('dap').set_log_level('DEBUG') -- Helps when configuring DAP, see logs with :DapShowLog
 
 local dap_ui_ok, ui = pcall(require, 'dapui')
-if not (dap_ok and dap_ui_ok) then
-    require('notify')('dap-ui not installed!', 'warning')
+if not dap_ui_ok then
     return
 end
 vim.fn.sign_define('DapBreakpoint', { text = '🐞' })
