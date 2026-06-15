@@ -408,6 +408,11 @@ require("lazy").setup({
   {'danymat/neogen', config = function() require('neogen').setup {} end, disable = vscode },
   -- Additional plugins
   {'ZWindL/orphans.nvim', config = function() require('tools.orphans-config') end, enabled = not vscode },
+  {
+    'simonwinther/cppman.nvim',
+    ft = { 'cpp' },
+    enabled = not vscode,
+  },
   {'chrisgrieser/nvim-puppeteer', enabled = not vscode },
   {'dundalek/bloat.nvim', cmd = bloat, enabled = not vscode },
   -- New plugins
