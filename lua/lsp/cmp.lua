@@ -4,6 +4,7 @@
 local lspkind = require "lspkind"
 local cmp = require "cmp"
 local luasnip = require 'luasnip'
+-- Completion is disabled for normal prompt buffers, but kept for DAP REPL buffers.
 cmp.setup {
   enabled = function()
     return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt"
@@ -25,7 +26,7 @@ cmp.setup {
       cmp.config.compare.exact,
       cmp.config.compare.score,
 
-      -- copied from cmp-under, but I don't think I need the plugin for this.
+      -- Prefer public symbols over leading-underscore internals without adding cmp-under.
       -- I might add some more of my own.
       function(entry1, entry2)
         local _, entry1_under = entry1.completion_item.label:find "^_+"
@@ -244,6 +245,7 @@ vim.api.nvim_create_autocmd(
 autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
 --]]
 
+-- Hide Copilot inline suggestions while cmp owns the completion UI.
 cmp.event:on("menu_opened", function()
   vim.b.copilot_suggestion_hidden = true
 end)

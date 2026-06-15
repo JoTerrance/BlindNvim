@@ -32,6 +32,7 @@ vim.opt.rtp:prepend(lazypath)
 -- En modo VSCode, varios plugins usan `enabled = not vscode` para no cargar
 -- integraciones que dependen de TUI nativa, floating windows o terminal embebida.
 local vscode = vim.g.vscode ~= nil and vim.g.vscode ~= false and vim.g.vscode ~= 0
+-- lazy.nvim itself gets a quieter text-only UI in Braille mode.
 local lazy_ui = BlindReturn({
   size = { width = 1, height = 1 },
   wrap = false,
@@ -356,11 +357,11 @@ require("lazy").setup({
     end,
   },
   'kristijanhusak/vim-dadbod-completion',
-  'mfussenegger/nvim-dap-python',
-  'mfussenegger/nvim-jdtls',
+  { 'mfussenegger/nvim-dap-python', ft = { 'python' } },
+  { 'mfussenegger/nvim-jdtls', ft = { 'java' } },
   'nvim-telescope/telescope-media-files.nvim',
   {'nvim-telescope/telescope-z.nvim', dependencies = { { 'nvim-lua/plenary.nvim' }, { 'nvim-lua/popup.nvim' }, { 'nvim-telescope/telescope.nvim' } } },
-  'softinio/scaladex.nvim',
+  { 'softinio/scaladex.nvim', ft = { 'scala', 'sbt' } },
   'onsails/lspkind-nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   'rafamadriz/friendly-snippets',
@@ -406,7 +407,7 @@ require("lazy").setup({
   { 'kevinhwang91/nvim-bqf' },
   { 'junegunn/fzf', build = function() vim.fn['fzf#install']() end },
   {'danymat/neogen', config = function() require('neogen').setup {} end, disable = vscode },
-  -- Additional plugins
+  -- Language-scoped tools live here. Keep their keymaps in lua/language/ rather than global which-key.
   {'ZWindL/orphans.nvim', config = function() require('tools.orphans-config') end, enabled = not vscode },
   {
     'simonwinther/cppman.nvim',
@@ -426,7 +427,7 @@ require("lazy").setup({
     dependencies = { 'nvim-telescope/telescope.nvim' },
     enabled = not vscode,
   },
-  {'chrisgrieser/nvim-puppeteer', enabled = not vscode },
+  { 'chrisgrieser/nvim-puppeteer', ft = { 'python' }, enabled = not vscode },
   {
     'Teatek/gdscript-extended-lsp.nvim',
     ft = { 'gdscript' },
@@ -467,6 +468,7 @@ require("lazy").setup({
     version = '^9',
     enabled = not vscode,
   },
+  -- Global LSP helpers register which-key entries on attach instead of at startup.
   {
     'rachartier/tiny-inline-diagnostic.nvim',
     event = 'LspAttach',
@@ -474,7 +476,7 @@ require("lazy").setup({
     config = function()
       require('tiny-inline-diagnostic').setup()
       vim.diagnostic.config({ virtual_text = false })
-      require('tools.diagnostics-whichkey').setup()
+      require('language.tools.diagnostics-whichkey').setup()
     end,
     enabled = not vscode,
   },
@@ -484,7 +486,7 @@ require("lazy").setup({
     opts = { enable = false },
     config = function(_, opts)
       require('referencer').setup(opts)
-      require('tools.referencer-whichkey').setup()
+      require('language.tools.referencer-whichkey').setup()
     end,
     enabled = not vscode,
   },
@@ -494,7 +496,7 @@ require("lazy").setup({
     dependencies = { 'nvim-telescope/telescope.nvim' },
     config = function()
       require('gitignore')
-      require('tools.gitignore-whichkey').setup()
+      require('language.tools.gitignore-whichkey').setup()
     end,
     enabled = not vscode,
   },
@@ -517,7 +519,7 @@ require("lazy").setup({
     dependencies = { 'saghen/blink.download' },
     config = function()
       require('kubectl').setup()
-      require('tools.kubectl-whichkey').setup()
+      require('language.tools.kubectl-whichkey').setup()
     end,
     enabled = not vscode,
   },

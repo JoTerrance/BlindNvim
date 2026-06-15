@@ -1,6 +1,7 @@
 -- Documentación: módulo `lua/ui/bufferline-config/init.lua`.
 -- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
 
+-- Prefix the active buffer in Braille mode so focus is visible without icons.
 local function active_buffer_name(buf)
     local name = buf.name or ""
     if vim.g.visual_impairing and buf.bufnr == vim.api.nvim_get_current_buf() then
@@ -10,6 +11,7 @@ local function active_buffer_name(buf)
     return name
 end
 
+-- Braille profile removes decorative separators and status icons from bufferline.
 local blind = {
     options = {
         buffer_close_icon = "",

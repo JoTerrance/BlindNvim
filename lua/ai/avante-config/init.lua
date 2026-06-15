@@ -1,6 +1,7 @@
 -- Documentación: módulo `lua/ai/avante-config/init.lua`.
 -- Propósito: ajustar Avante para uso normal y para un modo braille más textual.
 
+-- Normal profile favors richer UI: snacks input, suggestions and highlighted diffs.
 local normal = {
   provider = "codex",
   mode = "agentic",
@@ -93,6 +94,7 @@ local normal = {
   },
 }
 
+-- Braille profile favors deterministic text: native input, no suggestions, no decorative hints.
 local braille = {
   provider = "codex",
   mode = "agentic",

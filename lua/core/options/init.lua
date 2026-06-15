@@ -67,15 +67,16 @@ vim.wo.wrap = BlindReturn(true, false)
 vim.o.splitbelow = true
 vim.o.splitright = BlindReturn(false, true)
 
--- Command line height settings
-vim.o.cmdheight = 0
+-- Braille users benefit from a stable command line instead of transient UI.
+vim.o.cmdheight = BlindReturn(1, 0)
 
 -- Tab line settings
 vim.o.showtabline = 2
 
 -- Messages and modes settings
 vim.o.showmode = false
-vim.opt.shortmess:append "c"
+vim.o.report = BlindReturn(999, 2)
+vim.opt.shortmess:append(BlindReturn('Ic', 'c'))
 
 -- Search settings
 vim.o.ignorecase = true

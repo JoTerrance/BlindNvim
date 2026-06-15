@@ -1,6 +1,7 @@
 -- Documentación: módulo `lua/navigation/oil-config/init.lua`.
 -- Propósito: define herramientas de navegación y búsqueda dentro de BlindNvim sin alterar lógica de ejecución.
 
+-- Oil is still enabled in Braille mode, but icons are stripped through BlindReturn below.
 require("oil").setup({
   -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
   -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
@@ -108,6 +109,7 @@ require("oil").setup({
   -- Extra arguments to pass to SCP when moving/copying files over SSH
   extra_scp_args = {},
   -- EXPERIMENTAL support for performing file operations with git
+  -- File operations are explicit here; automatic git add/mv/rm would be surprising.
   git = {
     -- Return true to automatically git add/mv/rm files
     add = function(path)

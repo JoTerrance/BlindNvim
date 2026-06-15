@@ -8,6 +8,7 @@ require("gp").setup({
   providers = {
     copilot = {
       endpoint = "https://api.githubcopilot.com/chat/completions",
+      -- Copilot stores OAuth tokens in hosts.json; gp.nvim expects a command returning the secret.
       secret = { "bash", "-c", "cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//' 2>/dev/null || echo ''" },
     },
   },
@@ -76,6 +77,7 @@ require("gp").setup({
   log_sensitive = false,
   
   hooks = {
+    -- InspectPlugin is for debugging provider config, so mask credentials before rendering it.
     InspectPlugin = function(plugin, params)
       local bufnr = vim.api.nvim_create_buf(false, true)
       local copy = vim.deepcopy(plugin)

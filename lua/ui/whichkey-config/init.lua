@@ -256,15 +256,6 @@ wk.add({
   { "<space>utR", "<cmd>TSUpdate<cr>", desc = "Update Parsers" },
   { "<space>utr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
 
-  -- Java
-  { "<space>uj", group = "Java", icon = { icon = icons.java, hl = BlindReturn("Normal", "@variable") } },
-  { "<space>uje", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", desc = "Extract Variable" },
-  { "<space>ujE", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", desc = "Extract Method" },
-  { "<space>uji", "<Cmd>lua require'jdtls'.organize_imports()<CR>", desc = "Organize Imports" },
-  { "<space>ujn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", desc = "Test Nearest Method" },
-  { "<space>ujT", "<Cmd>lua require'jdtls'.test_class()<CR>", desc = "Test Class" },
-  { "<space>ujs", "<Cmd>lua require('telescope').extensions.scaladex.scaladex.search()<cr>", desc = "Scaladex Search", icon = icons.search },
-
   -- Git
   { "<space>ug", group = "Git", icon = icons.git },
   { "<space>ugb", "<cmd>Telescope git_branches<cr>", desc = "Checkout Branch" },
@@ -451,7 +442,4 @@ wk.add({
   { "<space>RV", "<cmd>lua require('refactoring').refactor('Inline Variable')<CR>", desc = "Inline Variable", mode = "v" },
   { "<space>RR", "<cmd>Lspsaga rename<cr>", desc = "Rename", mode = "v" },
 
-  { "<space>uj", group = "Java", mode = "v", icon = icons.java },
-  { "<space>uje", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", desc = "Extract Variable", mode = "v" },
-  { "<space>ujE", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", desc = "Extract Method", mode = "v" },
 })
