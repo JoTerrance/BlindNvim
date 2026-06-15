@@ -415,6 +415,25 @@ require("lazy").setup({
   },
   {'chrisgrieser/nvim-puppeteer', enabled = not vscode },
   {
+    'Teatek/gdscript-extended-lsp.nvim',
+    ft = { 'gdscript' },
+    opts = {},
+    enabled = not vscode,
+  },
+  {
+    'QuickGD/quickgd.nvim',
+    ft = { 'gdshader', 'gdshaderinc' },
+    init = function()
+      vim.filetype.add({
+        extension = {
+          gdshaderinc = 'gdshaderinc',
+        },
+      })
+    end,
+    opts = {},
+    enabled = not vscode,
+  },
+  {
     'benomahony/uv.nvim',
     ft = { 'python' },
     opts = {
