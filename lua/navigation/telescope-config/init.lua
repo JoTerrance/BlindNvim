@@ -126,7 +126,6 @@ require('telescope').load_extension('tmuxinator')
 require('telescope').load_extension('media_files')
 require'telescope'.load_extension'z'
 require('telescope').load_extension('dap')
-require('telescope').load_extension('scaladex')
 require('telescope').load_extension('changes')
 require('telescope').load_extension('ctags_outline')
 require('telescope').load_extension('command_palette')
