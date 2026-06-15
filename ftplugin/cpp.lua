@@ -39,7 +39,7 @@ if not (dap_ok and dap_ui_ok) then
 end
 vim.fn.sign_define('DapBreakpoint', { text = '🐞' })
 
-require('cppman.whichkey').setup()
+require('cpp.whichkey').setup({ cppman = true })
 
 dap.configurations.cpp = {
     {

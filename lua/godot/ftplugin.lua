@@ -12,9 +12,9 @@ local function set_keymaps(desc_prefix)
     })
   end
 
-  map('<leader>gdr', ':GodotRun<CR>', desc_prefix .. ' run project')
-  map('<leader>gdR', ':GodotRunLast<CR>', desc_prefix .. ' run last scene')
-  map('<leader>gds', ':GodotStart<CR>', desc_prefix .. ' start editor')
+  map('<leader>gdpr', ':GodotRun<CR>', desc_prefix .. ' run project')
+  map('<leader>gdpl', ':GodotRunLast<CR>', desc_prefix .. ' run last scene')
+  map('<leader>gdps', ':GodotStart<CR>', desc_prefix .. ' start editor')
 end
 
 local function register_which_key(desc_prefix)
@@ -25,9 +25,10 @@ local function register_which_key(desc_prefix)
 
   wk.add({
     { '<leader>gd', group = 'Godot' },
-    { '<leader>gdr', desc_prefix .. ' run project' },
-    { '<leader>gdR', desc_prefix .. ' run last scene' },
-    { '<leader>gds', desc_prefix .. ' start editor' },
+    { '<leader>gdp', group = 'Project' },
+    { '<leader>gdpr', desc_prefix .. ' run project' },
+    { '<leader>gdpl', desc_prefix .. ' run last scene' },
+    { '<leader>gdps', desc_prefix .. ' start editor' },
   }, { buffer = 0, mode = 'n' })
 end
 

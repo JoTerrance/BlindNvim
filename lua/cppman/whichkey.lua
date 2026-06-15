@@ -1,5 +1,5 @@
 -- Helper local para cppman.
--- Añade atajos buffer-local y entradas which-key para C/C++.
+-- Agrupa accesos C/C++ en which-key y mantiene atajos buffer-local.
 
 local M = {}
 
@@ -12,8 +12,8 @@ local function set_keymaps()
     })
   end
 
-  map('<leader>cm', ':CPPMan<CR>', 'Open cppman search')
-  map('<leader>cM', function()
+  map('<leader>ccm', ':CPPMan<CR>', 'Open cppman search')
+  map('<leader>ccM', function()
     require('cppman').search()
   end, 'Search cppman')
 end
@@ -26,8 +26,9 @@ local function register_which_key()
 
   wk.add({
     { '<leader>c', group = 'C / C++' },
-    { '<leader>cm', desc = 'Open cppman search' },
-    { '<leader>cM', desc = 'Search cppman' },
+    { '<leader>cc', group = 'cppman' },
+    { '<leader>ccm', desc = 'Open cppman search' },
+    { '<leader>ccM', desc = 'Search cppman' },
   }, { buffer = 0, mode = 'n' })
 end
 

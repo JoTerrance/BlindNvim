@@ -33,6 +33,11 @@ local function set_keymaps()
   map('<leader>rvg', ':RustLsp crateGraph<CR>', 'Crate graph')
   map('<leader>rvh', ':RustLsp view hir<CR>', 'View HIR')
   map('<leader>rvs', ':RustLsp syntaxTree<CR>', 'Syntax tree')
+  map('<leader>rvb', ':Godbolt<CR>', 'Godbolt assembly')
+  map('<leader>rvB', ':Godbolt!<CR>', 'Godbolt assembly reuse window')
+  map('<leader>rvc', ':GodboltCompiler telescope<CR>', 'Godbolt choose compiler')
+  map('<leader>rvb', ':Godbolt<CR>', 'Godbolt assembly', 'v')
+  map('<leader>rvc', ':GodboltCompiler telescope<CR>', 'Godbolt choose compiler', 'v')
 end
 
 local function register_which_key()
@@ -61,10 +66,15 @@ local function register_which_key()
     { '<leader>rvg', desc = 'Crate graph' },
     { '<leader>rvh', desc = 'View HIR' },
     { '<leader>rvs', desc = 'Syntax tree' },
+    { '<leader>rvb', desc = 'Godbolt assembly' },
+    { '<leader>rvB', desc = 'Godbolt assembly reuse window' },
+    { '<leader>rvc', desc = 'Godbolt choose compiler' },
   }, { buffer = 0, mode = 'n' })
 
   wk.add({
     { '<leader>rax', desc = 'Structural search replace' },
+    { '<leader>rvb', desc = 'Godbolt assembly' },
+    { '<leader>rvc', desc = 'Godbolt choose compiler' },
   }, { buffer = 0, mode = 'v' })
 end
 

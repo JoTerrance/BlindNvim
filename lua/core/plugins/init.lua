@@ -413,6 +413,19 @@ require("lazy").setup({
     ft = { 'cpp' },
     enabled = not vscode,
   },
+  {
+    'dchinmay2/clangd_extensions.nvim',
+    ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+    opts = {},
+    enabled = not vscode,
+  },
+  {
+    'dchinmay2/godbolt.nvim',
+    ft = { 'c', 'cpp', 'rust' },
+    opts = {},
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    enabled = not vscode,
+  },
   {'chrisgrieser/nvim-puppeteer', enabled = not vscode },
   {
     'Teatek/gdscript-extended-lsp.nvim',
@@ -442,14 +455,72 @@ require("lazy").setup({
     enabled = not vscode,
   },
   {
+    'pmizio/typescript-tools.nvim',
+    ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+    enabled = not vscode,
+  },
+  {
     'mrcjkb/rustaceanvim',
     ft = { 'rust' },
     version = '^9',
     enabled = not vscode,
   },
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = 'LspAttach',
+    priority = 1000,
+    config = function()
+      require('tiny-inline-diagnostic').setup()
+      vim.diagnostic.config({ virtual_text = false })
+      require('tools.diagnostics-whichkey').setup()
+    end,
+    enabled = not vscode,
+  },
+  {
+    'romus204/referencer.nvim',
+    event = 'LspAttach',
+    opts = { enable = false },
+    config = function(_, opts)
+      require('referencer').setup(opts)
+      require('tools.referencer-whichkey').setup()
+    end,
+    enabled = not vscode,
+  },
+  {
+    'wintermute-cell/gitignore.nvim',
+    cmd = 'Gitignore',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    config = function()
+      require('gitignore')
+      require('tools.gitignore-whichkey').setup()
+    end,
+    enabled = not vscode,
+  },
+  {
+    'wallpants/github-preview.nvim',
+    ft = { 'markdown' },
+    build = 'cd app && bun install',
+    opts = {},
+    config = function(_, opts)
+      require('github-preview').setup(opts)
+    end,
+    enabled = not vscode,
+  },
   {'dundalek/bloat.nvim', cmd = bloat, enabled = not vscode },
   -- New plugins
-  {'Ramilito/kubectl.nvim', config = function() require('kubectl').setup() end, enabled = not vscode },
+  {
+    'Ramilito/kubectl.nvim',
+    version = '2.*',
+    cmd = { 'Kubectl', 'Kubens', 'Kubectx' },
+    dependencies = { 'saghen/blink.download' },
+    config = function()
+      require('kubectl').setup()
+      require('tools.kubectl-whichkey').setup()
+    end,
+    enabled = not vscode,
+  },
   {'cshuaimin/ssr.nvim', config = function() require('ssr').setup() end },
   {'stevearc/conform.nvim', config = function() require('conform').setup() end },
   {'folke/todo-comments.nvim', dependencies = { "nvim-lua/plenary.nvim" }, config = function() require('todo-comments').setup() end },

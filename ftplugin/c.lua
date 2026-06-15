@@ -1,0 +1,4 @@
+-- Documentación: módulo `ftplugin/c.lua`.
+-- Propósito: ajustes locales para buffers C sin afectar otros filetypes.
+
+require('cpp.whichkey').setup()
