@@ -414,6 +414,14 @@ require("lazy").setup({
     enabled = not vscode,
   },
   {'chrisgrieser/nvim-puppeteer', enabled = not vscode },
+  {
+    'benomahony/uv.nvim',
+    ft = { 'python' },
+    opts = {
+      picker_integration = true,
+    },
+    enabled = not vscode,
+  },
   {'dundalek/bloat.nvim', cmd = bloat, enabled = not vscode },
   -- New plugins
   {'Ramilito/kubectl.nvim', config = function() require('kubectl').setup() end, enabled = not vscode },
