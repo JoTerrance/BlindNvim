@@ -441,6 +441,12 @@ require("lazy").setup({
     },
     enabled = not vscode,
   },
+  {
+    'mrcjkb/rustaceanvim',
+    ft = { 'rust' },
+    version = '^9',
+    enabled = not vscode,
+  },
   {'dundalek/bloat.nvim', cmd = bloat, enabled = not vscode },
   -- New plugins
   {'Ramilito/kubectl.nvim', config = function() require('kubectl').setup() end, enabled = not vscode },
