@@ -13,31 +13,31 @@ local function set_keymaps()
   end
 
   -- RustLsp exposes many commands, so the map tree mirrors task categories.
-  map('<leader>rac', ':RustLsp codeAction<CR>', 'Code action')
-  map('<leader>rah', ':RustLsp hover actions<CR>', 'Hover actions')
-  map('<leader>raH', ':RustLsp hover range<CR>', 'Hover range')
-  map('<leader>rax', ':RustLsp ssr<CR>', 'Structural search replace', { 'n', 'v' })
+  map('<leader>Lrac', ':RustLsp codeAction<CR>', 'Code action')
+  map('<leader>Lrah', ':RustLsp hover actions<CR>', 'Hover actions')
+  map('<leader>LraH', ':RustLsp hover range<CR>', 'Hover range')
+  map('<leader>Lrax', ':RustLsp ssr<CR>', 'Structural search replace', { 'n', 'v' })
 
   -- Run
-  map('<leader>rrr', ':RustLsp runnables<CR>', 'Runnables')
-  map('<leader>rrt', ':RustLsp testables<CR>', 'Testables')
-  map('<leader>rrd', ':RustLsp debuggables<CR>', 'Debuggables')
-  map('<leader>rrf', ':RustLsp flyCheck<CR>', 'Fly check')
+  map('<leader>Lrrr', ':RustLsp runnables<CR>', 'Runnables')
+  map('<leader>Lrrt', ':RustLsp testables<CR>', 'Testables')
+  map('<leader>Lrrd', ':RustLsp debuggables<CR>', 'Debuggables')
+  map('<leader>Lrrf', ':RustLsp flyCheck<CR>', 'Fly check')
 
   -- Navigate
-  map('<leader>rno', ':RustLsp openDocs<CR>', 'Open docs.rs')
-  map('<leader>rnC', ':RustLsp openCargo<CR>', 'Open Cargo.toml')
-  map('<leader>rnT', ':RustLsp relatedTests<CR>', 'Related tests')
+  map('<leader>Lrno', ':RustLsp openDocs<CR>', 'Open docs.rs')
+  map('<leader>LrnC', ':RustLsp openCargo<CR>', 'Open Cargo.toml')
+  map('<leader>LrnT', ':RustLsp relatedTests<CR>', 'Related tests')
 
   -- View
-  map('<leader>rvg', ':RustLsp crateGraph<CR>', 'Crate graph')
-  map('<leader>rvh', ':RustLsp view hir<CR>', 'View HIR')
-  map('<leader>rvs', ':RustLsp syntaxTree<CR>', 'Syntax tree')
-  map('<leader>rvb', ':Godbolt<CR>', 'Godbolt assembly')
-  map('<leader>rvB', ':Godbolt!<CR>', 'Godbolt assembly reuse window')
-  map('<leader>rvc', ':GodboltCompiler telescope<CR>', 'Godbolt choose compiler')
-  map('<leader>rvb', ':Godbolt<CR>', 'Godbolt assembly', 'v')
-  map('<leader>rvc', ':GodboltCompiler telescope<CR>', 'Godbolt choose compiler', 'v')
+  map('<leader>Lrvg', ':RustLsp crateGraph<CR>', 'Crate graph')
+  map('<leader>Lrvh', ':RustLsp view hir<CR>', 'View HIR')
+  map('<leader>Lrvs', ':RustLsp syntaxTree<CR>', 'Syntax tree')
+  map('<leader>Lrvb', ':Godbolt<CR>', 'Godbolt assembly')
+  map('<leader>LrvB', ':Godbolt!<CR>', 'Godbolt assembly reuse window')
+  map('<leader>Lrvc', ':GodboltCompiler telescope<CR>', 'Godbolt choose compiler')
+  map('<leader>Lrvb', ':Godbolt<CR>', 'Godbolt assembly', 'v')
+  map('<leader>Lrvc', ':GodboltCompiler telescope<CR>', 'Godbolt choose compiler', 'v')
 end
 
 local function register_which_key()
@@ -47,34 +47,34 @@ local function register_which_key()
   end
 
   wk.add({
-    { '<leader>r', group = 'Rust' },
-    { '<leader>ra', group = 'Actions' },
-    { '<leader>rac', desc = 'Code action' },
-    { '<leader>rah', desc = 'Hover actions' },
-    { '<leader>raH', desc = 'Hover range' },
-    { '<leader>rax', desc = 'Structural search replace' },
-    { '<leader>rr', group = 'Run' },
-    { '<leader>rrr', desc = 'Runnables' },
-    { '<leader>rrt', desc = 'Testables' },
-    { '<leader>rrd', desc = 'Debuggables' },
-    { '<leader>rrf', desc = 'Fly check' },
-    { '<leader>rn', group = 'Navigate' },
-    { '<leader>rno', desc = 'Open docs.rs' },
-    { '<leader>rnC', desc = 'Open Cargo.toml' },
-    { '<leader>rnT', desc = 'Related tests' },
-    { '<leader>rv', group = 'View' },
-    { '<leader>rvg', desc = 'Crate graph' },
-    { '<leader>rvh', desc = 'View HIR' },
-    { '<leader>rvs', desc = 'Syntax tree' },
-    { '<leader>rvb', desc = 'Godbolt assembly' },
-    { '<leader>rvB', desc = 'Godbolt assembly reuse window' },
-    { '<leader>rvc', desc = 'Godbolt choose compiler' },
+    { '<leader>Lr', group = 'Rust' },
+    { '<leader>Lra', group = 'Actions' },
+    { '<leader>Lrac', desc = 'Code action' },
+    { '<leader>Lrah', desc = 'Hover actions' },
+    { '<leader>LraH', desc = 'Hover range' },
+    { '<leader>Lrax', desc = 'Structural search replace' },
+    { '<leader>Lrr', group = 'Run' },
+    { '<leader>Lrrr', desc = 'Runnables' },
+    { '<leader>Lrrt', desc = 'Testables' },
+    { '<leader>Lrrd', desc = 'Debuggables' },
+    { '<leader>Lrrf', desc = 'Fly check' },
+    { '<leader>Lrn', group = 'Navigate' },
+    { '<leader>Lrno', desc = 'Open docs.rs' },
+    { '<leader>LrnC', desc = 'Open Cargo.toml' },
+    { '<leader>LrnT', desc = 'Related tests' },
+    { '<leader>Lrv', group = 'View' },
+    { '<leader>Lrvg', desc = 'Crate graph' },
+    { '<leader>Lrvh', desc = 'View HIR' },
+    { '<leader>Lrvs', desc = 'Syntax tree' },
+    { '<leader>Lrvb', desc = 'Godbolt assembly' },
+    { '<leader>LrvB', desc = 'Godbolt assembly reuse window' },
+    { '<leader>Lrvc', desc = 'Godbolt choose compiler' },
   }, { buffer = 0, mode = 'n' })
 
   wk.add({
-    { '<leader>rax', desc = 'Structural search replace' },
-    { '<leader>rvb', desc = 'Godbolt assembly' },
-    { '<leader>rvc', desc = 'Godbolt choose compiler' },
+    { '<leader>Lrax', desc = 'Structural search replace' },
+    { '<leader>Lrvb', desc = 'Godbolt assembly' },
+    { '<leader>Lrvc', desc = 'Godbolt choose compiler' },
   }, { buffer = 0, mode = 'v' })
 end
 

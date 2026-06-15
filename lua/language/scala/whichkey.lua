@@ -10,7 +10,7 @@ local function scaladex_search()
 end
 
 local function set_keymaps(desc_prefix)
-  vim.keymap.set('n', '<leader>uss', scaladex_search, {
+  vim.keymap.set('n', '<leader>Lss', scaladex_search, {
     buffer = true,
     silent = true,
     desc = string.format('%s: search Scaladex', desc_prefix),
@@ -24,8 +24,8 @@ local function register_which_key(desc_prefix)
   end
 
   wk.add({
-    { '<leader>us', group = desc_prefix },
-    { '<leader>uss', desc = 'Search Scaladex' },
+    { '<leader>Ls', group = desc_prefix },
+    { '<leader>Lss', desc = 'Search Scaladex' },
   }, { buffer = 0, mode = 'n' })
 end
 

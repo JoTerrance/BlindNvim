@@ -12,11 +12,11 @@ local function set_keymaps(desc_prefix)
     })
   end
 
-  map('<leader>ujae', "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", 'extract variable', { 'n', 'v' })
-  map('<leader>ujaE', "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", 'extract method', { 'n', 'v' })
-  map('<leader>ujci', "<Cmd>lua require('jdtls').organize_imports()<CR>", 'organize imports')
-  map('<leader>ujtn', "<Cmd>lua require('jdtls').test_nearest_method()<CR>", 'test nearest method')
-  map('<leader>ujtc', "<Cmd>lua require('jdtls').test_class()<CR>", 'test class')
+  map('<leader>Ljae', "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", 'extract variable', { 'n', 'v' })
+  map('<leader>LjaE', "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", 'extract method', { 'n', 'v' })
+  map('<leader>Ljci', "<Cmd>lua require('jdtls').organize_imports()<CR>", 'organize imports')
+  map('<leader>Ljtn', "<Cmd>lua require('jdtls').test_nearest_method()<CR>", 'test nearest method')
+  map('<leader>Ljtc', "<Cmd>lua require('jdtls').test_class()<CR>", 'test class')
 end
 
 local function register_which_key(desc_prefix)
@@ -26,22 +26,22 @@ local function register_which_key(desc_prefix)
   end
 
   wk.add({
-    { '<leader>uj', group = desc_prefix },
-    { '<leader>uja', group = 'Actions' },
-    { '<leader>ujae', desc = 'Extract variable' },
-    { '<leader>ujaE', desc = 'Extract method' },
-    { '<leader>ujc', group = 'Code' },
-    { '<leader>ujci', desc = 'Organize imports' },
-    { '<leader>ujt', group = 'Test' },
-    { '<leader>ujtn', desc = 'Test nearest method' },
-    { '<leader>ujtc', desc = 'Test class' },
+    { '<leader>Lj', group = desc_prefix },
+    { '<leader>Lja', group = 'Actions' },
+    { '<leader>Ljae', desc = 'Extract variable' },
+    { '<leader>LjaE', desc = 'Extract method' },
+    { '<leader>Ljc', group = 'Code' },
+    { '<leader>Ljci', desc = 'Organize imports' },
+    { '<leader>Ljt', group = 'Test' },
+    { '<leader>Ljtn', desc = 'Test nearest method' },
+    { '<leader>Ljtc', desc = 'Test class' },
   }, { buffer = 0, mode = 'n' })
 
   wk.add({
-    { '<leader>uj', group = desc_prefix },
-    { '<leader>uja', group = 'Actions' },
-    { '<leader>ujae', desc = 'Extract variable' },
-    { '<leader>ujaE', desc = 'Extract method' },
+    { '<leader>Lj', group = desc_prefix },
+    { '<leader>Lja', group = 'Actions' },
+    { '<leader>Ljae', desc = 'Extract variable' },
+    { '<leader>LjaE', desc = 'Extract method' },
   }, { buffer = 0, mode = 'v' })
 end
 

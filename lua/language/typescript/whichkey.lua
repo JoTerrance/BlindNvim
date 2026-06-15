@@ -13,14 +13,14 @@ local function set_keymaps(desc_prefix)
   end
 
   -- Keep imports/fixes separate from navigation so which-key remains scannable.
-  map('<leader>tia', ':TSToolsAddMissingImports<CR>', desc_prefix .. ' add missing imports')
-  map('<leader>tif', ':TSToolsFixAll<CR>', desc_prefix .. ' fix all')
-  map('<leader>tio', ':TSToolsOrganizeImports<CR>', desc_prefix .. ' organize imports')
-  map('<leader>tis', ':TSToolsSortImports<CR>', desc_prefix .. ' sort imports')
-  map('<leader>tiu', ':TSToolsRemoveUnusedImports<CR>', desc_prefix .. ' remove unused imports')
-  map('<leader>trf', ':TSToolsRenameFile<CR>', desc_prefix .. ' rename file')
-  map('<leader>tnf', ':TSToolsFileReferences<CR>', desc_prefix .. ' file references')
-  map('<leader>tnd', ':TSToolsGoToSourceDefinition<CR>', desc_prefix .. ' source definition')
+  map('<leader>Ltia', ':TSToolsAddMissingImports<CR>', desc_prefix .. ' add missing imports')
+  map('<leader>Ltif', ':TSToolsFixAll<CR>', desc_prefix .. ' fix all')
+  map('<leader>Ltio', ':TSToolsOrganizeImports<CR>', desc_prefix .. ' organize imports')
+  map('<leader>Ltis', ':TSToolsSortImports<CR>', desc_prefix .. ' sort imports')
+  map('<leader>Ltiu', ':TSToolsRemoveUnusedImports<CR>', desc_prefix .. ' remove unused imports')
+  map('<leader>Ltrf', ':TSToolsRenameFile<CR>', desc_prefix .. ' rename file')
+  map('<leader>Ltnf', ':TSToolsFileReferences<CR>', desc_prefix .. ' file references')
+  map('<leader>Ltnd', ':TSToolsGoToSourceDefinition<CR>', desc_prefix .. ' source definition')
 end
 
 local function register_which_key(desc_prefix)
@@ -30,18 +30,18 @@ local function register_which_key(desc_prefix)
   end
 
   wk.add({
-    { '<leader>t', group = 'TypeScript' },
-    { '<leader>ti', group = 'Imports / fixes' },
-    { '<leader>tia', desc = desc_prefix .. ' add missing imports' },
-    { '<leader>tif', desc = desc_prefix .. ' fix all' },
-    { '<leader>tio', desc = desc_prefix .. ' organize imports' },
-    { '<leader>tis', desc = desc_prefix .. ' sort imports' },
-    { '<leader>tiu', desc = desc_prefix .. ' remove unused imports' },
-    { '<leader>tr', group = 'Refactor' },
-    { '<leader>trf', desc = desc_prefix .. ' rename file' },
-    { '<leader>tn', group = 'Navigate' },
-    { '<leader>tnf', desc = desc_prefix .. ' file references' },
-    { '<leader>tnd', desc = desc_prefix .. ' source definition' },
+    { '<leader>Lt', group = 'TypeScript' },
+    { '<leader>Lti', group = 'Imports / fixes' },
+    { '<leader>Ltia', desc = desc_prefix .. ' add missing imports' },
+    { '<leader>Ltif', desc = desc_prefix .. ' fix all' },
+    { '<leader>Ltio', desc = desc_prefix .. ' organize imports' },
+    { '<leader>Ltis', desc = desc_prefix .. ' sort imports' },
+    { '<leader>Ltiu', desc = desc_prefix .. ' remove unused imports' },
+    { '<leader>Ltr', group = 'Refactor' },
+    { '<leader>Ltrf', desc = desc_prefix .. ' rename file' },
+    { '<leader>Ltn', group = 'Navigate' },
+    { '<leader>Ltnf', desc = desc_prefix .. ' file references' },
+    { '<leader>Ltnd', desc = desc_prefix .. ' source definition' },
   }, { buffer = 0, mode = 'n' })
 end
 

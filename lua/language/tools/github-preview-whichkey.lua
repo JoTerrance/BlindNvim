@@ -18,9 +18,9 @@ local function set_keymaps(desc_prefix)
     })
   end
 
-  map('<leader>mpT', call('toggle'), desc_prefix .. ' toggle preview')
-  map('<leader>mpS', call('single_file_toggle'), desc_prefix .. ' toggle single-file mode')
-  map('<leader>mpD', call('details_tags_toggle'), desc_prefix .. ' toggle details tags')
+  map('<leader>LmpT', call('toggle'), desc_prefix .. ' toggle preview')
+  map('<leader>LmpS', call('single_file_toggle'), desc_prefix .. ' toggle single-file mode')
+  map('<leader>LmpD', call('details_tags_toggle'), desc_prefix .. ' toggle details tags')
 end
 
 local function register_which_key(desc_prefix)
@@ -30,11 +30,11 @@ local function register_which_key(desc_prefix)
   end
 
   wk.add({
-    { '<leader>m', group = 'Markdown' },
-    { '<leader>mp', group = desc_prefix },
-    { '<leader>mpT', desc = desc_prefix .. ' toggle preview' },
-    { '<leader>mpS', desc = desc_prefix .. ' toggle single-file mode' },
-    { '<leader>mpD', desc = desc_prefix .. ' toggle details tags' },
+    { '<leader>Lm', group = 'Markdown' },
+    { '<leader>Lmp', group = desc_prefix },
+    { '<leader>LmpT', desc = desc_prefix .. ' toggle preview' },
+    { '<leader>LmpS', desc = desc_prefix .. ' toggle single-file mode' },
+    { '<leader>LmpD', desc = desc_prefix .. ' toggle details tags' },
   }, { buffer = 0, mode = 'n' })
 end
 

@@ -12,8 +12,8 @@ end
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
--- Key for general shortcuts
-vim.g.mapleader = "º"
+-- Space is the single global menu prefix; language helpers use <leader> too.
+vim.g.mapleader = " "
 vim.g.maplocalleader = "º"
 
 -- Enable filetype detection and plugins
