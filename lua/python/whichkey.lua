@@ -1,9 +1,9 @@
 -- Helper local para uv.nvim.
--- Agrupa accesos Python UV en which-key y mantiene atajos buffer-local.
+-- Sigue el mismo patrón de setup y registro que Godot.
 
 local M = {}
 
-local function set_keymaps()
+local function set_keymaps(desc_prefix)
   local map = function(lhs, rhs, desc)
     vim.keymap.set('n', lhs, rhs, {
       buffer = true,
@@ -12,14 +12,14 @@ local function set_keymaps()
     })
   end
 
-  map('<leader>upu', ':UVRunFile<CR>', 'Run current file')
-  map('<leader>ups', ':UVRunSelection<CR>', 'Run selection')
-  map('<leader>upf', ':UVRunFunction<CR>', 'Run function')
-  map('<leader>upi', ':UVInit<CR>', 'Init project')
-  map('<leader>upa', ':UVAutoActivateToggle<CR>', 'Toggle auto-activate')
+  map('<leader>upu', ':UVRunFile<CR>', desc_prefix .. ' run current file')
+  map('<leader>ups', ':UVRunSelection<CR>', desc_prefix .. ' run selection')
+  map('<leader>upf', ':UVRunFunction<CR>', desc_prefix .. ' run function')
+  map('<leader>upi', ':UVInit<CR>', desc_prefix .. ' init project')
+  map('<leader>upa', ':UVAutoActivateToggle<CR>', desc_prefix .. ' toggle auto-activate')
 end
 
-local function register_which_key()
+local function register_which_key(desc_prefix)
   local ok, wk = pcall(require, 'which-key')
   if not ok then
     return
@@ -28,17 +28,20 @@ local function register_which_key()
   wk.add({
     { '<leader>u', group = 'Python' },
     { '<leader>up', group = 'UV' },
-    { '<leader>upu', desc = 'Run current file' },
-    { '<leader>ups', desc = 'Run selection' },
-    { '<leader>upf', desc = 'Run function' },
-    { '<leader>upi', desc = 'Init project' },
-    { '<leader>upa', desc = 'Toggle auto-activate' },
+    { '<leader>upu', desc = desc_prefix .. ' run current file' },
+    { '<leader>ups', desc = desc_prefix .. ' run selection' },
+    { '<leader>upf', desc = desc_prefix .. ' run function' },
+    { '<leader>upi', desc = desc_prefix .. ' init project' },
+    { '<leader>upa', desc = desc_prefix .. ' toggle auto-activate' },
   }, { buffer = 0, mode = 'n' })
 end
 
-function M.setup()
-  set_keymaps()
-  register_which_key()
+function M.setup(opts)
+  opts = opts or {}
+  local desc_prefix = opts.desc_prefix or 'Python UV'
+
+  set_keymaps(desc_prefix)
+  register_which_key(desc_prefix)
 end
 
 return M

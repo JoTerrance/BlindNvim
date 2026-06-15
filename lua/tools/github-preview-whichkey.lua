@@ -8,7 +8,7 @@ local function call(fn)
   end
 end
 
-function M.setup()
+local function set_keymaps(desc_prefix)
   local map = function(lhs, rhs, desc)
     vim.keymap.set('n', lhs, rhs, {
       buffer = true,
@@ -17,10 +17,12 @@ function M.setup()
     })
   end
 
-  map('<leader>mpT', call('toggle'), 'Toggle preview')
-  map('<leader>mpS', call('single_file_toggle'), 'Toggle single-file mode')
-  map('<leader>mpD', call('details_tags_toggle'), 'Toggle details tags')
+  map('<leader>mpT', call('toggle'), desc_prefix .. ' toggle preview')
+  map('<leader>mpS', call('single_file_toggle'), desc_prefix .. ' toggle single-file mode')
+  map('<leader>mpD', call('details_tags_toggle'), desc_prefix .. ' toggle details tags')
+end
 
+local function register_which_key(desc_prefix)
   local ok, wk = pcall(require, 'which-key')
   if not ok then
     return
@@ -28,11 +30,19 @@ function M.setup()
 
   wk.add({
     { '<leader>m', group = 'Markdown' },
-    { '<leader>mp', group = 'GitHub preview' },
-    { '<leader>mpT', desc = 'Toggle preview' },
-    { '<leader>mpS', desc = 'Toggle single-file mode' },
-    { '<leader>mpD', desc = 'Toggle details tags' },
+    { '<leader>mp', group = desc_prefix },
+    { '<leader>mpT', desc = desc_prefix .. ' toggle preview' },
+    { '<leader>mpS', desc = desc_prefix .. ' toggle single-file mode' },
+    { '<leader>mpD', desc = desc_prefix .. ' toggle details tags' },
   }, { buffer = 0, mode = 'n' })
+end
+
+function M.setup(opts)
+  opts = opts or {}
+  local desc_prefix = opts.desc_prefix or 'GitHub preview'
+
+  set_keymaps(desc_prefix)
+  register_which_key(desc_prefix)
 end
 
 return M

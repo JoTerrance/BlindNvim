@@ -1,9 +1,9 @@
 -- Helper local para typescript-tools.nvim.
--- Agrupa acciones TS/JS buffer-local en which-key.
+-- Sigue el mismo patrón de setup y registro que Godot.
 
 local M = {}
 
-local function set_keymaps()
+local function set_keymaps(desc_prefix)
   local map = function(lhs, rhs, desc)
     vim.keymap.set('n', lhs, rhs, {
       buffer = true,
@@ -12,17 +12,17 @@ local function set_keymaps()
     })
   end
 
-  map('<leader>tia', ':TSToolsAddMissingImports<CR>', 'Add missing imports')
-  map('<leader>tif', ':TSToolsFixAll<CR>', 'Fix all')
-  map('<leader>tio', ':TSToolsOrganizeImports<CR>', 'Organize imports')
-  map('<leader>tis', ':TSToolsSortImports<CR>', 'Sort imports')
-  map('<leader>tiu', ':TSToolsRemoveUnusedImports<CR>', 'Remove unused imports')
-  map('<leader>trf', ':TSToolsRenameFile<CR>', 'Rename file')
-  map('<leader>tnf', ':TSToolsFileReferences<CR>', 'File references')
-  map('<leader>tnd', ':TSToolsGoToSourceDefinition<CR>', 'Source definition')
+  map('<leader>tia', ':TSToolsAddMissingImports<CR>', desc_prefix .. ' add missing imports')
+  map('<leader>tif', ':TSToolsFixAll<CR>', desc_prefix .. ' fix all')
+  map('<leader>tio', ':TSToolsOrganizeImports<CR>', desc_prefix .. ' organize imports')
+  map('<leader>tis', ':TSToolsSortImports<CR>', desc_prefix .. ' sort imports')
+  map('<leader>tiu', ':TSToolsRemoveUnusedImports<CR>', desc_prefix .. ' remove unused imports')
+  map('<leader>trf', ':TSToolsRenameFile<CR>', desc_prefix .. ' rename file')
+  map('<leader>tnf', ':TSToolsFileReferences<CR>', desc_prefix .. ' file references')
+  map('<leader>tnd', ':TSToolsGoToSourceDefinition<CR>', desc_prefix .. ' source definition')
 end
 
-local function register_which_key()
+local function register_which_key(desc_prefix)
   local ok, wk = pcall(require, 'which-key')
   if not ok then
     return
@@ -31,22 +31,25 @@ local function register_which_key()
   wk.add({
     { '<leader>t', group = 'TypeScript' },
     { '<leader>ti', group = 'Imports / fixes' },
-    { '<leader>tia', desc = 'Add missing imports' },
-    { '<leader>tif', desc = 'Fix all' },
-    { '<leader>tio', desc = 'Organize imports' },
-    { '<leader>tis', desc = 'Sort imports' },
-    { '<leader>tiu', desc = 'Remove unused imports' },
+    { '<leader>tia', desc = desc_prefix .. ' add missing imports' },
+    { '<leader>tif', desc = desc_prefix .. ' fix all' },
+    { '<leader>tio', desc = desc_prefix .. ' organize imports' },
+    { '<leader>tis', desc = desc_prefix .. ' sort imports' },
+    { '<leader>tiu', desc = desc_prefix .. ' remove unused imports' },
     { '<leader>tr', group = 'Refactor' },
-    { '<leader>trf', desc = 'Rename file' },
+    { '<leader>trf', desc = desc_prefix .. ' rename file' },
     { '<leader>tn', group = 'Navigate' },
-    { '<leader>tnf', desc = 'File references' },
-    { '<leader>tnd', desc = 'Source definition' },
+    { '<leader>tnf', desc = desc_prefix .. ' file references' },
+    { '<leader>tnd', desc = desc_prefix .. ' source definition' },
   }, { buffer = 0, mode = 'n' })
 end
 
-function M.setup()
-  set_keymaps()
-  register_which_key()
+function M.setup(opts)
+  opts = opts or {}
+  local desc_prefix = opts.desc_prefix or 'TypeScript'
+
+  set_keymaps(desc_prefix)
+  register_which_key(desc_prefix)
 end
 
 return M
