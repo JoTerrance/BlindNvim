@@ -2,3 +2,4 @@
 -- Propósito: define ajustes específicos por tipo de archivo dentro de BlindNvim sin alterar lógica de ejecución.
 
 require('dap-python').setup('/bin/python3')
+require('python.whichkey').setup()
