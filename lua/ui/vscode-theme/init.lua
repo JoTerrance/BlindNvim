@@ -131,6 +131,8 @@ if vim.g.visual_impairing then
     return
 end
 
+-- Normal mode keeps vscode.nvim, but selected groups still use BlindReturn
+-- so manual visual-impairing overrides remain available.
 local c = require('vscode.colors').get_colors()
 local blind_group_overrides = {
     Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = false },

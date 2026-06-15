@@ -6,6 +6,8 @@ local layouts = require("dbee.layouts")
 local tools = require("dbee.layouts.tools")
 local api_ui = require("dbee.api.ui")
 
+-- DBee's default drawer-heavy layout is hard to follow with screen readers;
+-- this layout makes each panel a predictable horizontal split.
 local function create_braille_layout()
   local layout = layouts.Default:new({
     result_height = 20,

@@ -12,6 +12,7 @@ local function set_keymaps(desc_prefix)
     })
   end
 
+  -- Keep imports/fixes separate from navigation so which-key remains scannable.
   map('<leader>tia', ':TSToolsAddMissingImports<CR>', desc_prefix .. ' add missing imports')
   map('<leader>tif', ':TSToolsFixAll<CR>', desc_prefix .. ' fix all')
   map('<leader>tio', ':TSToolsOrganizeImports<CR>', desc_prefix .. ' organize imports')

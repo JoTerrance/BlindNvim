@@ -2,6 +2,7 @@
 
 local M = {}
 
+-- Load the Telescope extension lazily from Scala buffers instead of during Telescope startup.
 local function scaladex_search()
   local telescope = require('telescope')
   pcall(telescope.load_extension, 'scaladex')

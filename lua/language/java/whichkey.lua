@@ -3,6 +3,7 @@
 local M = {}
 
 local function set_keymaps(desc_prefix)
+  -- jdtls extraction commands need normal and visual mappings; imports and tests are normal-only.
   local map = function(lhs, rhs, desc, mode)
     vim.keymap.set(mode or 'n', lhs, rhs, {
       buffer = true,

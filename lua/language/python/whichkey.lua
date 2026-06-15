@@ -13,6 +13,7 @@ local function set_keymaps(desc_prefix)
   end
 
   map('<leader>upvu', ':UVRunFile<CR>', desc_prefix .. ' UV run current file')
+  -- Visual mappings use <Esc><Cmd> so Neovim does not prepend a range to plugin commands.
   map('<leader>upvs', ':UVRunSelection<CR>', desc_prefix .. ' UV run selection')
   map('<leader>upvs', '<Esc><Cmd>UVRunSelection<CR>', desc_prefix .. ' UV run selection', 'v')
   map('<leader>upvf', ':UVRunFunction<CR>', desc_prefix .. ' UV run function')

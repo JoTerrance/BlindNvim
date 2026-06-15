@@ -1,6 +1,8 @@
 -- Documentación: módulo `lua/tools/fasterbigfile-config/init.lua`.
 -- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
 
+-- Faster.nvim disables expensive features for big files and recursive macros.
+-- Keep the threshold low because this config enables several UI-heavy plugins.
 opts = {
   -- Behaviour table contains configuration for behaviours faster.nvim uses
   behaviours = {

@@ -33,6 +33,7 @@ local function env_flag(name)
   return true
 end
 
+-- Debug opt-in: useful when autodetection fails, but quiet for daily startup.
 local function log_details(found, details)
   if not env_flag('BLINDNVIM_BRAILLE_DEBUG') then
     return
@@ -86,6 +87,7 @@ local function has_braille_device()
   return found
 end
 
+-- Precedence: explicit env var, legacy env var, vim global, then autodetect.
 local function is_visual_impairing()
   local override = env_flag('BLINDNVIM_VISUAL_IMPAIRING')
   if override ~= nil then

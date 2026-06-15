@@ -117,6 +117,7 @@ local function on_attach(bufnr)
 
 end
 
+-- In Braille mode, remove file icons so node names are read as plain text.
 vim.g.nvim_tree_show_icons = BlindReturn({
   folders = 0,
   files = 0,
@@ -128,6 +129,7 @@ vim.g.nvim_tree_show_icons = BlindReturn({
   git = 1,
   folder_arrows = 1,
 })
+-- Open the tree on startup because this config treats it as the primary project navigator.
 local function open_nvim_tree()
 
   -- open the tree

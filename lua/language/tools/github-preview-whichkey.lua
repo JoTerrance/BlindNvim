@@ -9,6 +9,7 @@ local function call(fn)
 end
 
 local function set_keymaps(desc_prefix)
+  -- GitHub Preview exposes Lua functions rather than commands, so wrap calls for keymaps.
   local map = function(lhs, rhs, desc)
     vim.keymap.set('n', lhs, rhs, {
       buffer = true,

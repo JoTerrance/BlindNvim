@@ -12,7 +12,7 @@ local function set_keymaps()
     })
   end
 
-  -- Actions
+  -- RustLsp exposes many commands, so the map tree mirrors task categories.
   map('<leader>rac', ':RustLsp codeAction<CR>', 'Code action')
   map('<leader>rah', ':RustLsp hover actions<CR>', 'Hover actions')
   map('<leader>raH', ':RustLsp hover range<CR>', 'Hover range')

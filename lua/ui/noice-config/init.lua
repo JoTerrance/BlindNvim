@@ -1,6 +1,7 @@
 -- Documentación: módulo `lua/ui/noice-config/init.lua`.
 -- Propósito: define componentes de interfaz de usuario dentro de BlindNvim sin alterar lógica de ejecución.
 
+-- Braille mode keeps Neovim's classic cmdline and suppresses floating notifications.
 local blind = {
   cmdline = {
     view = "cmdline",
@@ -213,6 +214,7 @@ local default = {
   },
   throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
 
+  -- Drop routine write messages; they are frequent and add little signal.
   routes = {
     {
       filter = {

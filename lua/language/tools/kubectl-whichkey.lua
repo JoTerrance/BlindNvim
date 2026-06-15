@@ -3,6 +3,7 @@
 local M = {}
 
 local function register_which_key(desc_prefix)
+  -- These are global tool commands, but which-key registration is still isolated here.
   local ok, wk = pcall(require, 'which-key')
   if not ok then
     return

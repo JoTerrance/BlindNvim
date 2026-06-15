@@ -1,7 +1,8 @@
 -- Documentación: módulo `lua/tools/format-config/init.lua`.
 -- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
 
-  -- Create a command `:Format` local to the LSP buffer
+-- Formatter commands are intentionally explicit per filetype because several
+-- tools here mutate files in place and need different temp-file behaviour.
 require'format'.setup {
   html = {{cmd = {"prettier -w"}}},
   css = {{cmd = {"prettier -w"}}},
@@ -73,4 +74,5 @@ require'format'.setup {
   }
 }
 
+-- Keep legacy format.nvim behaviour: format after writes instead of before writes.
 vim.cmd('autocmd BufWritePost * FormatWrite')

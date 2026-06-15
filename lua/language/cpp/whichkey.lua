@@ -12,6 +12,7 @@ local function set_keymaps(desc_prefix, include_cppman)
     })
   end
 
+  -- cppman is C++-only, while clangd and Godbolt also apply to C buffers.
   if include_cppman then
     map('<leader>ccm', ':CPPMan<CR>', desc_prefix .. ' open cppman search')
     map('<leader>ccM', function()
@@ -37,6 +38,7 @@ local function register_which_key(desc_prefix, include_cppman)
     return
   end
 
+  -- Build one list so optional C++ entries stay in the same which-key group.
   local items = {
     { '<leader>c', group = desc_prefix },
     { '<leader>cx', group = 'clangd extensions' },
