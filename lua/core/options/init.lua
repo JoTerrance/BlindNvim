@@ -23,7 +23,7 @@ if has_braille then
   -- Keep the braille profile as close to plain text as possible.
   vim.g.loaded_matchparen = 1
   vim.o.showmatch = false
-  vim.cmd('syntax off')
+  vim.cmd('syntax manual')
 end
 
 -- Mouse and clipboard settings
