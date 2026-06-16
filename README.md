@@ -14,9 +14,17 @@ Requisitos
 
 Modo accesible y simulación
 - La configuración usa `BlindReturn(...)` para elegir variantes más limpias cuando detecta un entorno braille.
-- Para simular la experiencia sin hardware, arranca Neovim con `BLINDNIM_VISUAL_IMPAIRING=1`.
-- Para forzar el modo normal, usa `BLINDNIM_VISUAL_IMPAIRING=0`.
+- El modo braille se activa automáticamente si se detecta un dispositivo braille o BRLTTY.
+- Para forzarlo manualmente, arranca Neovim con `BLINDNVIM_VISUAL_IMPAIRING=1`.
+- Para desactivarlo explícitamente, usa `BLINDNVIM_VISUAL_IMPAIRING=0`.
+- Si necesitas compatibilidad con configuraciones antiguas, también se acepta `BLINDNIM_VISUAL_IMPAIRING` como alias.
 - Prioridad de detección: variable de entorno > `vim.g.visual_impairing` > detección automática de braille.
+
+Ejemplos:
+```bash
+BLINDNVIM_VISUAL_IMPAIRING=1 nvim
+BLINDNVIM_VISUAL_IMPAIRING=0 nvim
+```
 
 Compatibilidad de plataformas
 - Plataforma principal: Linux. Muchos plugins y utilidades asumen herramientas Unix (ripgrep, fd, make, etc.).
@@ -63,4 +71,3 @@ Contacto
 - Abre un issue en el repositorio para preguntas o reportes de errores.
 
 Gracias por usar y contribuir a BlindNeoVim.
-
