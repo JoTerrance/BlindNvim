@@ -49,18 +49,17 @@ local braille = {
     show_code = false,
     use_icons_from_diagnostic = false,
     set_arrow_to_diag_color = false,
-    throttle = 30,
-    softwrap = 30,
+    throttle = 12,
+    softwrap = 20,
     add_messages = {
       messages = false,
-      display_count = true,
+      display_count = false,
       use_max_severity = true,
       show_multiple_glyphs = false,
     },
     multilines = {
-      enabled = true,
+      enabled = false,
       always_show = false,
-      severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN },
     },
   },
 }

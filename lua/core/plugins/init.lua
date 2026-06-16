@@ -540,6 +540,15 @@ require("lazy").setup({
     enabled = not vscode,
   },
   {
+    'dgagn/diagflow.nvim',
+    event = 'LspAttach',
+    priority = 1000,
+    config = function()
+      require('ui.diagflow-config')
+    end,
+    enabled = BlindReturn(true, false),
+  },
+  {
     'romus204/referencer.nvim',
     event = 'LspAttach',
     cmd = { 'ReferencerToggle', 'ReferencerUpdate' },
