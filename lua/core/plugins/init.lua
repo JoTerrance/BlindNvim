@@ -283,6 +283,32 @@ require("lazy").setup({
     end,
     enabled = not vscode,
   },
+  {
+    'Zeioth/compiler.nvim',
+    cmd = { 'CompilerOpen', 'CompilerToggleResults', 'CompilerRedo', 'CompilerStop' },
+    dependencies = { 'stevearc/overseer.nvim', 'nvim-telescope/telescope.nvim' },
+    config = function(_, opts)
+      require('compiler').setup(opts)
+    end,
+    opts = {},
+    enabled = not vscode,
+  },
+  {
+    'stevearc/overseer.nvim',
+    cmd = { 'CompilerOpen', 'CompilerToggleResults', 'CompilerRedo', 'CompilerStop' },
+    config = function(_, opts)
+      require('overseer').setup(opts)
+    end,
+    opts = {
+      task_list = {
+        direction = 'bottom',
+        min_height = 25,
+        max_height = 25,
+        default_detail = 1,
+      },
+    },
+    enabled = not vscode,
+  },
   'echasnovski/mini.nvim',
   {'lukas-reineke/indent-blankline.nvim', main = "ibl",},
   
@@ -385,6 +411,20 @@ require("lazy").setup({
   'Mofiqul/vscode.nvim',
   { 'nvim-lualine/lualine.nvim', enabled = not vscode },
   'unblevable/quick-scope',
+  {
+    'otavioschwanck/arrow.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    event = 'VeryLazy',
+    config = function(_, opts)
+      require('arrow').setup(opts)
+    end,
+    opts = {
+      show_icons = true,
+      leader_key = ';',
+      buffer_leader_key = 'm',
+    },
+    enabled = not vscode,
+  },
   'tamago324/telescope-openbrowser.nvim',
   'tyru/open-browser.vim',
   'camgraff/telescope-tmux.nvim',
