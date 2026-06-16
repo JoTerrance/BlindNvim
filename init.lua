@@ -50,7 +50,10 @@ if not vim.g.vscode then
     require('ui.vscode-theme') -- vscode.nvim theme and highlight tuning
 
     require('ai.copilot-config') -- GitHub Copilot suggestions and integrations
-    require('ai.avante-config')  -- Avante AI assistant integration (loaded early so snacks.nvim UI helpers are ready)
+    -- Avante needs a real UI session; headless startup should skip it to avoid loading interactive modules too early.
+    if #vim.api.nvim_list_uis() > 0 then
+        require('ai.avante-config')  -- Avante AI assistant integration (UI sessions only)
+    end
     require('ai.mcphub-config') -- MCP/GP assistant integrations and AI command workflows
    
     -- Theme settings

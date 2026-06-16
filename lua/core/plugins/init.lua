@@ -270,6 +270,19 @@ require("lazy").setup({
     },
     config = function() require('git.fugit2-config') end,
   },
+  {
+    'ThePrimeagen/git-worktree.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    keys = {
+      { '<leader>gw', function() require('telescope').extensions.git_worktree.git_worktrees() end, desc = 'Git worktrees', mode = 'n' },
+      { '<leader>gW', function() require('telescope').extensions.git_worktree.create_git_worktree() end, desc = 'Create git worktree', mode = 'n' },
+    },
+    config = function()
+      require('git-worktree').setup()
+      require('telescope').load_extension('git_worktree')
+    end,
+    enabled = not vscode,
+  },
   'echasnovski/mini.nvim',
   {'lukas-reineke/indent-blankline.nvim', main = "ibl",},
   
@@ -392,6 +405,17 @@ require("lazy").setup({
   'pwntester/octo.nvim',
   {'https://git.sr.ht/~whynothugo/lsp_lines.nvim', config = true, enabled = not vscode},
   'sam4llis/nvim-lua-gf',
+  {
+    'bennypowers/splitjoin.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    keys = {
+      { 'gS', function() require('splitjoin').toggle() end, desc = 'Toggle split/join', mode = 'n' },
+      { 'g,', '<Plug>(SplitjoinSplit)', desc = 'Split construct', mode = 'n' },
+      { 'gJ', '<Plug>(SplitjoinJoin)', desc = 'Join construct', mode = 'n' },
+    },
+    config = function() require('tools.splitjoin-config') end,
+    enabled = not vscode,
+  },
 -- { 'anuvyklack/windows.nvim', dependencies = { 'anuvyklack/middleclass', 'anuvyklack/animation.nvim' },
 --    config = function()  vim.o.winwidth = 20 vim.o.winminwidth = 10 vim.o.equalalways = false
 --      require('windows').setup()  end, disable = vscode
@@ -503,6 +527,23 @@ require("lazy").setup({
     end,
     enabled = not vscode,
   },
+  {
+    'gennaro-tedesco/nvim-jqx',
+    event = { 'BufReadPost' },
+    ft = { 'json', 'yaml' },
+    keys = {
+      { '<leader>cj', '<cmd>JqxList<cr>', desc = 'JSON/YAML quickfix', mode = 'n' },
+      { '<leader>cJ', '<cmd>JqxQuery ', desc = 'JSON/YAML query', mode = 'n' },
+    },
+    enabled = not vscode,
+  },
+  {
+    'sQVe/sort.nvim',
+    config = function()
+      require('sort').setup({})
+    end,
+    enabled = not vscode,
+  },
   {'dundalek/bloat.nvim', cmd = bloat, enabled = not vscode },
   -- New plugins
   {
@@ -514,6 +555,30 @@ require("lazy").setup({
       require('kubectl').setup()
       require('language.tools.kubectl-whichkey').setup()
     end,
+    enabled = not vscode,
+  },
+  {
+    'mistweaverco/kulala.nvim',
+    event = { 'SessionLoadPost', 'VimLeavePre' },
+    ft = { 'http', 'rest' },
+    keys = {
+      { 'Rs', desc = 'Send request' },
+      { 'Ra', desc = 'Send all requests' },
+      { 'Rb', desc = 'Open request scratchpad' },
+    },
+    opts = {
+      global_keymaps = false,
+      global_keymaps_prefix = 'R',
+      kulala_keymaps_prefix = '',
+    },
+    enabled = not vscode,
+  },
+  {
+    'ravitemer/mcphub.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    build = 'bundled_build.lua',
+    cmd = 'MCPHub',
+    config = function() require('ai.mcphub-nvim-config') end,
     enabled = not vscode,
   },
   {'cshuaimin/ssr.nvim', config = function() require('ssr').setup() end },
