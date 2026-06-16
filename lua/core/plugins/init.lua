@@ -610,6 +610,9 @@ require("lazy").setup({
       global_keymaps_prefix = 'R',
       kulala_keymaps_prefix = '',
     },
+    config = function(_, opts)
+      require('tools.kulala-config').setup(opts)
+    end,
     enabled = not vscode,
   },
   {
