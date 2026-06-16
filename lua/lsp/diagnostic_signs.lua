@@ -12,7 +12,7 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config({
-  underline = BlindReturn(false, true),
+  underline = false,
   virtual_text = {
     spacing = 5,
     severity = { min = vim.diagnostic.severity.WARN },
