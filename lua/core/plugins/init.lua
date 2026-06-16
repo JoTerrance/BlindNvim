@@ -119,7 +119,6 @@ require("lazy").setup({
   'https://codeberg.org/esensar/nvim-dev-container',
   'lpoto/telescope-docker.nvim',
   'williamboman/mason.nvim',
-  'nvimtools/none-ls.nvim',
   'smjonas/live-command.nvim',
   {
   'stevearc/aerial.nvim',
@@ -146,7 +145,6 @@ require("lazy").setup({
   },
   {'stevearc/oil.nvim',opts = {}, dependencies = { { "echasnovski/mini.icons", opts = {} } },},
   -- LSP, DAP, and language tooling foundation.
-  "jay-babu/mason-null-ls.nvim",
   'jayp0521/mason-nvim-dap.nvim',
   {'VonHeikemen/lsp-zero.nvim'},
   {'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim'},
@@ -235,12 +233,9 @@ require("lazy").setup({
   },
   
   -- Additional markdown, completion, and git workflow plugins.
-  {"MeanderingProgrammer/render-markdown.nvim", dependencies = {"nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons"}, ft = "markdown"},
+  {"MeanderingProgrammer/render-markdown.nvim", dependencies = {"nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons"}, ft = { "markdown", "Avante" }},
   'hrsh7th/cmp-buffer',
-  'hrsh7th/cmp-vsnip',
-  'hrsh7th/vim-vsnip',
   'lukas-reineke/cmp-rg',
-  'hrsh7th/vim-vsnip-integ',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
   {'David-Kunz/cmp-npm', dependencies = {'nvim-lua/plenary.nvim' } },
@@ -281,7 +276,6 @@ require("lazy").setup({
   {'akinsho/toggleterm.nvim', branch = 'main', config = function() require('tools.toggleterm-config') end, enabled = not vscode },
   {'numToStr/Comment.nvim', config = function() require('Comment') end, enabled = not vscode },
   'jeffkreeftmeijer/vim-numbertoggle',
-  {'nvimdev/lspsaga.nvim', branch = "main" },
   {'folke/zen-mode.nvim', config = function() require("ui.zen-mode-config") end, enabled = not vscode },
   {'folke/twilight.nvim', config = function() require("ui.twilight-config") end, enabled = not vscode },
   'lambdalisue/suda.vim',
@@ -360,7 +354,6 @@ require("lazy").setup({
   { 'mfussenegger/nvim-dap-python', ft = { 'python' } },
   { 'mfussenegger/nvim-jdtls', ft = { 'java' } },
   'nvim-telescope/telescope-media-files.nvim',
-  {'nvim-telescope/telescope-z.nvim', dependencies = { { 'nvim-lua/plenary.nvim' }, { 'nvim-lua/popup.nvim' }, { 'nvim-telescope/telescope.nvim' } } },
   { 'softinio/scaladex.nvim', ft = { 'scala', 'sbt' } },
   'onsails/lspkind-nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -524,7 +517,7 @@ require("lazy").setup({
     enabled = not vscode,
   },
   {'cshuaimin/ssr.nvim', config = function() require('ssr').setup() end },
-  {'stevearc/conform.nvim', config = function() require('conform').setup() end },
+  {'stevearc/conform.nvim', config = function() require('tools.conform-config') end },
   {'folke/todo-comments.nvim', dependencies = { "nvim-lua/plenary.nvim" }, config = function() require('todo-comments').setup() end },
   {'folke/flash.nvim', event = "VeryLazy", opts = {} },
   {'nvim-pack/nvim-spectre', dependencies = { "nvim-lua/plenary.nvim" }, config = function() require('spectre').setup() end },
@@ -566,14 +559,6 @@ require("lazy").setup({
           use_absolute_path = true,
         },
       },
-    },
-    {
-      -- Make sure to set this up properly if you have lazy=true
-      'MeanderingProgrammer/render-markdown.nvim',
-      opts = {
-        file_types = { "markdown", "Avante" },
-      },
-      ft = { "markdown", "Avante" },
     },
   },
 },

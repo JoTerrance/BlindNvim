@@ -1,19 +1,2 @@
--- Documentación: módulo `lua/tools/null-ls-config/init.lua`.
--- Propósito: define utilidades y herramientas de edición dentro de BlindNvim sin alterar lógica de ejecución.
-
-local null_ls = require('null-ls')
-
-local formatting = null_ls.builtins.formatting
-
-null_ls.setup({
-  sources = {
-    formatting.prettier, formatting.gofmt, formatting.shfmt,
-    formatting.clang_format, formatting.cmake_format, formatting.dart_format, formatting.google_java_format,
-    formatting.isort, formatting.codespell.with({ filetypes = { 'markdown' } })
-  },
-  on_attach = function(client)
-    if client.server_capabilities.document_formatting then
-      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
-    end
-  end
-})
+-- Compatibility module: null-ls formatting was replaced by Conform.
+return require('tools.conform-config')

@@ -3,7 +3,6 @@
 
 local lspkind = require "lspkind"
 local cmp = require "cmp"
-local luasnip = require 'luasnip'
 -- Completion is disabled for normal prompt buffers, but kept for DAP REPL buffers.
 cmp.setup {
   enabled = function()
@@ -57,7 +56,7 @@ cmp.setup {
         nvim_lsp = "[LSP]",
         nvim_lua = "[lua]",
         path = "[path]",
-  --      vsnip = "[snip]",
+        luasnip = "[snip]",
         gh_issues = "[issues]",
         cmp_tabnine = "[TN]",
         copilot_cmp = "[copilot]",
@@ -119,10 +118,9 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'copilot_cmp' },
     { name = 'treesitter' },
-  --  { name = 'luasnip' },
+    { name = 'luasnip' },
     { name = 'path' },
     { name = 'rg' },
-    { name = 'vsnip' },
     { name = 'buffer', keyword_length = 5 },
     { name = 'plugins' },
     { name = 'tags' },
@@ -153,9 +151,6 @@ cmp.setup {
       }
     },
 
-    -- { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
   }, {
     { name = 'buffer' },
   }),

@@ -32,7 +32,7 @@ if not vim.g.vscode then
     require('tools.live-preview-config') -- Live preview: render markdown/html previews while editing
     require('tools.terminal-config') -- Terminal helpers for shell workflows inside Neovim
     require('tools.cmake-config') -- CMake tools integration for configure/build/run commands
-    require('tools.null-ls-config') -- none-ls/null-ls sources for formatting and diagnostics
+    require('tools.conform-config') -- Conform: unified formatting sources and format-on-save
     require('tools.urlview-config') -- URL view/open utilities for links found in buffers
     require('tools.mini-config') -- mini.nvim modules used across editing workflows
     require('tools.nvim-lint-config') -- nvim-lint: asynchronous lint runners per filetype
