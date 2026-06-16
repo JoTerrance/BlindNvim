@@ -87,6 +87,7 @@
   "mini.icons": { "branch": "main", "commit": "d48ad47359218d2b019034f95f601b3861180885" },
   "mini.nvim": { "branch": "main", "commit": "7ed410c73ebb910754c2938a6dae50c51c3a096a" },
   "mini.pick": { "branch": "main", "commit": "f8ea97c5e89cc923f466e0706046eaa3988f246c" },
+  "muren.nvim": { "branch": "main", "commit": "fa18f2df80a52afd201da062d1af0e80c8d1988e" },
   "neogen": { "branch": "main", "commit": "23e7e9f883d01289ebd90e98025acc860ea26366" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "nvim-autopairs": { "branch": "master", "commit": "7b9923abad60b903ece7c52940e1321d39eccc79" },

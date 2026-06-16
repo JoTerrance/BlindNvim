@@ -206,6 +206,12 @@ require("lazy").setup({
   'ggandor/leap-ast.nvim',
   'ggandor/leap-spooky.nvim',
   'cwebster2/github-coauthors.nvim',
+  {
+    'AckslD/muren.nvim',
+    cmd = { 'MurenToggle', 'MurenOpen', 'MurenClose', 'MurenFresh', 'MurenUnique' },
+    config = true,
+    enabled = not vscode,
+  },
   { 'wet-sandwich/hyper.nvim', dependencies = { 'nvim-lua/plenary.nvim' }},
   {
     "folke/snacks.nvim",
@@ -540,10 +546,10 @@ require("lazy").setup({
   {
     'romus204/referencer.nvim',
     event = 'LspAttach',
+    cmd = { 'ReferencerToggle', 'ReferencerUpdate' },
     opts = { enable = false },
     config = function(_, opts)
       require('referencer').setup(opts)
-      require('language.tools.referencer-whichkey').setup()
     end,
     enabled = not vscode,
   },
@@ -553,7 +559,6 @@ require("lazy").setup({
     dependencies = { 'nvim-telescope/telescope.nvim' },
     config = function()
       require('gitignore')
-      require('language.tools.gitignore-whichkey').setup()
     end,
     enabled = not vscode,
   },
