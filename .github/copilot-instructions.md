@@ -1,10 +1,10 @@
-# Copilot instructions for BlindNvim
+# Copilot instructions for BlindNeoVim
 
 ## Commands
 
 | Purpose | Command | Notes |
 | --- | --- | --- |
-| Install or update plugins after changing plugin specs | `:Lazy sync` | Documented in `README.md`; this is the main repo-specific bootstrap command. |
+| Install or update plugins after changing plugin specs | `:Lazy sync` | Main repo-specific bootstrap command. |
 | Check runtime health after changing editor integrations | `:checkhealth` | Also exposed in the Telescope command palette. |
 | Inspect LSP state after changing language tooling | `:LspInfo` | Use alongside `:Mason` when adjusting LSP or Mason configuration. |
 | Inspect Mason-managed tooling | `:Mason` | Useful because servers are not auto-forced globally. |

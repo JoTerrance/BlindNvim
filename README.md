@@ -1,73 +1,76 @@
 # BlindNeoVim
 
-Configuración personal de Neovim pensada para accesibilidad y productividad.
+Configuración personal de Neovim centrada en accesibilidad, productividad y atajos consistentes.
 
-Resumen rápido
-- Base: `init.lua` en la raíz del repositorio.
-- Estructura principal: la carpeta `lua/` contiene la configuración modular (plugins, LSP, UI, tools, etc.).
-- Lockfile de plugins: `lazy-lock.json`.
+## Resumen rápido
+- Punto de entrada: `init.lua` en la raíz del repositorio.
+- Organización: `lua/` agrupa la configuración por dominio (`core`, `lsp`, `ui`, `tools`, `navigation`, `git`, `ai`, etc.).
+- Bloqueo de plugins: `lazy-lock.json`.
+- Overrides por tipo de archivo: `ftplugin/`.
 
-Requisitos
-- Neovim >= 0.8 (se recomienda 0.9+). Instalar según tu sistema operativo.
-- Linux (recomendado). Esta configuración está pensada para entornos tipo Unix.
-- Git. En Windows algunas integraciones pueden requerir PowerShell o WSL.
+## Requisitos
+- Neovim 0.8 o superior. Se recomienda 0.9+.
+- Git.
+- Linux o un entorno tipo Unix es la ruta principal soportada.
+- En Windows, la experiencia es parcial; WSL2 suele dar mejores resultados.
 
-Modo accesible y simulación
-- La configuración usa `BlindReturn(...)` para elegir variantes más limpias cuando detecta un entorno braille.
-- El modo braille se activa automáticamente si se detecta un dispositivo braille o BRLTTY.
-- Para forzarlo manualmente, arranca Neovim con `BLINDNVIM_VISUAL_IMPAIRING=1`.
-- Para desactivarlo explícitamente, usa `BLINDNVIM_VISUAL_IMPAIRING=0`.
-- Si necesitas compatibilidad con configuraciones antiguas, también se acepta `BLINDNIM_VISUAL_IMPAIRING` como alias.
-- Prioridad de detección: variable de entorno > `vim.g.visual_impairing` > detección automática de braille.
+## Modo accesible
+La configuración usa `BlindReturn(...)` para adaptar valores cuando detecta un entorno braille.
 
-Ejemplos:
+- La detección automática activa el modo braille si encuentra un dispositivo braille o BRLTTY.
+- Para forzarlo manualmente: `BLINDNVIM_VISUAL_IMPAIRING=1 nvim`
+- Para desactivarlo explícitamente: `BLINDNVIM_VISUAL_IMPAIRING=0 nvim`
+- Para compatibilidad histórica, también se acepta `BLINDNIM_VISUAL_IMPAIRING`.
+- La prioridad es: variable de entorno > `vim.g.visual_impairing` > detección automática.
+
+## Instalación
+1. Haz una copia de seguridad de tu configuración actual si ya existe.
+2. Clona este repositorio en tu directorio de configuración de Neovim.
+3. Abre Neovim y sincroniza plugins con `:Lazy sync`.
+
+Ejemplo en Linux o macOS:
 ```bash
-BLINDNVIM_VISUAL_IMPAIRING=1 nvim
-BLINDNVIM_VISUAL_IMPAIRING=0 nvim
+git clone --depth 1 "<ruta-al-repo-o-remote>" "${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+cd "${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+nvim
 ```
 
-Compatibilidad de plataformas
-- Plataforma principal: Linux. Muchos plugins y utilidades asumen herramientas Unix (ripgrep, fd, make, etc.).
-- Windows: puede funcionar parcialmente, pero varios plugins (terminal integraciones, herramientas de building, soporte de rutas) pueden no funcionar sin adaptaciones. Se recomienda usar WSL2 para una experiencia más fiel a Linux.
-
-Instalación (Linux recomendada; Windows con limitaciones)
-1. Haz una copia de seguridad de tu configuración actual (si existe):
-```bash
-mkdir -p "$HOME/nvim_backup"; cp -r "$XDG_CONFIG_HOME/nvim" "$HOME/nvim_backup" 2>/dev/null || cp -r "$HOME/.config/nvim" "$HOME/nvim_backup" 2>/dev/null || true
-```
-2. Clona este repositorio en tu carpeta de configuración de Neovim (Linux/macOS):
-```bash
-# Opción A: usar como configuración principal
-git clone --depth 1 "<ruta-al-repo-o-remote>" "$XDG_CONFIG_HOME/nvim" || git clone --depth 1 "<ruta-al-repo-o-remote>" "$HOME/.config/nvim"
-
-# Opción B: clonar en una carpeta aparte para probar
-git clone "<ruta-al-repo-o-remote>" "$HOME/source/BlindNeoVim"
-```
-3. Si estás en Windows y quieres probar, usar PowerShell (ten en cuenta las limitaciones):
+Ejemplo en Windows con PowerShell:
 ```powershell
-# Crear copia de seguridad (opcional)
-mkdir $env:USERPROFILE\nvim_backup -Force; copy-item $env:USERPROFILE\AppData\Local\nvim\* $env:USERPROFILE\nvim_backup -Recurse -Force -ErrorAction SilentlyContinue
-
-# Clonar como configuración (no recomendado si usas muchas utilidades Unix)
-git clone --depth 1 "<ruta-al-repo-o-remote>" $env:USERPROFILE\AppData\Local\nvim
-```
-4. Inicia Neovim y deja que el gestor de plugins instale dependencias (se usa `lazy` si está presente). Abre Neovim y ejecuta:
-```
-:Lazy sync
+git clone --depth 1 "<ruta-al-repo-o-remote>" $env:LOCALAPPDATA\nvim
+nvim
 ```
 
-Notas de configuración importantes
-- Archivo principal: `init.lua` (raíz).
-- Configuración modular: `lua/core/` (keybindings, options, plugins).
-- LSP y completado: `lua/lsp/` y `lua/lsp/language_servers.lua`.
-- Plugins y ajustes UI/Tools en `lua/*/*-config/init.lua`.
+## Estructura del proyecto
+- `init.lua`: orquestación de arranque.
+- `lua/core/`: opciones base, keymaps y registro de plugins.
+- `lua/lsp/`: cliente LSP, signos diagnósticos y completado.
+- `lua/navigation/`: navegación, buscadores y exploración de buffers/archivos.
+- `lua/tools/`: utilidades de edición, terminal, formato y automatización.
+- `lua/ui/`: tema, barra de estado, bufferline y componentes visuales.
+- `lua/git/`: integración con Git y GitHub.
+- `lua/ai/`: asistentes y flujos de IA.
+- `lua/language/`: configuración por lenguaje.
+- `ftplugin/`: ajustes específicos por tipo de archivo.
 
-Cómo contribuir
-1. Fork y crea una rama con un nombre descriptivo.
-2. Haz cambios pequeños y documentados. Añade comentarios donde sea útil.
-3. Abrir PR hacia el repo original con una descripción clara.
+## Validación
+Este repositorio no define un script de build ni una suite de tests propia. La validación habitual es cargar la configuración en Neovim y revisar la integración afectada.
 
-Contacto
-- Abre un issue en el repositorio para preguntas o reportes de errores.
+Comandos útiles:
+- `:Lazy sync` para instalar o actualizar plugins.
+- `:checkhealth` para revisar el estado general de Neovim y sus integraciones.
+- `:LspInfo` para inspeccionar servidores LSP activos.
+- `:Mason` para ver herramientas gestionadas por Mason.
 
-Gracias por usar y contribuir a BlindNeoVim.
+## Notas de compatibilidad
+- La configuración está pensada principalmente para Linux y flujos de trabajo Unix.
+- Muchas integraciones asumen herramientas como `ripgrep`, `fd`, `make` y `git`.
+- Algunas funciones de UI y terminal no están pensadas para ejecutarse dentro de VSCode; `init.lua` reserva esos módulos para sesiones fuera de VSCode.
+
+## Contribuir
+1. Trabaja en cambios pequeños y enfocados.
+2. Mantén la documentación cerca del comportamiento real de la configuración.
+3. Abre un issue o una PR con el contexto necesario para revisar el cambio.
+
+## Contacto
+Abre un issue en el repositorio si encuentras un problema o tienes una duda concreta.

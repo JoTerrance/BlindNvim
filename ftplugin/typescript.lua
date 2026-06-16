@@ -2,3 +2,5 @@
 -- Propósito: ajustes locales para buffers TypeScript.
 
 require('language.typescript.whichkey').setup()
+
+require('language.tools.neogen-whichkey').setup()

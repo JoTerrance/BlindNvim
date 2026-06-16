@@ -86,3 +86,5 @@ dap.adapters.codelldb = {
         args = { '--port', '${port}' },
     }
 }
+
+require('language.tools.neogen-whichkey').setup()
