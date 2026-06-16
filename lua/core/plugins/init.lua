@@ -537,9 +537,7 @@ require("lazy").setup({
     event = 'LspAttach',
     priority = 1000,
     config = function()
-      require('tiny-inline-diagnostic').setup()
-      vim.diagnostic.config({ virtual_text = false })
-      require('language.tools.diagnostics-whichkey').setup()
+      require('ui.tiny-inline-diagnostic-config')
     end,
     enabled = not vscode,
   },

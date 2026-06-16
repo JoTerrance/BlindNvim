@@ -208,7 +208,6 @@ wk.add({
   { "<leader>sxx", "<cmd>Telescope changes<cr>", desc = "Changes" },
   { "<leader>sxz", "<cmd>Telescope z<cr>", desc = "Zoxide" },
   { "<leader>sxO", "<cmd>Telescope ctags_outline<cr>", desc = "CTags Outline" },
-  { "<leader>sxG", "<cmd>Telescope githubcoauthors<cr>", desc = "Git Coauthors" },
 
   -- Languages
   { "<leader>L", group = "Languages" },
@@ -312,6 +311,7 @@ wk.add({
   { "<leader>ugO", group = "GitHub", icon = icons.github },
   { "<leader>ugOi", "<cmd>Octo issue list<cr>", desc = "Issues" },
   { "<leader>ugOp", "<cmd>Octo pr list<cr>", desc = "Pull Requests" },
+  { "<leader>ugOc", "<cmd>Telescope githubcoauthors<cr>", desc = "Coauthors" },
 
   -- AI
   { "<leader>a", group = "AI", icon = icons.ai },
