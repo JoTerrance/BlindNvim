@@ -105,6 +105,6 @@ vim.diagnostic.config({
   underline = false,
   virtual_lines = false,
 })
-require("language.tools.diagnostics-whichkey").setup()
+require("tools.diagnostics-whichkey").setup()
 
 return M

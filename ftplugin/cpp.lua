@@ -87,4 +87,4 @@ dap.adapters.codelldb = {
     }
 }
 
-require('language.tools.neogen-whichkey').setup()
+require('tools.neogen-whichkey').setup()
