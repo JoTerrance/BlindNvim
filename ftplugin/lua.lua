@@ -38,3 +38,5 @@ require("neodev").setup({
 --    }
 --  }
 --})
+
+require('tools.neogen-whichkey').setup()

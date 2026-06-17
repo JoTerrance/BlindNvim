@@ -3,3 +3,5 @@
 
 require('dap-python').setup('/bin/python3')
 require('language.python.whichkey').setup()
+
+require('tools.neogen-whichkey').setup()

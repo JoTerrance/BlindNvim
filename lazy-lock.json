@@ -41,6 +41,7 @@
   "cppman.nvim": { "branch": "master", "commit": "2b478cea896c66f788e59504df3f4408fd213b29" },
   "dashboard-nvim": { "branch": "master", "commit": "f787e3462c2ee2b6117b17c1aa4ddf66cb6f57fe" },
   "decisive.nvim": { "branch": "main", "commit": "3bdee1e650a5ed39f24042ca293f49bb01bcc5c3" },
+  "diagflow.nvim": { "branch": "main", "commit": "b13321b517ff64bf42eeac2214085d3c76d83a0d" },
   "dial.nvim": { "branch": "master", "commit": "f2634758455cfa52a8acea6f142dcd6271a1bf57" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dressing.nvim": { "branch": "master", "commit": "2d7c2db2507fa3c4956142ee607431ddb2828639" },

@@ -14,6 +14,7 @@ require('core.plugins') -- Plugin manager bootstrap and plugin list (lazy.nvim)
 require('navigation.leap-config') -- Leap: jump quickly to visible targets for faster movement
 require('tools.dial-config') -- Dial: increment/decrement numbers, dates, and similar values
 require('tools.surround-config') -- nvim-surround: add/change/delete surrounding pairs like quotes/brackets/tags
+require('tools.splitjoin-whichkey') -- splitjoin: discoverable split/join actions for code structures
 
 -- Si se ejecuta dentro de VSCode (`vim.g.vscode`), evitamos módulos con UI pesada,
 -- LSP completo y utilidades que asumen runtime puro de Neovim.
