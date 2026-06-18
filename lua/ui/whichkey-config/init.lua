@@ -388,7 +388,7 @@ wk.add({
   { "<leader>aa", avante_cmd("AvanteAsk"), desc = "Ask" },
   { "<leader>ac", avante_cmd("AvanteChat"), desc = "Chat" },
   { "<leader>ae", avante_cmd("AvanteEdit"), desc = "Edit" },
-  { "<leader>az", avante_cmd("ZenMode"), desc = "ZenMode AI" },
+  { "<leader>az", "<cmd>lua require('avante.api').zen_mode()<cr>", desc = "ZenMode AI" },
   { "<leader>ah", avante_cmd("AvanteHistory"), desc = "History" },
   { "<leader>am", avante_cmd("AvanteModels"), desc = "Models" },
   { "<leader>aM", group = "MCPHub", icon = icons.ai },
