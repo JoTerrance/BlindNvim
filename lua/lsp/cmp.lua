@@ -80,16 +80,21 @@ require("blink.cmp").setup({
       "rg",
       "plugins",
       "tags",
-      "npm",
       "dbee",
+      "npm",
       "dictionary",
       "spell",
+      "env",
+      "register",
     },
     per_filetype = {
+      lua = { inherit_defaults = true, "lazydev" },
       ["dap-repl"] = { "dap" },
       dapui_watches = { "dap" },
       dapui_hover = { "dap" },
-      gitcommit = { "commit" },
+      gitcommit = { "conventional_commits", "git" },
+      markdown = { "git" },
+      octo = { "git" },
       sql = { "dadbod" },
       mysql = { "dadbod" },
       plsql = { "dadbod" },
@@ -113,22 +118,53 @@ require("blink.cmp").setup({
         min_keyword_length = 5,
       },
       copilot = { name = "copilot", module = "blink-copilot", score_offset = 100, async = true },
-      rg = compat_source("rg"),
+      rg = { name = "Ripgrep", module = "blink-cmp-rg" },
       plugins = compat_source("plugins"),
       tags = compat_source("tags"),
-      npm = compat_source("npm", { min_keyword_length = 4 }),
       dbee = compat_source("cmp-dbee"),
-      dictionary = compat_source("dictionary", { min_keyword_length = 2 }),
-      spell = compat_source("spell", {
+      npm = {
+        name = "npm",
+        module = "blink-cmp-npm",
+        async = true,
+        score_offset = 100,
         opts = {
-          keep_all_entries = false,
+          ignore = {},
+          only_semantic_versions = true,
+          only_latest_version = false,
+        },
+      },
+      dictionary = { name = "Dictionary", module = "blink-cmp-dictionary", min_keyword_length = 2 },
+      spell = {
+        name = "Spell",
+        module = "blink-cmp-spell",
+        opts = {
           enable_in_context = function()
             return true
           end,
         },
-      }),
+      },
+      env = { name = "Env", module = "blink-cmp-env" },
+      register = { name = "Registers", module = "blink-cmp-register" },
+      lazydev = {
+        name = "LazyDev",
+        module = "lazydev.integrations.blink",
+        score_offset = 100,
+      },
+      git = {
+        name = "Git",
+        module = "blink-cmp-git",
+        enabled = function()
+          return vim.tbl_contains({ "octo", "gitcommit", "markdown" }, vim.bo.filetype)
+        end,
+      },
+      conventional_commits = {
+        name = "Conventional Commits",
+        module = "blink-cmp-conventional-commits",
+        enabled = function()
+          return vim.bo.filetype == "gitcommit"
+        end,
+      },
       dap = compat_source("dap"),
-      commit = compat_source("commit"),
       dadbod = { module = "vim_dadbod_completion.blink" },
       zsh = compat_source("zsh"),
     },
