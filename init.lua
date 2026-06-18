@@ -4,6 +4,9 @@
 -- 2) Se cargan módulos "seguros" para Neovim y VSCode.
 -- 3) El resto de integraciones solo se activa fuera de VSCode.
 
+-- Toggle global de Noice (por defecto: desactivado)
+vim.g.enable_noice = vim.g.enable_noice or false
+
 --REQUIRES
 --INITIAL LOAD
 require('core.options') -- Vim basic options
@@ -60,6 +63,7 @@ if not vim.g.vscode then
     -- vim.cmd[[colorscheme tokyonight]]
     -- vim.g.tokyonight_style = 'night'
 
-    --require('ui.noice-config')
-
+    if vim.g.enable_noice then
+        require('ui.noice-config')
+    end
 end
