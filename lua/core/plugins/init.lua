@@ -217,23 +217,6 @@ require("lazy").setup({
       end,
       enabled = not vscode,
     },
-    {
-      "mrjones2014/legendary.nvim",
-      priority = 10000,
-      lazy = false,
-      config = function()
-        require("legendary").setup({
-          extensions = {
-            lazy_nvim = true,
-            which_key = {
-              auto_register = true,
-              do_binding = false,
-              use_groups = true,
-            },
-          },
-        })
-      end,
-    },
     "LinArcX/telescope-env.nvim",
     {
       "kndndrj/nvim-dbee",
@@ -324,6 +307,7 @@ require("lazy").setup({
       config = function()
         require("snacks").setup({
           input = { enabled = true },
+          picker = { enabled = true, ui_select = true },
           bigfile = { enabled = false },
           notifier = { enabled = true },
           quickfile = { enabled = false },
