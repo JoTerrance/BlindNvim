@@ -141,6 +141,12 @@ wk.add({
   { "<leader>bD", "<cmd>BufferLineSortByDirectory<cr>", desc = "Sort by Directory" },
   { "<leader>bL", "<cmd>BufferLineSortByExtension<cr>", desc = "Sort by Language" },
 
+  { "<leader>bS", group = "Snacks", icon = { icon = icons.buffers, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>bSb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+  { "<leader>bSe", function() Snacks.explorer() end, desc = "Explorer" },
+  { "<leader>bSf", function() Snacks.picker.files() end, desc = "Files" },
+  { "<leader>bSr", function() Snacks.picker.recent() end, desc = "Recent Files" },
+
   -- Navigation
   { "<leader>n", group = "Navigation", icon = { icon = icons.navigation, hl = BlindReturn("Normal", "@variable") } },
   { "<leader>no", "<cmd>Oil<CR>", desc = "Oil" },
@@ -214,6 +220,23 @@ wk.add({
   { "<leader>sXz", "<cmd>Telescope z<cr>", desc = "Zoxide" },
   { "<leader>sXO", "<cmd>Telescope ctags_outline<cr>", desc = "CTags Outline" },
 
+  { "<leader>sN", group = "Snacks", icon = { icon = icons.search, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>sNb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+  { "<leader>sNc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Config Files" },
+  { "<leader>sNd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+  { "<leader>sNe", function() Snacks.explorer() end, desc = "Explorer" },
+  { "<leader>sNf", function() Snacks.picker.files() end, desc = "Files" },
+  { "<leader>sNg", function() Snacks.picker.grep() end, desc = "Live Grep" },
+  { "<leader>sNh", function() Snacks.picker.help() end, desc = "Help Pages" },
+  { "<leader>sNk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+  { "<leader>sNl", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+  { "<leader>sNp", function() Snacks.picker.projects() end, desc = "Projects" },
+  { "<leader>sNr", function() Snacks.picker.recent() end, desc = "Recent Files" },
+  { "<leader>sNs", function() Snacks.picker.search_history() end, desc = "Search History" },
+  { "<leader>sNq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
+  { "<leader>sNu", function() Snacks.picker.undo() end, desc = "Undo History" },
+  { "<leader>sNw", function() Snacks.picker.grep_word() end, desc = "Word Search", mode = { "n", "x" } },
+
   -- Languages
   { "<leader>L", group = "Languages" },
 
@@ -286,6 +309,14 @@ wk.add({
 
   -- Git
   { "<leader>tg", group = "Git", icon = icons.git },
+  { "<leader>tgS", group = "Snacks", icon = { icon = icons.git, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>tgSb", function() Snacks.picker.git_branches() end, desc = "Branches" },
+  { "<leader>tgSd", function() Snacks.picker.git_diff() end, desc = "Diff" },
+  { "<leader>tgSf", function() Snacks.picker.git_files() end, desc = "Files" },
+  { "<leader>tgSg", function() Snacks.picker.git_grep() end, desc = "Grep" },
+  { "<leader>tgSl", function() Snacks.picker.git_log() end, desc = "Log" },
+  { "<leader>tgSs", function() Snacks.picker.git_status() end, desc = "Status" },
+  { "<leader>tgSt", function() Snacks.picker.git_stash() end, desc = "Stash" },
   { "<leader>tgb", "<cmd>Telescope git_branches<cr>", desc = "Checkout Branch" },
   { "<leader>tgc", "<cmd>Telescope git_commits<cr>", desc = "Checkout Commit" },
   { "<leader>tgC", "<cmd>Telescope git_bcommits<cr>", desc = "Current File Commit" },
@@ -341,8 +372,21 @@ wk.add({
   { "<leader>Tl", toggle_lazygit, desc = "LazyGit" },
   { "<leader>Tt", ":ToggleTerm<cr>", desc = "Split Below" },
 
+  { "<leader>TS", group = "Snacks", icon = { icon = icons.terminal, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>TSt", function() Snacks.terminal.toggle() end, desc = "Toggle Terminal" },
+  { "<leader>TSo", function() Snacks.terminal.open() end, desc = "Open Terminal" },
+  { "<leader>TSf", function() Snacks.terminal.focus() end, desc = "Focus Terminal" },
+
   -- LSP
   { "<leader>l", group = "LSP", icon = icons.lsp },
+  { "<leader>lS", group = "Snacks", icon = { icon = icons.lsp, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>lSd", function() Snacks.picker.lsp_definitions() end, desc = "Definitions" },
+  { "<leader>lSi", function() Snacks.picker.lsp_implementations() end, desc = "Implementations" },
+  { "<leader>lSl", function() Snacks.picker.lsp_declarations() end, desc = "Declarations" },
+  { "<leader>lSr", function() Snacks.picker.lsp_references() end, desc = "References" },
+  { "<leader>lSs", function() Snacks.picker.lsp_symbols() end, desc = "Document Symbols" },
+  { "<leader>lSt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definitions" },
+  { "<leader>lSW", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace Symbols" },
   { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
   { "<leader>lb", "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", desc = "Buffer Diagnostics" },
   { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Definition" },
@@ -380,6 +424,10 @@ wk.add({
 
   -- Debug
   { "<leader>d", group = "Debug", icon = icons.debug },
+  { "<leader>dS", group = "Snacks", icon = { icon = icons.debug, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>dSb", function() Snacks.debug.backtrace() end, desc = "Backtrace" },
+  { "<leader>dSr", function() Snacks.debug.run() end, desc = "Run Buffer" },
+  { "<leader>dSm", function() Snacks.debug.metrics() end, desc = "Metrics" },
   { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", desc = "Toggle Breakpoint" },
   { "<leader>dB", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", desc = "Conditional Breakpoint" },
   { "<leader>dc", "<cmd>lua require('dap').clear_breakpoints()<CR>", desc = "Clear Breakpoints" },
@@ -450,8 +498,20 @@ wk.add({
   { "<leader>ot", "<cmd>tabnew<cr>", desc = "Tab" },
   { "<leader>ow", "<cmd>new<cr>", desc = "Window" },
 
+  { "<leader>oS", group = "Snacks", icon = { icon = icons.open, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>oSe", function() Snacks.explorer() end, desc = "Explorer" },
+  { "<leader>oSf", function() Snacks.picker.files() end, desc = "Files" },
+  { "<leader>oSc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Config Files" },
+  { "<leader>oSr", function() Snacks.picker.recent() end, desc = "Recent Files" },
+
   -- Utilities
   { "<leader>tU", group = "Utilities", icon = icons.utilities },
+  { "<leader>tUS", group = "Snacks", icon = { icon = icons.utilities, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>tUSa", function() Snacks.picker() end, desc = "All Pickers" },
+  { "<leader>tUSh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+  { "<leader>tUSs", function() Snacks.scratch() end, desc = "Scratch Buffer" },
+  { "<leader>tUSS", function() Snacks.scratch.select() end, desc = "Select Scratch" },
+  { "<leader>tUSt", function() Snacks.terminal.toggle() end, desc = "Terminal" },
   { "<leader>tUb", "<cmd>Bloat<cr>", desc = "Plugin Bloat" },
   { "<leader>tUj", group = "Jqx", icon = { icon = icons.json, hl = BlindReturn("Normal", "@variable") } },
   { "<leader>tUjl", "<cmd>JqxList<cr>", desc = "List Keys" },
