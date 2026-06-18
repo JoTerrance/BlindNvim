@@ -328,10 +328,154 @@ require("lazy").setup({
       priority = 1000,
       lazy = false,
       config = function()
+        local function braille_picker_source(opts)
+          return vim.tbl_deep_extend("force", {
+            layout = { preset = "default", preview = false },
+            matcher = { fuzzy = false, sort_empty = false },
+          }, opts or {})
+        end
+
+        local snacks_picker_braille = {
+          focus = "input",
+          prompt = "search> ",
+          show_delay = 0,
+          show_empty = true,
+          layout = {
+            cycle = false,
+            preset = function()
+              return "default"
+            end,
+          },
+          icons = {
+            files = {
+              enabled = false,
+            },
+            git = {
+              enabled = false,
+            },
+            ui = {
+              live = "live ",
+              hidden = "hidden ",
+              ignored = "ignored ",
+              follow = "follow ",
+              selected = "[x] ",
+              unselected = "[ ] ",
+            },
+          },
+          formatters = {
+            file = {
+              filename_only = true,
+              icon_width = 0,
+            },
+            selected = {
+              show_always = true,
+              unselected = false,
+            },
+            severity = {
+              icons = false,
+              level = true,
+            },
+          },
+          win = {
+            input = {
+              wo = {
+                winblend = 0,
+              },
+            },
+            list = {
+              wo = {
+                conceallevel = 0,
+                concealcursor = "",
+                number = false,
+                relativenumber = false,
+                signcolumn = "no",
+                foldcolumn = "0",
+              },
+            },
+          },
+          sources = {
+            buffers = braille_picker_source(),
+            command_history = braille_picker_source(),
+            commands = braille_picker_source(),
+            diagnostics = braille_picker_source({
+              formatters = {
+                severity = {
+                  icons = false,
+                  level = true,
+                  pos = "right",
+                },
+              },
+            }),
+            diagnostics_buffer = braille_picker_source({
+              formatters = {
+                severity = {
+                  icons = false,
+                  level = true,
+                  pos = "right",
+                },
+              },
+            }),
+            explorer = braille_picker_source({
+              auto_close = false,
+              focus = "list",
+              formatters = {
+                file = {
+                  filename_only = true,
+                },
+                severity = {
+                  icons = false,
+                  level = true,
+                  pos = "right",
+                },
+              },
+              layout = {
+                preset = "sidebar",
+                preview = false,
+              },
+            }),
+            files = braille_picker_source({
+              formatters = {
+                file = {
+                  filename_only = true,
+                  icon_width = 0,
+                },
+              },
+            }),
+            git_branches = braille_picker_source(),
+            git_diff = braille_picker_source(),
+            git_files = braille_picker_source(),
+            git_grep = braille_picker_source(),
+            git_log = braille_picker_source(),
+            git_stash = braille_picker_source(),
+            git_status = braille_picker_source(),
+            grep = braille_picker_source(),
+            grep_word = braille_picker_source(),
+            help = braille_picker_source(),
+            keymaps = braille_picker_source(),
+            lines = braille_picker_source(),
+            lsp_declarations = braille_picker_source(),
+            lsp_definitions = braille_picker_source(),
+            lsp_implementations = braille_picker_source(),
+            lsp_references = braille_picker_source(),
+            lsp_symbols = braille_picker_source(),
+            lsp_type_definitions = braille_picker_source(),
+            lsp_workspace_symbols = braille_picker_source(),
+            projects = braille_picker_source(),
+            qflist = braille_picker_source(),
+            recent = braille_picker_source(),
+            registers = braille_picker_source(),
+            search_history = braille_picker_source(),
+            undo = braille_picker_source(),
+          },
+        }
+
         require("snacks").setup({
           input = { enabled = true },
           bigfile = { enabled = false },
-          picker = { enabled = true, ui_select = true },
+          picker = BlindReturn(snacks_picker_braille, {
+            enabled = true,
+            ui_select = true,
+          }),
           notifier = { enabled = true },
           quickfile = { enabled = false },
           statuscolumn = { enabled = false },
