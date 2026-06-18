@@ -177,9 +177,16 @@ require("lazy").setup({
     { "VonHeikemen/lsp-zero.nvim" },
     { "sindrets/diffview.nvim",   dependencies = "nvim-lua/plenary.nvim" },
     {
+      "romus204/tree-sitter-manager.nvim",
+      cmd = { "TSManager", "TSInstall", "TSUninstall" },
+      config = function()
+        require("tools.tree-sitter-manager-config")
+      end,
+      enabled = not vscode,
+    },
+    {
       "nvim-treesitter/nvim-treesitter",
-      build = ":TSUpdate",
-      lazy = false,
+      lazy = true,
       enabled = not vscode,
     },
     { "tamton-aquib/staline.nvim",             dependencies = { "nvim-tree/nvim-web-devicons" } },
@@ -200,7 +207,6 @@ require("lazy").setup({
       "windwp/nvim-autopairs",
       config = true,
       event = "InsertEnter",
-      dependencies = "hrsh7th/nvim-cmp",
       enabled = not vscode,
     },
     {
@@ -236,16 +242,29 @@ require("lazy").setup({
       ft = "sql",
       opts = {},
     },
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-nvim-lsp-signature-help",
-    "hrsh7th/cmp-nvim-lsp-document-symbol",
     "danielvolchek/tailiscope.nvim",
-    "f3fora/cmp-spell",
-    "uga-rosa/cmp-dictionary",
-    { "Dosx001/cmp-commit",             dependencies = "hrsh7th/nvim-cmp" },
     {
-      "hrsh7th/nvim-cmp",
+      "saghen/blink.compat",
+      version = "2.*",
+      lazy = true,
+      opts = {},
+    },
+    {
+      "saghen/blink.cmp",
+      version = "1.*",
       dependencies = {
+        "saghen/blink.compat",
+        "rafamadriz/friendly-snippets",
+        "L3MON4D3/LuaSnip",
+        "fang2hou/blink-copilot",
+        "alexandre-abrioux/blink-cmp-npm.nvim",
+        "Kaiser-Yang/blink-cmp-dictionary",
+        "Kaiser-Yang/blink-cmp-git",
+        "bydlw98/blink-cmp-env",
+        "disrupted/blink-cmp-conventional-commits",
+        "phanen/blink-cmp-register",
+        "ribru17/blink-cmp-spell",
+        "niuiic/blink-cmp-rg",
         {
           "KadoBOT/cmp-plugins",
           config = function()
@@ -253,9 +272,14 @@ require("lazy").setup({
           end,
         },
       },
+      enabled = not vscode,
     },
     { "quangnguyen30192/cmp-nvim-tags", ft = { "kotlin", "java" } },
-    "folke/lua-dev.nvim",
+    {
+      "folke/lazydev.nvim",
+      ft = "lua",
+      opts = {},
+    },
     "folke/trouble.nvim",
     {
       "folke/persistence.nvim",
@@ -307,11 +331,6 @@ require("lazy").setup({
       dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
       ft = { "markdown", "Avante" },
     },
-    "hrsh7th/cmp-buffer",
-    "lukas-reineke/cmp-rg",
-    "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline",
-    { "David-Kunz/cmp-npm",      dependencies = { "nvim-lua/plenary.nvim" } },
     "tamago324/cmp-zsh",
     "norcalli/nvim-colorizer.lua",
     "lewis6991/gitsigns.nvim",
@@ -449,13 +468,6 @@ require("lazy").setup({
       event = "InsertEnter",
     },
     {
-      "zbirenbaum/copilot-cmp",
-      dependencies = { "zbirenbaum/copilot.lua" },
-      config = function()
-        require("copilot_cmp").setup()
-      end,
-    },
-    {
       "robitx/gp.nvim",
       config = function()
         require("ai.mcphub-config")
@@ -463,9 +475,6 @@ require("lazy").setup({
     },
     "eandrju/cellular-automaton.nvim",
     { "codota/tabnine-nvim",  build = tabnine_build_path(),                                       enabled = not vscode },
-    "ray-x/cmp-treesitter",
-    "ray-x/lsp_signature.nvim",
-    "octaltree/cmp-look",
     "crispgm/telescope-heading.nvim",
     "nvim-telescope/telescope-vimspector.nvim",
     "fannheyward/telescope-coc.nvim",
@@ -493,11 +502,8 @@ require("lazy").setup({
     { "mfussenegger/nvim-jdtls",      ft = { "java" } },
     "nvim-telescope/telescope-media-files.nvim",
     { "softinio/scaladex.nvim",    ft = { "scala", "sbt" } },
-    "onsails/lspkind-nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    "rafamadriz/friendly-snippets",
     "kitagry/vs-snippets",
-    "petertriho/cmp-git",
     "TC72/telescope-tele-tabby.nvim",
     "tjdevries/complextras.nvim",
     "folke/tokyonight.nvim",
@@ -544,10 +550,15 @@ require("lazy").setup({
       end,
       enabled = not vscode,
     },
-    "L3MON4D3/LuaSnip",
-    { "saadparwaiz1/cmp_luasnip" },
     "kristijanhusak/vim-carbon-now-sh",
-    "pwntester/octo.nvim",
+    {
+      "pwntester/octo.nvim",
+      cmd = "Octo",
+      config = function()
+        require("git.octo-config")
+      end,
+      enabled = not vscode,
+    },
     { "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = true, enabled = not vscode },
     "sam4llis/nvim-lua-gf",
     {
@@ -814,7 +825,7 @@ require("lazy").setup({
         --- The below dependencies are optional,
         "nvim-mini/mini.pick",       -- for file_selector provider mini.pick
         "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-        "hrsh7th/nvim-cmp",          -- autocompletion for avante commands and mentions
+        "saghen/blink.cmp",         -- autocompletion for avante commands and mentions
         "ibhagwan/fzf-lua",          -- for file_selector provider fzf
         "stevearc/dressing.nvim",    -- for input provider dressing
         "folke/snacks.nvim",         -- for input provider snacks

@@ -49,7 +49,7 @@ local normal = {
       prev = "[x",
     },
     suggestion = {
-      accept = "<M-l>",
+      accept = "<C-g>a",
       next = "<M-]>",
       prev = "<M-[>",
       dismiss = "<C-]>",

@@ -26,7 +26,6 @@ if not vim.g.vscode then
     require('navigation.telescope-config') -- Telescope: fuzzy finder for files, symbols, grep, and pickers
 
     require("git.gitsigns-config") -- Gitsigns: inline git hunks, blame, and change actions
-    require('git.octo-config') -- Octo: review and manage GitHub issues/PRs from Neovim
 
     require('debug.dap-config') -- nvim-dap stack: debug adapter protocol integration
 
