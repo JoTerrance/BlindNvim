@@ -347,17 +347,17 @@ wk.add({
   { "<leader>lb", "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", desc = "Buffer Diagnostics" },
   { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Definition" },
   { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Declaration" },
-  { "<leader>le", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Line Diagnostics" },
+  { "<leader>le", vim.diagnostic.open_float, desc = "Line Diagnostics" },
   { "<leader>lf", "<cmd>Telescope quickfix<cr>", desc = "Quickfix" },
-  { "<leader>lh", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover" },
+  { "<leader>lh", vim.lsp.buf.hover, desc = "Hover" },
   { "<leader>lI", "<cmd>LspInfo<cr>", desc = "Info" },
   { "<leader>lJ", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
   { "<leader>lK", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
   { "<leader>lk", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature Help" },
   { "<leader>lL", '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', desc = "Workspace Folders" },
   { "<leader>lM", "<cmd>Mason<cr>", desc = "Mason" },
-  { "<leader>ln", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Next Error" },
-  { "<leader>lN", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Prev Error" },
+  { "<leader>ln", vim.diagnostic.goto_next, desc = "Next Error" },
+  { "<leader>lN", vim.diagnostic.goto_prev, desc = "Prev Error" },
   { "<leader>lq", vim.diagnostic.setloclist, desc = "Loclist" },
   { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
   { "<leader>lR", "<cmd>lua vim.lsp.buf.references()<cr>", desc = "References" },
@@ -376,7 +376,7 @@ wk.add({
   { "<leader>lFL", "<cmd>lua require('refactoring').refactor('Inline Local')<CR>", desc = "Inline Local" },
   { "<leader>lFV", "<cmd>lua require('refactoring').refactor('Inline Variable')<CR>", desc = "Inline Variable" },
   { "<leader>lFM", "<cmd>lua require('refactoring').refactor('Inline Method')<CR>", desc = "Inline Method" },
-  { "<leader>lFR", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+  { "<leader>lFR", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
 
   -- Debug
   { "<leader>d", group = "Debug", icon = icons.debug },
@@ -481,6 +481,6 @@ wk.add({
   { "<leader>RM", "<cmd>lua require('refactoring').refactor('Inline Method')<CR>", desc = "Inline Method", mode = "v" },
   { "<leader>RS", "<cmd>lua require('refactoring').select_refactor()<CR>", desc = "Select", mode = "v" },
   { "<leader>RV", "<cmd>lua require('refactoring').refactor('Inline Variable')<CR>", desc = "Inline Variable", mode = "v" },
-  { "<leader>RR", "<cmd>Lspsaga rename<cr>", desc = "Rename", mode = "v" },
+  { "<leader>RR", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode = "v" },
 
 })
