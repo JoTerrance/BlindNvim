@@ -362,7 +362,7 @@ require("lazy").setup({
           },
           formatters = {
             file = {
-              filename_only = true,
+              filename_only = false,
               icon_width = 0,
             },
             selected = {
@@ -418,7 +418,7 @@ require("lazy").setup({
               focus = "list",
               formatters = {
                 file = {
-                  filename_only = true,
+                  filename_only = false,
                 },
                 severity = {
                   icons = false,
