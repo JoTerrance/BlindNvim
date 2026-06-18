@@ -1,6 +1,32 @@
 -- Documentación: módulo `lua/ai/avante-config/init.lua`.
 -- Propósito: ajustar Avante para uso normal y para un modo braille más textual.
 
+local codex_acp_cache
+local function has_codex_acp()
+  if codex_acp_cache ~= nil then
+    return codex_acp_cache
+  end
+
+  if vim.fn.executable("npx") ~= 1 then
+    codex_acp_cache = false
+    return codex_acp_cache
+  end
+
+  if vim.system then
+    local result = vim.system({ "npx", "--no-install", "@zed-industries/codex-acp", "--help" }, { text = true }):wait()
+    codex_acp_cache = result.code == 0
+    return codex_acp_cache
+  end
+
+  vim.fn.system({ "npx", "--no-install", "@zed-industries/codex-acp", "--help" })
+  codex_acp_cache = vim.v.shell_error == 0
+  return codex_acp_cache
+end
+
+if not has_codex_acp() then
+  return
+end
+
 -- Normal profile favors richer UI: snacks input, suggestions and highlighted diffs.
 local normal = {
   provider = "codex",

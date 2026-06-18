@@ -121,6 +121,39 @@ local function copilot_toggle_auto_trigger()
   require("copilot.suggestion").toggle_auto_trigger()
 end
 
+local avante_codex_acp_cache
+local function avante_has_codex_acp()
+  if avante_codex_acp_cache ~= nil then
+    return avante_codex_acp_cache
+  end
+
+  if vim.fn.executable("npx") ~= 1 then
+    avante_codex_acp_cache = false
+    return avante_codex_acp_cache
+  end
+
+  if vim.system then
+    local result = vim.system({ "npx", "--no-install", "@zed-industries/codex-acp", "--help" }, { text = true }):wait()
+    avante_codex_acp_cache = result.code == 0
+    return avante_codex_acp_cache
+  end
+
+  vim.fn.system({ "npx", "--no-install", "@zed-industries/codex-acp", "--help" })
+  avante_codex_acp_cache = vim.v.shell_error == 0
+  return avante_codex_acp_cache
+end
+
+local function avante_cmd(command)
+  return function()
+    if not avante_has_codex_acp() then
+      vim.notify("Avante is disabled because codex-acp is not available.", vim.log.levels.WARN)
+      return
+    end
+
+    vim.cmd(command)
+  end
+end
+
 wk.add({
   -- Core
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", icon = { icon = icons.save, hl = BlindReturn("Normal", "@variable") } },
@@ -352,11 +385,11 @@ wk.add({
 
   -- AI
   { "<leader>a", group = "AI", icon = icons.ai },
-  { "<leader>aa", "<cmd>AvanteAsk<cr>", desc = "Ask" },
-  { "<leader>ac", "<cmd>AvanteChat<cr>", desc = "Chat" },
-  { "<leader>ae", "<cmd>AvanteEdit<cr>", desc = "Edit" },
-  { "<leader>ah", "<cmd>AvanteHistory<cr>", desc = "History" },
-  { "<leader>am", "<cmd>AvanteModels<cr>", desc = "Models" },
+  { "<leader>aa", avante_cmd("AvanteAsk"), desc = "Ask" },
+  { "<leader>ac", avante_cmd("AvanteChat"), desc = "Chat" },
+  { "<leader>ae", avante_cmd("AvanteEdit"), desc = "Edit" },
+  { "<leader>ah", avante_cmd("AvanteHistory"), desc = "History" },
+  { "<leader>am", avante_cmd("AvanteModels"), desc = "Models" },
   { "<leader>aM", group = "MCPHub", icon = icons.ai },
   { "<leader>aMo", "<cmd>MCPHub<cr>", desc = "Open" },
   { "<leader>ai", group = "Copilot", icon = icons.ai },

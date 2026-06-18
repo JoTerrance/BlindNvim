@@ -32,6 +32,29 @@ vim.opt.rtp:prepend(lazypath)
 -- En modo VSCode, varios plugins usan `enabled = not vscode` para no cargar
 -- integraciones que dependen de TUI nativa, floating windows o terminal embebida.
 local vscode = vim.g.vscode ~= nil and vim.g.vscode ~= false and vim.g.vscode ~= 0
+
+local avante_codex_acp_cache
+local function has_codex_acp()
+  if avante_codex_acp_cache ~= nil then
+    return avante_codex_acp_cache
+  end
+
+  if vim.fn.executable("npx") ~= 1 then
+    avante_codex_acp_cache = false
+    return avante_codex_acp_cache
+  end
+
+  if vim.system then
+    local result = vim.system({ "npx", "--no-install", "@zed-industries/codex-acp", "--help" }, { text = true }):wait()
+    avante_codex_acp_cache = result.code == 0
+    return avante_codex_acp_cache
+  end
+
+  vim.fn.system({ "npx", "--no-install", "@zed-industries/codex-acp", "--help" })
+  avante_codex_acp_cache = vim.v.shell_error == 0
+  return avante_codex_acp_cache
+end
+
 -- lazy.nvim itself gets a quieter text-only UI in Braille mode.
 local lazy_ui = BlindReturn({
   size = { width = 1, height = 1 },
@@ -820,6 +843,9 @@ require("lazy").setup({
           or "make",
       event = "VeryLazy",
       version = false, -- Never set this value to "*"! Never!
+      enabled = function()
+        return not vscode and has_codex_acp()
+      end,
       dependencies = {
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
