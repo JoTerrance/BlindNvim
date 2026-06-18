@@ -299,7 +299,7 @@ require("lazy").setup({
       config = true,
       enabled = not vscode,
     },
-    { "wet-sandwich/hyper.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+    { "wet-sandwich/hyper.nvim",        dependencies = { "nvim-lua/plenary.nvim" } },
     {
       "folke/snacks.nvim",
       priority = 1000,
@@ -308,6 +308,7 @@ require("lazy").setup({
         require("snacks").setup({
           input = { enabled = true },
           bigfile = { enabled = false },
+          picker = { enabled = true, ui_select = true },
           notifier = { enabled = true },
           quickfile = { enabled = false },
           statuscolumn = { enabled = false },
@@ -542,7 +543,7 @@ require("lazy").setup({
     "nvim-telescope/telescope-github.nvim",
     "cljoly/telescope-repo.nvim",
     "LinArcX/telescope-changes.nvim",
-    { "kylechui/nvim-surround",  version = "*" },
+    { "kylechui/nvim-surround",                       version = "*" },
     {
       "AckslD/nvim-neoclip.lua",
       config = function()
@@ -740,7 +741,7 @@ require("lazy").setup({
       end,
       enabled = not vscode,
     },
-    { "dundalek/bloat.nvim",         cmd = bloat,       enabled = not vscode },
+    { "dundalek/bloat.nvim", cmd = bloat,        enabled = not vscode },
     -- New plugins
     {
       "Ramilito/kubectl.nvim",
@@ -801,7 +802,7 @@ require("lazy").setup({
         require("todo-comments").setup()
       end,
     },
-    { "folke/flash.nvim", event = "VeryLazy", opts = {} },
+    { "folke/flash.nvim",    event = "VeryLazy", opts = {} },
     {
       "nvim-pack/nvim-spectre",
       dependencies = { "nvim-lua/plenary.nvim" },
@@ -823,14 +824,14 @@ require("lazy").setup({
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
         --- The below dependencies are optional,
-        "nvim-mini/mini.pick",       -- for file_selector provider mini.pick
+        "nvim-mini/mini.pick",           -- for file_selector provider mini.pick
         "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-        "saghen/blink.cmp",         -- autocompletion for avante commands and mentions
-        "ibhagwan/fzf-lua",          -- for file_selector provider fzf
-        "stevearc/dressing.nvim",    -- for input provider dressing
-        "folke/snacks.nvim",         -- for input provider snacks
-        "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-        "zbirenbaum/copilot.lua",    -- for providers='copilot'
+        "saghen/blink.cmp",              -- autocompletion for avante commands and mentions
+        "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+        "stevearc/dressing.nvim",        -- for input provider dressing
+        "folke/snacks.nvim",             -- for input provider snacks
+        "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+        "zbirenbaum/copilot.lua",        -- for providers='copilot'
         {
           -- support for image pasting
           "HakonHarnes/img-clip.nvim",
