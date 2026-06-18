@@ -23,6 +23,8 @@ local function has_codex_acp()
   return codex_acp_cache
 end
 
+local braille_layout = require("ui.braille-layout")
+
 if not has_codex_acp() then
   return
 end
@@ -126,7 +128,12 @@ local braille = {
   mode = "agentic",
   auto_suggestions_provider = "copilot",
   input_provider = "native",
-  selector = normal.selector,
+  selector = {
+    provider = "snacks",
+    provider_opts = {
+      layout = braille_layout.picker(),
+    },
+  },
   acp_providers = normal.acp_providers,
   behaviour = {
     auto_suggestions = false,

@@ -155,6 +155,7 @@ require("lazy").setup({
     {
       "emmanueltouzery/decisive.nvim",
       config = function()
+        local braille_layout = require("ui.braille-layout")
         require("decisive").setup({})
       end,
       lazy = true,
@@ -328,9 +329,11 @@ require("lazy").setup({
       priority = 1000,
       lazy = false,
       config = function()
+        local braille_layout = require("ui.braille-layout")
+
         local function braille_picker_source(opts)
           return vim.tbl_deep_extend("force", {
-            layout = { preset = "default", preview = false },
+            layout = braille_layout.picker(),
             matcher = { fuzzy = false, sort_empty = false },
           }, opts or {})
         end
@@ -340,12 +343,7 @@ require("lazy").setup({
           prompt = "search> ",
           show_delay = 0,
           show_empty = true,
-          layout = {
-            cycle = false,
-            preset = function()
-              return "default"
-            end,
-          },
+          layout = braille_layout.picker({ cycle = false }),
           icons = {
             files = {
               enabled = false,
@@ -428,10 +426,7 @@ require("lazy").setup({
                   pos = "right",
                 },
               },
-              layout = {
-                preset = "sidebar",
-                preview = false,
-              },
+              layout = braille_layout.picker({ preset = "sidebar" }),
             }),
             files = braille_picker_source({
               formatters = {

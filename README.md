@@ -14,6 +14,46 @@ Configuración personal de Neovim centrada en accesibilidad, productividad y ata
 - Linux o un entorno tipo Unix es la ruta principal soportada.
 - En Windows, la experiencia es parcial; WSL2 suele dar mejores resultados.
 
+## Dependencias del sistema
+La configuración delega varias funciones en herramientas externas. Para una instalación completa, conviene tener estas disponibles en `PATH`:
+
+- Base:
+  - `git`
+  - `rg` o `ripgrep`
+  - `npx`
+  - `node` 22 o superior
+- Recomendadas:
+  - `fd` o `fdfind` para búsquedas y selectores de archivos más rápidos
+  - `make` para compilar plugins que lo usan
+- Integraciones específicas:
+  - `@zed-industries/codex-acp` vía `npx` para `Avante`
+  - `gh` para flujos de GitHub y `Octo`
+  - `lazygit` para el acceso rápido al cliente Git interactivo
+  - `cmake` para `cmake-tools.nvim`
+  - `tree-sitter` para `tree-sitter-manager.nvim`
+  - `python3` para `dap-python`
+  - `/bin/zsh` si quieres completado específico de `zsh`
+
+Neovim gestiona muchas dependencias por medio de `Lazy` y `Mason`, pero estas utilidades del sistema siguen siendo necesarias para que las integraciones externas funcionen de verdad.
+
+## Herramientas por lenguaje
+Algunas integraciones solo se activan cuando editas ciertos tipos de archivo. Estas son las herramientas externas que la configuración puede usar:
+
+- JavaScript, TypeScript, HTML, CSS, JSON y YAML: `prettier`
+- JavaScript y TypeScript en proyectos con `node_modules`: `eslint` para `eslint_fix`
+- Python: `isort` y `black`
+- Go: `gofmt`
+- Shell: `shfmt`
+- C y C++: `clang-format`
+- CMake: `cmake-format`
+- Dart: `dart format`
+- Java: `google-java-format`
+- Ruby: `rufo`
+- Vue: `vue-beautify`
+- Lua: `lua-format`
+- PHP: `php-formatter`
+- Python debugging con `dap-python`: `debugpy` instalado en el entorno de `/bin/python3`
+
 ## Modo accesible
 La configuración usa `BlindReturn(...)` para adaptar valores cuando detecta un entorno braille.
 
