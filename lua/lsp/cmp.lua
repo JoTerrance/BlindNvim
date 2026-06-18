@@ -88,7 +88,7 @@ require("blink.cmp").setup({
       "register",
     },
     per_filetype = {
-      lua = { inherit_defaults = true, "lazydev" },
+      lua = { "lazydev", inherit_defaults = true },
       ["dap-repl"] = { "dap" },
       dapui_watches = { "dap" },
       dapui_hover = { "dap" },
@@ -119,9 +119,13 @@ require("blink.cmp").setup({
       },
       copilot = { name = "copilot", module = "blink-copilot", score_offset = 100, async = true },
       rg = { name = "Ripgrep", module = "blink-cmp-rg" },
-      plugins = compat_source("plugins"),
-      tags = compat_source("tags"),
-      dbee = compat_source("cmp-dbee"),
+      git = {
+        name = "Git",
+        module = "blink-cmp-git",
+        enabled = function()
+          return vim.tbl_contains({ "octo", "gitcommit", "markdown" }, vim.bo.filetype)
+        end,
+      },
       npm = {
         name = "npm",
         module = "blink-cmp-npm",
@@ -133,6 +137,9 @@ require("blink.cmp").setup({
           only_latest_version = false,
         },
       },
+      plugins = compat_source("plugins"),
+      tags = compat_source("tags"),
+      dbee = compat_source("cmp-dbee"),
       dictionary = { name = "Dictionary", module = "blink-cmp-dictionary", min_keyword_length = 2 },
       spell = {
         name = "Spell",
@@ -149,13 +156,6 @@ require("blink.cmp").setup({
         name = "LazyDev",
         module = "lazydev.integrations.blink",
         score_offset = 100,
-      },
-      git = {
-        name = "Git",
-        module = "blink-cmp-git",
-        enabled = function()
-          return vim.tbl_contains({ "octo", "gitcommit", "markdown" }, vim.bo.filetype)
-        end,
       },
       conventional_commits = {
         name = "Conventional Commits",
