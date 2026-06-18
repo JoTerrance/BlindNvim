@@ -3,22 +3,23 @@ local M = {}
 
 function M.picker(opts)
   return vim.tbl_deep_extend("force", {
+    preset = "default",
     border = "none",
-    preview = "main",
+    preview = true,
     layout = {
       box = "vertical",
       backdrop = false,
-      width = 1,
-      height = 1,
+      width = 0.99,
+      height = 0.99,
       border = "none",
       {
         box = "vertical",
         border = "none",
         title = "{title} {live} {flags}",
-        { win = "input", height = 1, border = "bottom" },
-        { win = "list", border = "none" },
+        { win = "input", height = 1,     border = "bottom" },
+        { win = "list",  border = "none" },
       },
-      { win = "preview", title = "{preview}", height = 0.35, border = "none" },
+      { win = "preview", title = "{preview}", height = 0.45, border = "none" },
     },
   }, opts or {})
 end
