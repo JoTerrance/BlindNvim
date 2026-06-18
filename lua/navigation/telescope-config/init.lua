@@ -114,27 +114,40 @@ require('telescope').setup {
   }
 }
 
-require('telescope').load_extension('gh')
-require'telescope'.load_extension('zoxide')
-require('telescope').load_extension('bookmarks')
-require('telescope').load_extension('heading')
-require("telescope").load_extension("vimspector")
-require('telescope').load_extension('coc')
-require'telescope'.load_extension('openbrowser')
-require('telescope').load_extension('command_palette')
-require('telescope').load_extension('tmuxinator')
-require('telescope').load_extension('media_files')
-require('telescope').load_extension('dap')
-require('telescope').load_extension('changes')
-require('telescope').load_extension('ctags_outline')
-require('telescope').load_extension('command_palette')
-require('telescope').load_extension('env')
--- require("telescope").load_extension("refactoring")
-require("telescope").load_extension("notify")
-require("telescope").load_extension("githubcoauthors")
-require("telescope").load_extension("lines")
-require("telescope").load_extension("undo")
-require("telescope").load_extension("neoclip")
+local function load_telescope_extensions()
+  local telescope = require('telescope')
+  local extensions = {
+    'zoxide',
+    'bookmarks',
+    'heading',
+    'vimspector',
+    'coc',
+    'openbrowser',
+    'command_palette',
+    'tmuxinator',
+    'media_files',
+    'dap',
+    'changes',
+    'ctags_outline',
+    'env',
+    'notify',
+    'lines',
+    'undo',
+    'neoclip',
+  }
+
+  for _, extension in ipairs(extensions) do
+    telescope.load_extension(extension)
+  end
+
+  if vim.fn.executable('gh') == 1 then
+    for _, extension in ipairs({ 'gh', 'githubcoauthors' }) do
+      pcall(telescope.load_extension, extension)
+    end
+  end
+end
+
+load_telescope_extensions()
 require('browser_bookmarks').setup({
   selected_browser = "google_chrome",
   url_open_command = "xdg-open",

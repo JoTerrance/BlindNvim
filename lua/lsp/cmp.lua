@@ -84,7 +84,6 @@ require("blink.cmp").setup({
       "dbee",
       "dictionary",
       "spell",
-      "look",
     },
     per_filetype = {
       ["dap-repl"] = { "dap" },
@@ -126,13 +125,6 @@ require("blink.cmp").setup({
           enable_in_context = function()
             return true
           end,
-        },
-      }),
-      look = compat_source("look", {
-        min_keyword_length = 2,
-        opts = {
-          convert_case = true,
-          loud = true,
         },
       }),
       dap = compat_source("dap"),

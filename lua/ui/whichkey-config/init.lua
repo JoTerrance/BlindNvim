@@ -87,7 +87,7 @@ local conf = {
     align = "left", -- align columns left, center or right
   },
   show_help = BlindReturn(false, true), -- show help message on the command line when the popup is visible
-  -- Keep a single discoverable root menu: Space expands <leader>.
+  -- Keep a single discoverable root menu: º expands <leader>.
   triggers = {
     { "<leader>", mode = "nxso" },
   },

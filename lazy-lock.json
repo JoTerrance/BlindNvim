@@ -20,7 +20,6 @@
   "cmp-dbee": { "branch": "main", "commit": "1650f67b9bf43c029fc37570665ca895a33cdf5a" },
   "cmp-dictionary": { "branch": "main", "commit": "fecc3ef2435c2be35818f8fcac4a6c5655f3a8f0" },
   "cmp-git": { "branch": "main", "commit": "e645f69b93eede43fb644bb1a0b1db3eef1108a3" },
-  "cmp-look": { "branch": "master", "commit": "971e65a6be0e75c3438fe7b176d4fc020cb89d7b" },
   "cmp-npm": { "branch": "main", "commit": "2337f109f51a09297596dd6b538b70ccba92b4e4" },
   "cmp-nvim-tags": { "branch": "main", "commit": "e126a09ef49f0611c127dea851fa0052aa223f15" },
   "cmp-plugins": { "branch": "main", "commit": "e321688e92e557851cfeee8ca552659a095b908c" },

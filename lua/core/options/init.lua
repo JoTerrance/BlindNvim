@@ -12,8 +12,8 @@ end
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
--- Space is the single global menu prefix; language helpers use <leader> too.
-vim.g.mapleader = " "
+-- º is the single global menu prefix; language helpers use <leader> too.
+vim.g.mapleader = "º"
 vim.g.maplocalleader = "º"
 
 -- Enable filetype detection and plugins

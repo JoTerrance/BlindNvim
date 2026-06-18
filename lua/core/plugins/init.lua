@@ -468,7 +468,6 @@ require("lazy").setup({
     },
     "eandrju/cellular-automaton.nvim",
     { "codota/tabnine-nvim",  build = tabnine_build_path(),                                       enabled = not vscode },
-    "octaltree/cmp-look",
     "crispgm/telescope-heading.nvim",
     "nvim-telescope/telescope-vimspector.nvim",
     "fannheyward/telescope-coc.nvim",
