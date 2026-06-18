@@ -168,7 +168,7 @@ wk.add({
   { "<leader>sa", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
   { "<leader>sb", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
   { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-  { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+  { "<leader>sC", "<cmd>Legendary<cr>", desc = "Legendary" },
   { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Files" },
   { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
   { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Highlight Groups" },

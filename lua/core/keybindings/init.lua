@@ -34,7 +34,7 @@ map('i', '<M-C-Up>', '<esc>:m .-2<CR>==<insert>', {noremap = true})
 -- deletei setection  to void register then paste before
 map('x', "<leader>p", '"_dP', {noremap = true})
 -- command palette vscode similar functionality
-map('n', '<M-C-p>', '<cmd>:Telescope <CR>', {noremap = true})
+map('n', '<M-C-p>', '<cmd>Legendary<CR>', {noremap = true})
 -- multiple cursors
 map('n', '<C-LeftMouse>', '<Plug>(VM-Mouse-Cursor)', {noremap = true})
 map('n', '<C-RightMouse>', '<Plug>(VM-Mouse-Word)', {noremap = true})
