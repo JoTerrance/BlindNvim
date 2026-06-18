@@ -546,7 +546,14 @@ require("lazy").setup({
       enabled = not vscode,
     },
     "kristijanhusak/vim-carbon-now-sh",
-    "pwntester/octo.nvim",
+    {
+      "pwntester/octo.nvim",
+      cmd = "Octo",
+      config = function()
+        require("git.octo-config")
+      end,
+      enabled = not vscode,
+    },
     { "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = true, enabled = not vscode },
     "sam4llis/nvim-lua-gf",
     {
