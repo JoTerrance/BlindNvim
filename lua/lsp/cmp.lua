@@ -1,250 +1,181 @@
 -- Documentación: módulo `lua/lsp/cmp.lua`.
 -- Propósito: define integración de LSP y autocompletado dentro de BlindNvim sin alterar lógica de ejecución.
 
-local lspkind = require "lspkind"
-local cmp = require "cmp"
--- Completion is disabled for normal prompt buffers, but kept for DAP REPL buffers.
-cmp.setup {
+local function compat_source(name, opts)
+  opts = opts or {}
+  opts.name = opts.name or name
+  opts.module = "blink.compat.source"
+  return opts
+end
+
+require("blink.cmp").setup({
   enabled = function()
-    return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt"
-        or require("cmp_dap").is_dap_buffer()
+    local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+    return buftype ~= "prompt" or vim.tbl_contains({ "dap-repl", "dapui_watches", "dapui_hover" }, vim.bo.filetype)
   end,
-  view = {
-    -- I like the new menu better! Nice work hrsh7th
-    native_menu = true,
-  },
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
-  sorting = {
-    -- TODO: Would be cool to add stuff like "See variable names before method names" in rust, or something like that.
-    comparators = {
-      cmp.config.compare.offset,
-      cmp.config.compare.exact,
-      cmp.config.compare.score,
 
-      -- Prefer public symbols over leading-underscore internals without adding cmp-under.
-      -- I might add some more of my own.
-      function(entry1, entry2)
-        local _, entry1_under = entry1.completion_item.label:find "^_+"
-        local _, entry2_under = entry2.completion_item.label:find "^_+"
-        entry1_under = entry1_under or 0
-        entry2_under = entry2_under or 0
-        if entry1_under > entry2_under then
-          return false
-        elseif entry1_under < entry2_under then
-          return true
-        end
+  keymap = {
+    preset = "default",
+    ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+    ["<C-c>"] = { "hide", "fallback" },
+    ["<C-e>"] = { "cancel", "fallback" },
+    ["<Down>"] = { "select_next", "fallback" },
+    ["<Up>"] = { "select_prev", "fallback" },
+    ["<Tab>"] = { "select_and_accept", "fallback" },
+    ["<CR>"] = { "select_and_accept", "fallback" },
+    ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+    ["<S-Tab>"] = {
+      function(cmp)
+        return cmp.accept({ force = true })
       end,
-
-      cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
-      cmp.config.compare.order,
+      "fallback",
     },
-  },
-  formatting = {
-    -- Youtube: How to set up nice formatting for your sources.
-    format = lspkind.cmp_format {
-      mode = 'symbol_text',
-      preset = 'default',
-      menu = {
-        buffer = "[buf]",
-        treesitter = "[ts]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[lua]",
-        path = "[path]",
-        luasnip = "[snip]",
-        gh_issues = "[issues]",
-        cmp_tabnine = "[TN]",
-        copilot_cmp = "[copilot]",
-      },
+    ["<S-CR>"] = {
+      function(cmp)
+        return cmp.accept({ force = true })
+      end,
+      "fallback",
     },
   },
 
-  mapping = {
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-    ["<C-c>"] = cmp.mapping.close(),
-    ["<C-e>"] = cmp.mapping.abort(),
-    ['<Down>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
---      elseif luasnip.expand_or_jumpable() then
---        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<Up>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
---      elseif luasnip.jumpable(-1) then
---        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<Tab>'] = cmp.mapping(
-          cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          }),{ "i", "c" }
-    ),
-    ['<Cr>'] = cmp.mapping(
-          cmp.mapping.confirm ({
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          }), { "i", "c" }
-    ),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<S-Tab>'] = cmp.mapping(
-          cmp.mapping.confirm ({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }),{"i","c"}),
-    ['<S-Cr>'] = cmp.mapping(
-          cmp.mapping.confirm ({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }),{"i","c"}),
+  appearance = {
+    nerd_font_variant = "normal",
   },
-  sources = cmp.config.sources({
-    { name = 'gh_issues' },
-    { name = 'nvim_lua' },
-    { name = 'cmp_tabnine' },
-    { name = 'nvim_lsp' },
-    { name = 'copilot_cmp' },
-    { name = 'treesitter' },
-    { name = 'luasnip' },
-    { name = 'path' },
-    { name = 'rg' },
-    { name = 'buffer', keyword_length = 5 },
-    { name = 'plugins' },
-    { name = 'tags' },
-    { name = 'npm', keyword_length = 4 },
-    { name = 'cmp-dbee'},
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'nvim_lsp_document_symbol' },
-    {
-      name = "dictionary",
-      keyword_length = 2,
-    },
-    {
-      name = 'spell',
-      option = {
-        keep_all_entries = false,
-        enable_in_context = function()
-          return true
-        end,
-      },
-    },
-    {
-      name = 'look',
-      keyword_length = 2,
-      option = {
-        convert_case = true,
-        loud = true
-        --dict = '/usr/share/dict/words'
-      }
-    },
 
-  }, {
-    { name = 'buffer' },
-  }),
-  --   sources = {
-  --   },
-}
+  snippets = {
+    preset = "luasnip",
+  },
 
-
-if vim.fn.executable('/bin/zsh') == 1 then 
-  -- append zsh cmp to sources
-  sources = cmp.config.sources({
-    { name = 'zsh' }
-  })
- end
-
-
-
-cmp.setup.cmdline("/", {
   completion = {
+    documentation = { auto_show = false },
+    list = {
+      selection = {
+        preselect = true,
+        auto_insert = false,
+      },
+    },
+    menu = {
+      draw = {
+        columns = {
+          { "kind_icon", "label", "label_description", gap = 1 },
+          { "source_name" },
+        },
+      },
+    },
   },
-  sources = cmp.config.sources({
-    { name = "nvim_lsp_document_symbol" },
-  }, {
-    -- { name = "buffer", keyword_length = 5 },
-  }),
-})
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-  sources = {
-    { name = "dap" },
+
+  signature = {
+    enabled = true,
+    window = { border = "rounded" },
   },
-})
 
-cmp.setup.filetype('gitcommit', {
   sources = {
-    { name = 'commit' }
-  }
-})
-
---[[
-" Setup buffer configuration (nvim-lua source only enables in Lua filetype).
-"
-" ON YOUTUBE I SAID: This only _adds_ sources for a filetype, not removes the global ones.
-"
-" BUT I WAS WRONG! This will override the global setup. Sorry for any confusion.
-autocmd FileType lua lua require'cmp'.setup.buffer {
-\   sources = {
-\     { name = 'nvim_lua' },
-\     { name = 'buffer' },
-\   },
-\ }
---]]
-
--- Add vim-dadbod-completion in sql files
-_ = vim.cmd [[
-  augroup DadbodSql
-    au!
-    autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
-  augroup END
-]]
-
-
-
-local cmp_zsh = vim.api.nvim_create_augroup("CmpZsh", {})
-vim.api.nvim_create_autocmd(
-    "FileType",
-    {
-        pattern = 'zsh lua',
-        group = cmp_zsh,
-        callback = function()
-          if vim.fn.executable('/bin/zsh') then
-            require'cmp'.setup.buffer { sources = { { name = "zsh" }}}
-          end
+    default = {
+      "lsp",
+      "path",
+      "snippets",
+      "buffer",
+      "copilot",
+      "rg",
+      "plugins",
+      "tags",
+      "npm",
+      "dbee",
+      "dictionary",
+      "spell",
+      "look",
+    },
+    per_filetype = {
+      ["dap-repl"] = { "dap" },
+      dapui_watches = { "dap" },
+      dapui_hover = { "dap" },
+      gitcommit = { "commit" },
+      sql = { "dadbod" },
+      mysql = { "dadbod" },
+      plsql = { "dadbod" },
+      zsh = vim.fn.executable("/bin/zsh") == 1 and { "zsh" } or {},
+    },
+    providers = {
+      lsp = {
+        fallbacks = {},
+        transform_items = function(_, items)
+          table.sort(items, function(a, b)
+            local a_under = (a.label:match("^_+") or ""):len()
+            local b_under = (b.label:match("^_+") or ""):len()
+            if a_under ~= b_under then
+              return a_under < b_under
+            end
+          end)
+          return items
         end,
-    })
-  
---[[
-" Disable cmp for a buffer
-autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
---]]
+      },
+      buffer = {
+        min_keyword_length = 5,
+      },
+      copilot = { name = "copilot", module = "blink-copilot", score_offset = 100, async = true },
+      rg = compat_source("rg"),
+      plugins = compat_source("plugins"),
+      tags = compat_source("tags"),
+      npm = compat_source("npm", { min_keyword_length = 4 }),
+      dbee = compat_source("cmp-dbee"),
+      dictionary = compat_source("dictionary", { min_keyword_length = 2 }),
+      spell = compat_source("spell", {
+        opts = {
+          keep_all_entries = false,
+          enable_in_context = function()
+            return true
+          end,
+        },
+      }),
+      look = compat_source("look", {
+        min_keyword_length = 2,
+        opts = {
+          convert_case = true,
+          loud = true,
+        },
+      }),
+      dap = compat_source("dap"),
+      commit = compat_source("commit"),
+      dadbod = { module = "vim_dadbod_completion.blink" },
+      zsh = compat_source("zsh"),
+    },
+  },
 
--- Hide Copilot inline suggestions while cmp owns the completion UI.
-cmp.event:on("menu_opened", function()
-  vim.b.copilot_suggestion_hidden = true
-end)
+  cmdline = {
+    enabled = true,
+    keymap = {
+      preset = "cmdline",
+      ["<CR>"] = { "select_accept_and_enter", "fallback" },
+    },
+    completion = {
+      menu = { auto_show = true },
+    },
+  },
 
-cmp.event:on("menu_closed", function()
-  vim.b.copilot_suggestion_hidden = false
-end)
+  fuzzy = {
+    implementation = "prefer_rust_with_warning",
+    sorts = {
+      "exact",
+      "score",
+      "sort_text",
+    },
+  },
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "BlinkCmpMenuOpen",
+  callback = function()
+    pcall(function()
+      require("copilot.suggestion").dismiss()
+    end)
+    vim.b.copilot_suggestion_hidden = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "BlinkCmpMenuClose",
+  callback = function()
+    vim.b.copilot_suggestion_hidden = false
+  end,
+})

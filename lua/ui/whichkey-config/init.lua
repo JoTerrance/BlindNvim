@@ -280,8 +280,9 @@ wk.add({
   { "<leader>ut", group = "Treesitter", icon = { icon = icons.treesitter, hl = BlindReturn("Normal", "@variable") } },
   { "<leader>uti", "<cmd>InspectTree<cr>", desc = "Inspect Tree" },
   { "<leader>utp", "<cmd>Inspect<cr>", desc = "Inspect" },
-  { "<leader>utR", "<cmd>TSUpdate<cr>", desc = "Update Parsers" },
+  { "<leader>utm", "<cmd>TSManager<cr>", desc = "Parser Manager" },
   { "<leader>utr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
+  { "<leader>utx", "<cmd>TSUninstall<cr>", desc = "Remove Parser" },
 
   -- Git
   { "<leader>ug", group = "Git", icon = icons.git },

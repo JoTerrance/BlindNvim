@@ -1,4 +1,4 @@
--- Módulo `lua/lsp/language_servers.lua`: bootstrap de Mason + lspconfig + cmp.
+-- Módulo `lua/lsp/language_servers.lua`: bootstrap de Mason + lspconfig + blink.cmp.
 -- Flujo:
 -- 1) Mason instala servidores definidos en `servers`.
 -- 2) lsp-zero aplica setup por defecto a cada servidor.
@@ -11,13 +11,13 @@
 local servers = {}
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 -- Mantener capacidades de completion unificadas evita diferencias de UX entre
 -- servidores (sugerencias, snippets y fuentes de completado disponibles).
-local lsp = require('lsp-zero')
-
 local lsp_zero = require('lsp-zero')
+lsp_zero.extend_lspconfig({
+  capabilities = capabilities,
+})
 lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
@@ -46,9 +46,3 @@ require('mason-lspconfig').setup({
 
 })
 
-require "lsp_signature".setup({
-    bind = true, -- This is mandatory, otherwise border config won't get registered.
-    handler_opts = {
-      border = "rounded"
-    }
-  })
