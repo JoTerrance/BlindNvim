@@ -277,12 +277,12 @@ wk.add({
   { "<leader>tds", "<cmd>Dbee store<cr>", desc = "Store Result" },
 
   -- Treesitter
-  { "<leader>Tt", group = "Treesitter", icon = { icon = icons.treesitter, hl = BlindReturn("Normal", "@variable") } },
-  { "<leader>Tti", "<cmd>InspectTree<cr>", desc = "Inspect Tree" },
-  { "<leader>Ttp", "<cmd>Inspect<cr>", desc = "Inspect" },
-  { "<leader>Ttm", "<cmd>TSManager<cr>", desc = "Parser Manager" },
-  { "<leader>Ttr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
-  { "<leader>Ttx", "<cmd>TSUninstall<cr>", desc = "Remove Parser" },
+  { "<leader>tt", group = "Treesitter", icon = { icon = icons.treesitter, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>tti", "<cmd>InspectTree<cr>", desc = "Inspect Tree" },
+  { "<leader>ttp", "<cmd>Inspect<cr>", desc = "Inspect" },
+  { "<leader>ttm", "<cmd>TSManager<cr>", desc = "Parser Manager" },
+  { "<leader>ttr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
+  { "<leader>ttx", "<cmd>TSUninstall<cr>", desc = "Remove Parser" },
 
   -- Git
   { "<leader>tg", group = "Git", icon = icons.git },
