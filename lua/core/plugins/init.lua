@@ -330,6 +330,30 @@ require("lazy").setup({
       lazy = false,
       config = function()
         local braille_layout = require("ui.braille-layout")
+        local visual_impairing = vim.g.visual_impairing
+
+        if visual_impairing then
+          Snacks.config.style("notification_history", {
+            position = "bottom",
+            border = "none",
+            minimal = false,
+            title = " Notification History ",
+            title_pos = "left",
+            ft = "markdown",
+            bo = { filetype = "snacks_notif_history", modifiable = false },
+            wo = {
+              winhighlight = "Normal:SnacksNotifierHistory",
+              wrap = true,
+              linebreak = true,
+              conceallevel = 0,
+              colorcolumn = "",
+              number = false,
+              relativenumber = false,
+              signcolumn = "no",
+            },
+            keys = { q = "close" },
+          })
+        end
 
         local function braille_picker_source(opts)
           return vim.tbl_deep_extend("force", {
