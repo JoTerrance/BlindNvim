@@ -168,6 +168,10 @@ local function snacks_debug_log_prompt()
   end
 end
 
+local function treesitter_inspect_tree()
+  vim.treesitter.inspect_tree(BlindReturn({ command = "split" }, {}))
+end
+
 wk.add({
   -- Core
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", icon = { icon = icons.save, hl = BlindReturn("Normal", "@variable") } },
@@ -346,7 +350,7 @@ wk.add({
 
   -- Treesitter
   { "<leader>tt", group = "Treesitter", icon = { icon = icons.treesitter, hl = BlindReturn("Normal", "@variable") } },
-  { "<leader>tti", "<cmd>InspectTree<cr>", desc = "Inspect Tree" },
+  { "<leader>tti", treesitter_inspect_tree, desc = "Inspect Tree" },
   { "<leader>ttp", "<cmd>Inspect<cr>", desc = "Inspect" },
   { "<leader>ttm", "<cmd>TSManager<cr>", desc = "Parser Manager" },
   { "<leader>ttr", "<cmd>TSInstall<cr>", desc = "Install Parser" },
