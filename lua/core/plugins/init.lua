@@ -466,15 +466,19 @@ require("lazy").setup({
 
         require("snacks").setup({
           input = { enabled = true },
-          bigfile = { enabled = false },
+          bigfile = { enabled = true },
           picker = BlindReturn(snacks_picker_braille, {
             enabled = true,
             ui_select = true,
           }),
           notifier = { enabled = true },
-          quickfile = { enabled = false },
+          quickfile = { enabled = true },
           statuscolumn = { enabled = false },
-          words = { enabled = false },
+          words = { enabled = true },
+          gitbrowse = { enabled = true  },
+          gh = { enabled = true  },
+          git = { enabled = true  },
+          profiler = { enabled = true  },
         }, {
           ui = BlindReturn({
             fullscreen = true,
