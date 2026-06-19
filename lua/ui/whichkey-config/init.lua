@@ -154,6 +154,20 @@ local function avante_cmd(command)
   end
 end
 
+local function snacks_debug_inspect_prompt()
+  local value = vim.fn.input("Inspect: ", vim.fn.expand("<cword>"))
+  if value ~= "" then
+    Snacks.debug.inspect(value)
+  end
+end
+
+local function snacks_debug_log_prompt()
+  local value = vim.fn.input("Debug log: ")
+  if value ~= "" then
+    Snacks.debug.log(value)
+  end
+end
+
 wk.add({
   -- Core
   { "<leader>w", "<cmd>w!<CR>", desc = "Save", icon = { icon = icons.save, hl = BlindReturn("Normal", "@variable") } },
@@ -303,6 +317,10 @@ wk.add({
   { "<leader>tRt", "<cmd>ReferencerToggle<cr>", desc = "Toggle Inline" },
   { "<leader>tRu", "<cmd>ReferencerUpdate<cr>", desc = "Update Inline" },
   { "<leader>tX", group = "Compiler", icon = { icon = icons.compiler, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>tXg", group = "Godbolt", icon = icons.compiler },
+  { "<leader>tXga", "<cmd>Godbolt<cr>", desc = "Assembly" },
+  { "<leader>tXgA", "<cmd>Godbolt!<cr>", desc = "Assembly Reuse Window" },
+  { "<leader>tXgc", "<cmd>GodboltCompiler telescope<cr>", desc = "Choose Compiler" },
   { "<leader>tXo", "<cmd>CompilerOpen<cr>", desc = "Open" },
   { "<leader>tXt", "<cmd>CompilerToggleResults<cr>", desc = "Toggle Results" },
   { "<leader>tXr", "<cmd>CompilerRedo<cr>", desc = "Redo" },
@@ -356,6 +374,10 @@ wk.add({
   { "<leader>tgSP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
   { "<leader>tgSs", function() Snacks.picker.git_status() end, desc = "Status" },
   { "<leader>tgSt", function() Snacks.picker.git_stash() end, desc = "Stash" },
+  { "<leader>tgL", group = "LazyGit", icon = { icon = icons.lazy, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>tgLo", function() Snacks.lazygit() end, desc = "Open" },
+  { "<leader>tgLf", function() Snacks.lazygit.log_file() end, desc = "File Log" },
+  { "<leader>tgLl", function() Snacks.lazygit.log() end, desc = "Log" },
   { "<leader>tgb", "<cmd>Telescope git_branches<cr>", desc = "Checkout Branch" },
   { "<leader>tgc", "<cmd>Telescope git_commits<cr>", desc = "Checkout Commit" },
   { "<leader>tgC", "<cmd>Telescope git_bcommits<cr>", desc = "Current File Commit" },
@@ -466,8 +488,12 @@ wk.add({
   { "<leader>d", group = "Debug", icon = icons.debug },
   { "<leader>dS", group = "Snacks", icon = { icon = icons.debug, hl = BlindReturn("Normal", "@variable") } },
   { "<leader>dSb", function() Snacks.debug.backtrace() end, desc = "Backtrace" },
-  { "<leader>dSr", function() Snacks.debug.run() end, desc = "Run Buffer" },
+  { "<leader>dSi", snacks_debug_inspect_prompt, desc = "Inspect Input" },
+  { "<leader>dSl", snacks_debug_log_prompt, desc = "Log Input" },
   { "<leader>dSm", function() Snacks.debug.metrics() end, desc = "Metrics" },
+  { "<leader>dSr", function() Snacks.debug.run() end, desc = "Run Buffer" },
+  { "<leader>dSs", function() Snacks.debug.stats() end, desc = "Stats" },
+  { "<leader>dSt", function() Snacks.debug.trace() end, desc = "Trace" },
   { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", desc = "Toggle Breakpoint" },
   { "<leader>dB", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", desc = "Conditional Breakpoint" },
   { "<leader>dc", "<cmd>lua require('dap').clear_breakpoints()<CR>", desc = "Clear Breakpoints" },
@@ -548,7 +574,12 @@ wk.add({
   { "<leader>tU", group = "Utilities", icon = icons.utilities },
   { "<leader>tUS", group = "Snacks", icon = { icon = icons.utilities, hl = BlindReturn("Normal", "@variable") } },
   { "<leader>tUSa", function() Snacks.picker() end, desc = "All Pickers" },
+  { "<leader>tUSd", function() Snacks.notifier.hide() end, desc = "Dismiss Notifications" },
   { "<leader>tUSh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+  { "<leader>tUSp", group = "Profiler", icon = { icon = icons.debug, hl = BlindReturn("Normal", "@variable") } },
+  { "<leader>tUSpt", function() Snacks.profiler.toggle() end, desc = "Toggle Profiler" },
+  { "<leader>tUSph", function() Snacks.profiler.highlight() end, desc = "Toggle Highlights" },
+  { "<leader>tUSps", function() Snacks.profiler.scratch() end, desc = "Profiler Scratch" },
   { "<leader>tUSs", function() Snacks.scratch() end, desc = "Scratch Buffer" },
   { "<leader>tUSS", function() Snacks.scratch.select() end, desc = "Select Scratch" },
   { "<leader>tUSt", function() Snacks.terminal.toggle() end, desc = "Terminal" },
