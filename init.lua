@@ -3,7 +3,19 @@
 -- 1) `core.*` prepara opciones base, keymaps y registro de plugins.
 -- 2) Se cargan módulos "seguros" para Neovim y VSCode.
 -- 3) El resto de integraciones solo se activa fuera de VSCode.
-
+if vim.env.PROF then
+  -- example for lazy.nvim
+  -- change this to the correct path for your plugin manager
+  local snacks = vim.fn.stdpath("data") .. "/lazy/snacks.nvim"
+  vim.opt.rtp:append(snacks)
+  require("snacks.profiler").startup({
+    startup = {
+      event = "VimEnter", -- stop profiler on this event. Defaults to `VimEnter`
+      -- event = "UIEnter",
+      -- event = "VeryLazy",
+    },
+  })
+end
 -- Toggle global de Noice (por defecto: desactivado)
 vim.g.enable_noice = vim.g.enable_noice or false
 
