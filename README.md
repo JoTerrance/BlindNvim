@@ -40,8 +40,41 @@ La configuración delega varias funciones en herramientas externas. Para una ins
   - `lazygit` para el acceso rápido al cliente Git interactivo
   - `cmake` para `cmake-tools.nvim`
   - `tree-sitter` para `tree-sitter-manager.nvim`
+  - `wn` para documentación de `blink-cmp-dictionary`
+  - `sox` para postprocesado de audio en `gp.nvim`
+  - `docker` o `podman`, más `docker-compose` o `podman-compose`, para `devcontainer`
+  - `glab` para mejorar `blink-cmp-git` cuando se usa GitLab
+  - `hg` para que `diffview` pueda trabajar también con Mercurial
   - `python3` para `dap-python`
+  - `debugpy` en el entorno de `python3` para depuración Python
   - `/bin/zsh` si quieres completado específico de `zsh`
+
+## Herramientas detectadas por `:checkhealth`
+Estas son las utilidades que el log actual de `:checkhealth` pide o recomienda tener para que las integraciones externas funcionen sin avisos:
+
+- Formateo y lint:
+  - `black`
+  - `clang-format`
+  - `cmake-format`
+  - `dart` para `dart format`
+  - `eslint` en `./node_modules/.bin/eslint` para `eslint_fix`
+  - `gofmt`
+  - `isort`
+  - `lua-format`
+  - `php-formatter`
+  - `prettier`
+  - `rufo`
+  - `shfmt`
+  - `vue-beautify`
+- Integraciones y extras:
+  - `wn`
+  - `glab`
+  - `hg`
+  - `sox`
+  - `podman` o `docker`
+  - `podman-compose` o `docker-compose`
+
+Además, `devcontainer.json` necesita el parser `json` de Tree-sitter para evitar errores de parseo.
 
 Neovim gestiona muchas dependencias por medio de `Lazy` y `Mason`, pero estas utilidades del sistema siguen siendo necesarias para que las integraciones externas funcionen de verdad.
 
