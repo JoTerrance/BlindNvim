@@ -2,6 +2,15 @@
 
 Configuración personal de Neovim centrada en accesibilidad, productividad y atajos consistentes.
 
+## Licencia 📄
+
+Este proyecto está protegido bajo una licencia **Source Available** (Código Disponible): **GNU GPLv3 modificada con la Commons Clause**.
+
+* **¿Qué puedes hacer?** Puedes ver el código fuente, distribuirlo y modificarlo libremente.
+* **¿Cuáles son las obligaciones?** Cualquier mejora o modificación que distribuyas debe integrarse bajo estos mismos términos (Copyleft) y debes mantener el reconocimiento al creador original.
+* **¿Qué está prohibido?** Está estrictamente prohibido vender el software, cobrar por servicios derivados directamente de él (como hosting/SaaS) o lucrarse comercialmente con su uso.
+
+
 ## Resumen rápido
 - Punto de entrada: `init.lua` en la raíz del repositorio.
 - Organización: `lua/` agrupa la configuración por dominio (`core`, `lsp`, `ui`, `tools`, `navigation`, `git`, `ai`, etc.).
