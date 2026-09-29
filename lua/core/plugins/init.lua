@@ -214,7 +214,7 @@ require("lazy").setup({
       enabled = not vscode,
     },
     { "tamton-aquib/staline.nvim",             dependencies = { "nvim-tree/nvim-web-devicons" } },
-    { "LinArcX/telescope-command-palette.nvim" },
+    { "smjonas/telescope-command-palette.nvim" },
     { "neanias/telescope-lines.nvim",          dependencies = "nvim-telescope/telescope.nvim" },
     -- UI navigation and editing helpers.
     {
@@ -241,7 +241,7 @@ require("lazy").setup({
       end,
       enabled = not vscode,
     },
-    "LinArcX/telescope-env.nvim",
+    "sbulav/telescope-env.nvim",
     {
       "kndndrj/nvim-dbee",
       dependencies = {
@@ -732,7 +732,7 @@ require("lazy").setup({
     "dhruvmanila/telescope-bookmarks.nvim",
     "nvim-telescope/telescope-github.nvim",
     "cljoly/telescope-repo.nvim",
-    "LinArcX/telescope-changes.nvim",
+    "amiroslaw/telescope-changes.nvim",
     { "kylechui/nvim-surround",                       version = "*" },
     {
       "AckslD/nvim-neoclip.lua",
@@ -945,7 +945,7 @@ require("lazy").setup({
       enabled = not vscode,
     },
     {
-      "mistweaverco/kulala.nvim",
+      "andycowan/kulala.nvim",
       event = { "SessionLoadPost", "VimLeavePre" },
       ft = { "http", "rest" },
       keys = {
