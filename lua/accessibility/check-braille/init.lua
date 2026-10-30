@@ -7,8 +7,21 @@
 local M = {}
 local cached_result
 
-local function run_command(cmd)
-  local handle = io.popen(cmd .. ' 2>/dev/null')
+-- Run a program without a shell so probes behave the same on every platform.
+-- Missing executables return '' instead of printing errors.
+local function run_command(argv)
+  if vim.fn.executable(argv[1]) ~= 1 then
+    return ''
+  end
+  local ok, result = pcall(vim.fn.system, argv)
+  if not ok or vim.v.shell_error ~= 0 then
+    return ''
+  end
+  return result or ''
+end
+
+local function read_file(path)
+  local handle = io.open(path, 'r')
   if not handle then return '' end
   local result = handle:read('*a')
   handle:close()
@@ -57,9 +70,17 @@ local function has_braille_device()
   local found = false
   local details = {}
 
+  -- All probes below are Linux-specific (lsusb, systemd, /proc). Elsewhere
+  -- skip them entirely; users can still force the profile with the env var.
+  if vim.fn.has('linux') ~= 1 then
+    cached_result = false
+    log_details(found, { 'Autodetection only runs on Linux' })
+    return found
+  end
+
   -- Prefer cheap, unprivileged probes. Missing commands fail closed, and users
   -- can force the profile with BLINDNVIM_VISUAL_IMPAIRING when autodetect is not enough.
-  local lsusb = run_command('command -v lsusb >/dev/null && lsusb')
+  local lsusb = run_command({ 'lsusb' })
   for line in lsusb:gmatch('[^\r\n]+') do
     local lower = line:lower()
     if lower:match('braille') or lower:match('handy') or lower:match('baum') or lower:match('freedom') then
@@ -68,13 +89,13 @@ local function has_braille_device()
     end
   end
 
-  local brltty_status = run_command('command -v systemctl >/dev/null && systemctl is-active brltty')
+  local brltty_status = run_command({ 'systemctl', 'is-active', 'brltty' })
   if brltty_status:match('^active') then
     found = true
     table.insert(details, 'BRLTTY active')
   end
 
-  local input = run_command('test -r /proc/bus/input/devices && cat /proc/bus/input/devices')
+  local input = read_file('/proc/bus/input/devices')
   for line in input:gmatch('[^\r\n]+') do
     if line:lower():match('braille') then
       found = true

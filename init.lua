@@ -55,7 +55,7 @@ if not vim.g.vscode then
     require('tools.orphans-config') -- Orphans: detect/find files not tracked by current project references
     require('tools.fasterbigfile-config') -- Faster: optimize behavior when opening very large files
 
-    require('aerial') -- Aerial: outline/symbol tree for quick code structure navigation
+    require('navigation.aerial-config') -- Aerial: outline/symbol tree for quick code structure navigation
 
     require('ui.blankline-config') -- indent-blankline: visualize indentation guides
     require('ui.lualine-config') -- lualine: statusline components and sections
@@ -69,8 +69,9 @@ if not vim.g.vscode then
     if #vim.api.nvim_list_uis() > 0 then
         require('ai.avante-config')  -- Avante AI assistant integration (UI sessions only)
     end
-    require('ai.mcphub-config') -- MCP/GP assistant integrations and AI command workflows
-   
+    -- `ai.mcphub-config` (gp.nvim setup) is loaded by the gp.nvim spec's `config`
+    -- in lua/core/plugins; requiring it here too ran gp.setup() twice.
+
     -- Theme settings
     -- vim.cmd[[colorscheme tokyonight]]
     -- vim.g.tokyonight_style = 'night'

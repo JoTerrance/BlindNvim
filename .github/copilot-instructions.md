@@ -28,5 +28,5 @@ This repository does **not** define a dedicated build script, lint script, test 
 - Reuse `BlindReturn(...)` when changing UI text, borders, glyphs, layout, or wrapping behavior that may need an accessibility-friendly alternative.
 - Do not assume Mason should auto-install language servers. `lua/lsp/language_servers.lua` intentionally leaves `local servers = {}` empty so contributors opt into toolchains explicitly.
 - Follow the module header style already used across the repo: short file-level comments describing the module and its purpose are part of the existing documentation pattern.
-- Treat `README.md` as the authoritative source for environment assumptions: Linux/Unix-like environments are the primary target, Neovim `>= 0.8` is expected, and many integrations assume tools such as `git`, `rg`, `fd`, and `make`.
+- Treat `README.md` as the authoritative source for environment assumptions: Linux/Unix-like environments are the primary target, Neovim `>= 0.11` is expected, and many integrations assume tools such as `git`, `rg`, `fd`, and `make`.
 - Use WhichKey groupings and the configured leader key (`vim.g.mapleader = "º"`) when adding discoverable mappings; global mappings live in `lua/core/keybindings/init.lua`, while grouped `<space>` mappings are maintained in `lua/ui/whichkey-config/init.lua`.

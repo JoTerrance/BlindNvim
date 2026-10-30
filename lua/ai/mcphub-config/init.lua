@@ -82,7 +82,12 @@ require("gp").setup({
       local bufnr = vim.api.nvim_create_buf(false, true)
       local copy = vim.deepcopy(plugin)
       local key = copy.config.openai_api_key or ""
-      copy.config.openai_api_key = key:sub(1, 3) .. string.rep("*", #key - 6) .. key:sub(-3)
+      -- Short keys are masked entirely: showing 3+3 chars of a <=8 char key would leak most of it.
+      if #key > 8 then
+        copy.config.openai_api_key = key:sub(1, 3) .. string.rep("*", #key - 6) .. key:sub(-3)
+      else
+        copy.config.openai_api_key = string.rep("*", #key)
+      end
       local plugin_info = string.format("Plugin structure:\n%s", vim.inspect(copy))
       local params_info = string.format("Command params:\n%s", vim.inspect(params))
       local lines = vim.split(plugin_info .. "\n" .. params_info, "\n")

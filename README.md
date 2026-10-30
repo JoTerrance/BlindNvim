@@ -18,7 +18,7 @@ Este proyecto está protegido bajo una licencia **Source Available** (Código Di
 - Overrides por tipo de archivo: `ftplugin/`.
 
 ## Requisitos
-- Neovim 0.8 o superior. Se recomienda 0.9+.
+- Neovim 0.11 o superior. La configuración usa APIs que no existen en versiones anteriores (`vim.uv`, `vim.system`, `vim.hl`, `virtual_lines` en diagnósticos).
 - Git.
 - Linux o un entorno tipo Unix es la ruta principal soportada.
 - En Windows, la experiencia es parcial; WSL2 suele dar mejores resultados.
@@ -99,7 +99,8 @@ Algunas integraciones solo se activan cuando editas ciertos tipos de archivo. Es
 ## Modo accesible
 La configuración usa `BlindReturn(...)` para adaptar valores cuando detecta un entorno braille.
 
-- La detección automática activa el modo braille si encuentra un dispositivo braille o BRLTTY.
+- La detección automática activa el modo braille si encuentra un dispositivo braille o BRLTTY. Solo funciona en Linux; en Windows y macOS usa la variable de entorno.
+- Para ver qué detecta la autodetección: `BLINDNVIM_BRAILLE_DEBUG=1 nvim`
 - Para forzarlo manualmente: `BLINDNVIM_VISUAL_IMPAIRING=1 nvim`
 - Para desactivarlo explícitamente: `BLINDNVIM_VISUAL_IMPAIRING=0 nvim`
 - Para compatibilidad histórica, también se acepta `BLINDNIM_VISUAL_IMPAIRING`.

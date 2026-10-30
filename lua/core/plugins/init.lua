@@ -145,7 +145,8 @@ require("lazy").setup({
     "smjonas/live-command.nvim",
     {
       "stevearc/aerial.nvim",
-      opts = {},
+      -- Setup lives in `navigation.aerial-config` (loaded from init.lua) so the
+      -- braille profile is applied; `opts` here would call setup() with defaults.
       -- Optional dependencies
       dependencies = {
         "nvim-treesitter/nvim-treesitter",
@@ -155,7 +156,6 @@ require("lazy").setup({
     {
       "emmanueltouzery/decisive.nvim",
       config = function()
-        local braille_layout = require("ui.braille-layout")
         require("decisive").setup({})
       end,
       lazy = true,
@@ -779,7 +779,7 @@ require("lazy").setup({
     {
       "neoclide/coc.nvim",
       branch = "release",
-      disable = vscode,
+      -- `disable` is not a lazy.nvim key; `cond` is what actually gates loading.
       cond = function()
         return vim.g.vscode ~= nil
       end,
@@ -796,7 +796,7 @@ require("lazy").setup({
       config = function()
         require("neogen").setup({})
       end,
-      disable = vscode,
+      -- Kept in VSCode: ftplugin/*.lua map <leader>eN* to :Neogen in every session.
     },
     -- Language-scoped tools live here. Keep their keymaps in lua/language/ rather than global which-key.
     {
@@ -931,7 +931,7 @@ require("lazy").setup({
       end,
       enabled = not vscode,
     },
-    { "dundalek/bloat.nvim", cmd = bloat,        enabled = not vscode },
+    { "dundalek/bloat.nvim", cmd = "Bloat",      enabled = not vscode },
     -- New plugins
     {
       "Ramilito/kubectl.nvim",
